@@ -9,7 +9,7 @@ export default function BoardItem(props) {
     <li key={props.index} className="video-list-item">
       <a href="/">
         <div class="video-item-thumb">
-          <img src={props.img} alt={props.alt} />
+          <img src={process.env.PUBLIC_URL + props.img} alt={props.alt} />
           <i class="far fa-play-circle video-play-icon"></i>
         </div>
         <p className="video-item-text">

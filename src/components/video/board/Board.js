@@ -1,25 +1,27 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 import BoardSearch from './../search/BoardSearch';
 import BoardItem from './BoardItem';
 import BoardControll from './BoardControll';
 import Footer from './../Footer';
+import axios from 'axios';
 
 import './../../../styles/layouts/video-board/board.css';
-
-import cafeLatte from './../../../images/카페라떼.png';
-import grinLatte from './../../../images/녹차라떼.png';
-import caramelLatte from './../../../images/카라멜마끼아또.png';
-import mintLatte from './../../../images/민트라떼.png';
-import persimmonLatte from './../../../images/홍시라떼.png';
-import chocoLatte from './../../../images/초코라떼.png';
 
 export default function Board() {
   const [newData, setNewData] = useState([]);
   const [initialBoard, setInitialBoard] = useState(true);
   const [order, setOrder] = useState(0);
+  const [boardList, setBoardList] = useState([]);
   const boardCollectionRef = useRef();
-  const boardList = [
+
+  useEffect(async () => {
+    const res = await axios.get('/video/data');
+    setBoardList(res.data);
+  }, [boardList]);
+
+  {
+    /*const boardList = [
     {
       id: 1,
       date: '1',
@@ -182,7 +184,8 @@ export default function Board() {
       desc: 'hi',
       title: '가나초콜릿으로 만드는 겁나 쉬운 초코라떼',
     },
-  ];
+  ]; */
+  }
 
   const spliceBoardList = [...boardList].splice(order, 12);
   const spliceSearchBoardList = [...newData].splice(order, 12);

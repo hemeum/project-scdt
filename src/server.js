@@ -7,21 +7,21 @@ const mysql = require('mysql');
 const MysqlStore = require('express-mysql-session')(session);
 
 const options = {
-  host: '39.123.4.73',
+  host: 'localhost',
   port: '3306',
-  user: 'abc',
-  password: '123456789a',
+  user: 'root',
+  password: 'gmldms971506!',
   database: 'scdt',
 };
 
 const sessionStore = new MysqlStore(options);
 
 const connection = mysql.createConnection({
-  host: '39.123.4.73',
+  host: 'localhost',
   port: '3306',
   database: 'scdt',
-  user: 'abc',
-  password: '123456789a',
+  user: 'root',
+  password: 'gmldms971506!',
 });
 
 connection.connect();
@@ -37,6 +37,8 @@ app.use(
     store: sessionStore,
   }),
 );
+
+// 회원가입, 로그인 로직
 
 app.get('/loginCheck', (req, res) => {
   if (req.session.isLogin) {
@@ -114,6 +116,18 @@ app.post('/auth/username', (req, res) => {
       } else {
         res.send({ repeat: false });
       }
+    }
+  });
+});
+
+// video 로직
+
+app.get('/video/data', (req, res) => {
+  connection.query('select * from video', (err, rows) => {
+    if (err) {
+      console.log('err');
+    } else {
+      res.send(rows);
     }
   });
 });
