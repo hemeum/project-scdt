@@ -9,7 +9,7 @@ const MysqlStore = require('express-mysql-session')(session);
 const options = {
   host: 'localhost',
   port: '3306',
-  user: 'root',
+  user: 'sss1997',
   password: 'gmldms971506!',
   database: 'scdt',
 };
@@ -20,7 +20,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   port: '3306',
   database: 'scdt',
-  user: 'root',
+  user: 'sss1997',
   password: 'gmldms971506!',
 });
 
