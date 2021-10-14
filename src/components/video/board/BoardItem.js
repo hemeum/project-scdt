@@ -18,7 +18,7 @@ export default function BoardItem(props) {
         </p>
         <div className="video-item-overay" aria-hidden></div>
       </a>
-      <ArticleInfo eye={props.eye} like={props.like} date={props.date} />
+      <ArticleInfo eye={props.eye} like={props.heart} date={props.date} />
     </li>
   );
 }

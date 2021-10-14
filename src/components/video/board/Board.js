@@ -24,7 +24,7 @@ export default function Board() {
       id: 1,
       date: '1',
       eye: '2',
-      like: '3',
+      heart: '3',
       img: cafeLatte,
       alt: '카페라떼 만들기',
       desc: 'hi',
@@ -34,7 +34,7 @@ export default function Board() {
       id: 2,
       date: '4',
       eye: '5',
-      like: '6',
+      heart: '6',
       img: grinLatte,
       alt: '그린티라떼 만들기',
       desc: 'hi',
@@ -44,7 +44,7 @@ export default function Board() {
       id: 3,
       date: '7',
       eye: '8',
-      like: '9',
+      heart: '9',
       img: caramelLatte,
       alt: '카라멜라떼 만들기',
       desc: 'hi',
@@ -55,7 +55,7 @@ export default function Board() {
       id: 4,
       date: '10',
       eye: '11',
-      like: '12',
+      heart: '12',
       img: mintLatte,
       alt: '민트라떼 만들기',
       desc: 'hi',
@@ -65,7 +65,7 @@ export default function Board() {
       id: 5,
       date: '13',
       eye: '14',
-      like: '15',
+      heart: '15',
       img: persimmonLatte,
       alt: '홍시라떼 만들기',
       desc: 'hi',
@@ -75,7 +75,7 @@ export default function Board() {
       id: 6,
       date: '16',
       eye: '17',
-      like: '18',
+      heart: '18',
       img: chocoLatte,
       alt: '초코라떼 만들기',
       desc: 'hi',
@@ -85,7 +85,7 @@ export default function Board() {
       id: 7,
       date: '1',
       eye: '2',
-      like: '3',
+      heart: '3',
       img: cafeLatte,
       alt: '카페라떼 만들기',
       desc: 'hi',
@@ -95,7 +95,7 @@ export default function Board() {
       id: 8,
       date: '4',
       eye: '5',
-      like: '6',
+      heart: '6',
       img: grinLatte,
       alt: '그린티라떼 만들기',
       desc: 'hi',
@@ -105,7 +105,7 @@ export default function Board() {
       id: 9,
       date: '7',
       eye: '8',
-      like: '9',
+      heart: '9',
       img: caramelLatte,
       alt: '카라멜라떼 만들기',
       desc: 'hi',
@@ -116,7 +116,7 @@ export default function Board() {
       id: 10,
       date: '10',
       eye: '11',
-      like: '12',
+      heart: '12',
       img: mintLatte,
       alt: '민트라떼 만들기',
       desc: 'hi',
@@ -126,7 +126,7 @@ export default function Board() {
       id: 11,
       date: '13',
       eye: '14',
-      like: '15',
+      heart: '15',
       img: persimmonLatte,
       alt: '홍시라떼 만들기',
       desc: 'hi',
@@ -136,7 +136,7 @@ export default function Board() {
       id: 12,
       date: '16',
       eye: '17',
-      like: '18',
+      heart: '18',
       img: chocoLatte,
       alt: '초코라떼 만들기',
       desc: 'hi',
@@ -146,7 +146,7 @@ export default function Board() {
       id: 13,
       date: '13',
       eye: '14',
-      like: '15',
+      heart: '15',
       img: persimmonLatte,
       alt: '홍시라떼 만들기',
       desc: 'hi',
@@ -156,7 +156,7 @@ export default function Board() {
       id: 14,
       date: '16',
       eye: '17',
-      like: '18',
+      heart: '18',
       img: chocoLatte,
       alt: '초코라떼 만들기',
       desc: 'hi',
@@ -166,7 +166,7 @@ export default function Board() {
       id: 15,
       date: '13',
       eye: '14',
-      like: '15',
+      heart: '15',
       img: persimmonLatte,
       alt: '홍시라떼 만들기',
       desc: 'hi',
@@ -176,7 +176,7 @@ export default function Board() {
       id: 16,
       date: '16',
       eye: '17',
-      like: '18',
+      heart: '18',
       img: chocoLatte,
       alt: '초코라떼 만들기',
       desc: 'hi',
@@ -192,7 +192,7 @@ export default function Board() {
       <BoardItem
         date={boardItem.date}
         eye={boardItem.eye}
-        like={boardItem.like}
+        heart={boardItem.heart}
         img={boardItem.img}
         alt={boardItem.alt}
         title={boardItem.title}
@@ -206,7 +206,7 @@ export default function Board() {
       <BoardItem
         date={boardItem.date}
         eye={boardItem.eye}
-        like={boardItem.like}
+        heart={boardItem.heart}
         img={boardItem.img}
         alt={boardItem.alt}
         title={boardItem.title}
