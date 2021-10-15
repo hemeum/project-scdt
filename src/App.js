@@ -13,7 +13,6 @@ import './styles/base/visually-hidden.css';
 import axios from 'axios';
 
 export function App() {
-  /*const [login, setLogin] = useState({ checkLogin: false });*/
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState('');
 

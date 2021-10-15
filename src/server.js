@@ -123,7 +123,7 @@ app.post('/auth/username', (req, res) => {
 // video 로직
 
 app.get('/video/data', (req, res) => {
-  connection.query('select * from video', (err, rows) => {
+  connection.query('select * from video_data', (err, rows) => {
     if (err) {
       console.log('err');
     } else {

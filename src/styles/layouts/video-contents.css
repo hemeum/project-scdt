@@ -26,9 +26,10 @@
 }
 
 .video-contents-list-item p {
+  font-size: 14px;
   margin-top: 5px;
-  height: 35px;
-  padding: 0 7px;
+  padding-left: 7px;
+  height: 40px;
 }
 
 .video-contents-list-item:last-child {
