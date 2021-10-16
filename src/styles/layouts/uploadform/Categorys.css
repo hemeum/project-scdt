@@ -1,0 +1,67 @@
+.ctg-box {
+  position: relative;
+  width: 100%;
+  font-size: 15px;
+}
+
+.ctg {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  margin-bottom: 0;
+  border: 1px solid #ccc;
+}
+
+.ctg-chevron {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  transform: translateY(-50%);
+  color: #ccc;
+  pointer-events: none;
+  transition: all 0.5s;
+}
+
+.ctg-list-on {
+  position: absolute;
+  bottom: -311px;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-top: none;
+  opacity: 1;
+  visibility: visible;
+  z-index: 999999;
+  background: #fff;
+}
+
+.ctg-list-off {
+  position: absolute;
+  bottom: -311px;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-top: none;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 999999;
+  background: #fff;
+}
+
+.ctg-item {
+  padding: 15px 0 15px 25px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.ctg-active {
+  color: #333;
+}
+
+.ctg-item:last-child {
+  margin-bottom: 0;
+}
+
+.ctg-item:hover {
+  background-color: rgb(228, 241, 204);
+}

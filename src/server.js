@@ -56,7 +56,7 @@ app.get('/logout', (req, res) => {
 app.post('/user/login', (req, res) => {
   connection.query('select username, password from auth', (err, rows) => {
     if (err) {
-      throw err;
+      console.log('error');
     } else {
       const authUsername = rows.filter((user) => {
         return req.body.user_name === user.username;
@@ -105,7 +105,7 @@ app.post('/auth/join', (req, res) => {
 app.post('/auth/username', (req, res) => {
   connection.query('select username from auth', (err, rows, fields) => {
     if (err) {
-      throw err;
+      console.log('err');
     } else {
       const authUsername = rows.filter((user) => {
         return user.username === req.body.username;

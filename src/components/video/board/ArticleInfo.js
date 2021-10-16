@@ -5,7 +5,7 @@ import './../../../styles/layouts/video-board/info.css';
 export default function ArticleInfo(props) {
   return (
     <div className="info">
-      <span className="title">
+      <span className="autor">
         <i class="fas fa-volume-up speaker"></i>
         SCDT
       </span>
