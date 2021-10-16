@@ -38,7 +38,7 @@ export function App() {
           />
           <Route path="/auth" component={Auth} />
           <Route path="/video" component={Video} />
-          <Route path="/detailpage" component={UpLoadForm} />
+          <Route path="/uploadform" component={UpLoadForm} />
           <Route path="/" component={NotFound} />
         </Switch>
       </div>

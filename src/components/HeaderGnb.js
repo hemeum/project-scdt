@@ -12,11 +12,10 @@ import './../styles/layouts/search-input.css';
 import './../styles/layouts/write-button.css';
 import './../styles/layouts/gnb-menu.css';
 import './../styles/layouts/top-auth.css';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-export default function HeaderGnb({ isLogin, setIsLogin, username }) {
+function HeaderGnb({ isLogin, setIsLogin, username, history }) {
   const [inputValue, setInputValue] = useState('');
-  const history = useHistory();
 
   const handleInputValue = (e) => {
     setInputValue(e.target.value);
@@ -25,12 +24,17 @@ export default function HeaderGnb({ isLogin, setIsLogin, username }) {
     setInputValue('');
   };
   const handleWriteButton = () => {
-    let yes_login = window.confirm('로그인이 필요합니다.');
-    if (yes_login === true) {
-      console.log('login');
+    if (isLogin === true) {
       history.push('/uploadform');
-    } else if (yes_login === false) {
-      console.log('notLogin');
+    } else {
+      let yes_login = window.confirm('로그인이 필요합니다.');
+      if (yes_login === true) {
+        console.log('login');
+        history.push('/user');
+      } else if (yes_login === false) {
+        console.log('notLogin');
+        return;
+      }
     }
   };
 
@@ -49,3 +53,5 @@ export default function HeaderGnb({ isLogin, setIsLogin, username }) {
     </>
   );
 }
+
+export default withRouter(HeaderGnb);
