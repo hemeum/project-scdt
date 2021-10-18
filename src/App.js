@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import HeaderGnb from './components/HeaderGnb';
 import Contents from './components/contents/Contents';
@@ -30,7 +30,7 @@ export function App() {
         <HeaderGnb isLogin={isLogin} setIsLogin={setIsLogin} username={username} setUsername={setUsername} />
         <Switch>
           <Route exact path="/" component={Contents} />
-          <Route path="/notice" component={NoticeContents} />
+          <Route path="/notice" render={() => <NoticeContents />} />
           <Route
             path="/user"
             render={() => (
@@ -40,7 +40,7 @@ export function App() {
           <Route path="/auth" component={Auth} />
           <Route path="/video" component={Video} />
           <Route path="/uploadform" render={() => <UpLoadForm username={username} />} />
-          <Route path="/board_view" component={ViewBoard} />
+          <Route path="/board_view/:upload_id" render={() => <ViewBoard />} />
           <Route path="/" component={NotFound} />
         </Switch>
       </div>

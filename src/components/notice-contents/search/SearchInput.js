@@ -14,7 +14,7 @@ export default function SearchInput({ data, setOrder, setNewData, categoryTag, c
     if (categoryTag.current.textContent === categoryData[0]) {
       // 제목 + 내용일 때
       const newD = data.filter((item) => {
-        return item.title.indexOf(inputValue) !== -1 || item.desc.indexOf(inputValue) !== -1;
+        return item.title.indexOf(inputValue) !== -1 || item.text.indexOf(inputValue) !== -1;
       });
       setNewData(newD);
       setInitialBoard(false);
@@ -28,7 +28,7 @@ export default function SearchInput({ data, setOrder, setNewData, categoryTag, c
     } else if (categoryTag.current.textContent === categoryData[2]) {
       // 내용일 때
       const newD = data.filter((item) => {
-        return item.desc.indexOf(inputValue) !== -1;
+        return item.text.indexOf(inputValue) !== -1;
       });
       setNewData(newD);
       setInitialBoard(false);

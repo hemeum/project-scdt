@@ -1,28 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import './../../../styles/layouts/notice-board/board-item.css';
 
 import ArticleInfo from './ArticleInfo';
 
-export default function BoardItem(props) {
+function BoardItem({ title, cm, eye, like, date }) {
   return (
     <li className="notice-list-item">
-      <Link to="/board_view">
+      <Link to={`/board_view/2`}>
         <p>
-          <span class="menu-color">{props.menu}</span>
-          {props.title}
+          <span class="menu-color">[공지사항]</span>
+          {title}
           <span className="new-icon"></span>
         </p>
         <div className="thumb">
-          <img className="thumb-img" src={props.thumb} alt="주요소식 안내드립니다" />
+          <img className="thumb-img" alt="주요소식 안내드립니다" />
         </div>
         <div className="comment">
           <i class="far fa-comment-dots comment-icon"></i>
-          <p class="comment-number">{props.cm}</p>
+          <p class="comment-number">{cm}</p>
         </div>
       </Link>
-      <ArticleInfo eye={props.eye} like={props.like} date={props.date}></ArticleInfo>
+      <ArticleInfo eye={eye} like={like} date={date}></ArticleInfo>
     </li>
   );
 }
+
+export default withRouter(BoardItem);

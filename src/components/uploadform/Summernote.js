@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 import ReactSummernote from 'react-summernote';
 import 'react-summernote/dist/react-summernote.css';
@@ -11,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import './../../styles/layouts/uploadform/summernote.css';
 
-export default function Summernote({ username, inputTitle, category }) {
+function Summernote({ username, inputTitle, category, history }) {
   const [textValue, setTextValue] = useState('');
 
   const onChange = (content) => {
@@ -40,6 +41,7 @@ export default function Summernote({ username, inputTitle, category }) {
       category: category,
       text: textValue,
     });
+    history.push('/board_view');
   };
 
   return (
@@ -77,3 +79,5 @@ export default function Summernote({ username, inputTitle, category }) {
     </>
   );
 }
+
+export default withRouter(Summernote);

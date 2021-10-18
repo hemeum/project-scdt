@@ -126,17 +126,28 @@ app.post('/upload', (req, res) => {
   console.log(req.body);
   let data = [req.body.category, req.body.title, req.body.username, req.body.text];
   connection.query(
-    `INSERT INTO upload_data(category, title, username, text, date) values(?, ?, ?, ?, ${NOW()})`,
+    'INSERT INTO upload_data(category, title, username, text, date) values(?, ?, ?, ?, NOW())',
     data,
     (err, rows) => {
       if (err) {
         console.log('err');
       } else {
         console.log(rows);
-        res.redirect('/board_view');
+        res.send('완료');
       }
     },
   );
+});
+
+app.get('/list', (req, res) => {
+  connection.query('select * from upload_data', (err, rows) => {
+    if (err) {
+      console.log('err');
+    } else {
+      console.log(rows);
+      res.send(rows);
+    }
+  });
 });
 
 // video 로직

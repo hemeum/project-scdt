@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import './../../styles/layouts/view/user-upload.css';
 
 export default function UserUpload() {
+  const [boardList, setBoardList] = useState([]);
+
+  useEffect(async () => {
+    await axios.get('/list').then((res) => {
+      setBoardList(res.data);
+    });
+  }, [boardList]);
+
   return (
     <div className="user-upload-box">
-      <p>자유게시판</p>
-      <h3>유저가 쓴 제목입니다</h3>
+      <p>{boardList[0].category}</p>
+      <h3>{boardList[0].title}</h3>
       <div className="user-box">
         <img src={process.env.PUBLIC_URL + '/img/cafelatte.png'} className="user-profile-img" />
         <div className="user-upload-data">
-          <p>내 닉네임</p>
+          <p>{boardList[0].username}</p>
           <p>
-            2021.10.17 23:00
+            {boardList[0].date}
             <span className="user-views">
               <i class="far fa-eye eye"></i> 1
             </span>
@@ -25,7 +34,7 @@ export default function UserUpload() {
         </div>
       </div>
       <div className="user-text">
-        <p>안녕하세요 텍스트입니다. 여기다가 유저가 쓴 글이 올라와요</p>
+        <p>{boardList[0].text}</p>
       </div>
       <div className="user-heart-box">
         <button type="button" className="heart-button"></button>
