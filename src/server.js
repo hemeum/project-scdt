@@ -120,6 +120,25 @@ app.post('/auth/username', (req, res) => {
   });
 });
 
+// upload 로직
+
+app.post('/upload', (req, res) => {
+  console.log(req.body);
+  let data = [req.body.category, req.body.title, req.body.username, req.body.text];
+  connection.query(
+    `INSERT INTO upload_data(category, title, username, text, date) values(?, ?, ?, ?, ${NOW()})`,
+    data,
+    (err, rows) => {
+      if (err) {
+        console.log('err');
+      } else {
+        console.log(rows);
+        res.redirect('/board_view');
+      }
+    },
+  );
+});
+
 // video 로직
 
 app.get('/video/data', (req, res) => {

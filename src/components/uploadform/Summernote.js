@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import ReactSummernote from 'react-summernote';
 import 'react-summernote/dist/react-summernote.css';
@@ -10,8 +11,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import './../../styles/layouts/uploadform/summernote.css';
 
-export default function Summernote() {
+export default function Summernote({ username, inputTitle, category }) {
+  const [textValue, setTextValue] = useState('');
+
   const onChange = (content) => {
+    setTextValue(content);
     console.log('onChange', content);
   };
 
@@ -27,11 +31,22 @@ export default function Summernote() {
     }
   };
 
+  const uploadDataSubmit = async (e) => {
+    e.preventDefault();
+    console.log('submit');
+    await axios.post('/upload', {
+      username: username,
+      title: inputTitle,
+      category: category,
+      text: textValue,
+    });
+  };
+
   return (
     <>
-      <div className="editor">
+      <form className="editor" onSubmit={uploadDataSubmit}>
         <ReactSummernote
-          value="내용을 입력하여주세요"
+          value={textValue}
           options={{
             lang: 'ko-KR',
             height: 420,
@@ -50,7 +65,15 @@ export default function Summernote() {
           onChange={onChange}
           onImageUpload={onImageUpload}
         />
-      </div>
+        <div className="uploadform-button-box">
+          <button type="button" className="cancel-button">
+            취소
+          </button>
+          <button type="submit" className="register-button">
+            등록
+          </button>
+        </div>
+      </form>
     </>
   );
 }

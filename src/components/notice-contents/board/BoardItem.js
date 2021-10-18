@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './../../../styles/layouts/notice-board/board-item.css';
 
@@ -7,7 +8,7 @@ import ArticleInfo from './ArticleInfo';
 export default function BoardItem(props) {
   return (
     <li className="notice-list-item">
-      <a href="/">
+      <Link to="/board_view">
         <p>
           <span class="menu-color">{props.menu}</span>
           {props.title}
@@ -20,7 +21,7 @@ export default function BoardItem(props) {
           <i class="far fa-comment-dots comment-icon"></i>
           <p class="comment-number">{props.cm}</p>
         </div>
-      </a>
+      </Link>
       <ArticleInfo eye={props.eye} like={props.like} date={props.date}></ArticleInfo>
     </li>
   );

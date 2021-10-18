@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound';
 import NoticeContents from './components/notice-contents/NoticeContents';
 import Video from './components/video/Video';
 import UpLoadForm from './components/uploadform/UpLoadForm';
+import ViewBoard from './components/view/ViewBoard';
 import Login from './components/login/Login';
 import Auth from './components/login/Auth';
 import './App.css';
@@ -38,7 +39,8 @@ export function App() {
           />
           <Route path="/auth" component={Auth} />
           <Route path="/video" component={Video} />
-          <Route path="/uploadform" component={UpLoadForm} />
+          <Route path="/uploadform" render={() => <UpLoadForm username={username} />} />
+          <Route path="/board_view" component={ViewBoard} />
           <Route path="/" component={NotFound} />
         </Switch>
       </div>

@@ -2,9 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import './../../styles/layouts/uploadform/Categorys.css';
 
-function Categorys() {
-  const [category, setCategory] = useState('자유게시판');
-
+function Categorys({ category, setCategory }) {
   const ctgRef = useRef();
   const ctgListRef = useRef();
   const chevronRef = useRef();

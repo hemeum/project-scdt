@@ -6,8 +6,9 @@ import Summernote from './Summernote';
 
 import './../../styles/layouts/uploadform/uploadform.css';
 
-function UpLoadForm() {
+function UpLoadForm({ username }) {
   const [inputTitle, setInputTitle] = useState('');
+  const [category, setCategory] = useState('자유게시판');
 
   const handleInputTitle = (e) => {
     setInputTitle(e.target.value);
@@ -15,7 +16,7 @@ function UpLoadForm() {
 
   return (
     <div className="uploadform">
-      <Categorys />
+      <Categorys category={category} setCategory={setCategory} />
       <input
         className="title-input"
         type="text"
@@ -24,15 +25,7 @@ function UpLoadForm() {
         value={inputTitle}
         onChange={handleInputTitle}
       />
-      <Summernote />
-      <div className="uploadform-button-box">
-        <button type="button" className="cancel-button">
-          취소
-        </button>
-        <button type="button" className="register-button">
-          등록
-        </button>
-      </div>
+      <Summernote username={username} inputTitle={inputTitle} category={category} />
       <Footer />
     </div>
   );
