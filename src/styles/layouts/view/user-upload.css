@@ -1,0 +1,76 @@
+.user-box {
+  position: relative;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.user-upload-box p {
+  margin: 0;
+}
+
+.user-upload-box h3 {
+  margin: 15px 0;
+}
+
+.user-box {
+  display: flex;
+}
+
+.user-upload-data {
+  font-size: 13px;
+  color: #999;
+}
+
+.user-views {
+  margin-left: 10px;
+}
+
+.user-profile-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.user-button-box {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 13px;
+}
+
+.user-text {
+  margin-top: 30px;
+}
+
+.user-heart-box {
+  position: relative;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.heart-button {
+  width: 90px;
+  height: 45px;
+  border-radius: 30px;
+  border: 1px solid #999;
+}
+
+.user-heart-box i {
+  font-size: 20px;
+}
+
+.user-heart {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #999;
+}
+
+.heart-length {
+  line-height: 21px;
+}
