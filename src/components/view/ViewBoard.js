@@ -2,18 +2,18 @@ import React from 'react';
 
 import Footer from './Footer';
 import Board from './board/Board';
-import UserUpload from './UserUpload';
-import UserComment from './UserComment';
+import ViewUser from './ViewUser';
+import ViewComment from './ViewComment';
 
 import './../../styles/layouts/contents.css';
 import './../../styles/layouts/view/view-board.css';
 
-function ViewBoard() {
+function ViewBoard({ isLogin, username }) {
   return (
     <div className="contents">
       <div className="view-board">
-        <UserUpload />
-        <UserComment />
+        <ViewUser isLogin={isLogin} username={username} />
+        <ViewComment />
         <Board />
         <Footer />
       </div>

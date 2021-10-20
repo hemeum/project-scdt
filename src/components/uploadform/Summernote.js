@@ -41,7 +41,7 @@ function Summernote({ username, inputTitle, category, history }) {
       category: category,
       text: textValue,
     });
-    history.push('/board_view');
+    history.push('/');
   };
 
   return (

@@ -5,12 +5,12 @@ import './../../../styles/layouts/notice-board/board-item.css';
 
 import ArticleInfo from './ArticleInfo';
 
-function BoardItem({ title, cm, eye, like, date }) {
+function BoardItem({ uploadId, index, category, title, comment, views, heart, date, username }) {
   return (
-    <li className="notice-list-item">
-      <Link to={`/board_view/2`}>
+    <li key={index} className="notice-list-item">
+      <Link to={`/board_view/${uploadId}`}>
         <p>
-          <span class="menu-color">[공지사항]</span>
+          <span class="menu-color">[{category}]</span>
           {title}
           <span className="new-icon"></span>
         </p>
@@ -19,10 +19,10 @@ function BoardItem({ title, cm, eye, like, date }) {
         </div>
         <div className="comment">
           <i class="far fa-comment-dots comment-icon"></i>
-          <p class="comment-number">{cm}</p>
+          <p class="comment-number">{comment}</p>
         </div>
       </Link>
-      <ArticleInfo eye={eye} like={like} date={date}></ArticleInfo>
+      <ArticleInfo views={views} heart={heart} date={date} username={username}></ArticleInfo>
     </li>
   );
 }

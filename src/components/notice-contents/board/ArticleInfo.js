@@ -7,16 +7,16 @@ export default function ArticleInfo(props) {
     <div className="info">
       <span className="autor">
         <i class="fas fa-volume-up speaker"></i>
-        SCDT
+        {props.username}
       </span>
       <span className="date">{props.date}</span>
       <span className="counter-eye">
         <i class="far fa-eye eye"></i>
-        {props.eye}
+        {props.views}
       </span>
       <span className="counter-like">
         <i class="far fa-heart heart"></i>
-        {props.like}
+        {props.heart}
       </span>
     </div>
   );

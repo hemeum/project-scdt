@@ -29,7 +29,7 @@ function Auth({ history }) {
   };
 
   const yearTestCheck = () => {
-    const checkRgx = /^[0-9]{4}$/;
+    const checkRgx = /^[0-9]{4}$/; // 정규표현식을 변수에 할당 후 test()안에 내가 테스트할 값을 넣어준다. 그 값이 정규표현식 조건에 맞는다면 트루 아니라면 펄스
     if (checkRgx.test(bYear.inputValue) && bYear.inputValue.length === 4 && monthRef.current.value === 'month') {
       bYearFs.setFocus(false);
       bMonthFs.setFocus(true);

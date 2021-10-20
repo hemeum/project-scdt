@@ -10,7 +10,7 @@ import Footer from './../Footer';
 
 import './../../../styles/layouts/notice-board/board.css';
 
-export default function Board() {
+function Board() {
   const [newData, setNewData] = useState([]);
   const [initialBoard, setInitialBoard] = useState(true);
   const [order, setOrder] = useState(0);
@@ -22,22 +22,41 @@ export default function Board() {
     await axios.get('/list').then((res) => {
       setBoardList(res.data);
     });
-  }, [boardList]);
+  }, []);
 
   const spliceBoardList = [...boardList].splice(order, 10);
   const spliceSearchBoardList = [...newData].splice(order, 10);
 
-  const board = spliceBoardList.map((boardItem) => {
-    const date = moment(boardItem.date).format('YYYY:MM:DD HH:DD');
+  const board = spliceBoardList.map((boardItem, index) => {
+    const date = moment(boardItem.date).format('YYYY.MM.DD');
     return (
-      <BoardItem title={boardItem.title} date={date} eye={boardItem.eye} like={boardItem.like} cm={boardItem.cm} />
+      <BoardItem
+        uploadId={boardItem.id}
+        index={index}
+        category={boardItem.category}
+        title={boardItem.title}
+        date={date}
+        views={boardItem.views}
+        comment={boardItem.comment}
+        username={boardItem.username}
+        heart={boardItem.heart}
+      />
     );
   });
 
-  const newBoard = spliceSearchBoardList.map((boardItem) => {
-    const date = moment(boardItem.date).format('YYYY:MM:DD HH:DD');
+  const newBoard = spliceSearchBoardList.map((boardItem, index) => {
+    const date = moment(boardItem.date).format('YYYY.MM.DD');
     return (
-      <BoardItem title={boardItem.title} date={date} eye={boardItem.eye} like={boardItem.like} cm={boardItem.cm} />
+      <BoardItem
+        uploadId={boardItem.id}
+        index={index}
+        title={boardItem.title}
+        date={date}
+        views={boardItem.views}
+        comment={boardItem.comment}
+        username={boardItem.username}
+        heart={boardItem.heart}
+      />
     );
   });
 
@@ -63,3 +82,5 @@ export default function Board() {
     </>
   );
 }
+
+export default Board;

@@ -144,10 +144,110 @@ app.get('/list', (req, res) => {
     if (err) {
       console.log('err');
     } else {
-      console.log(rows);
       res.send(rows);
     }
   });
+});
+
+/*
+app.post('/view', (req, res) => {
+  connection.query('select * from upload_data', (err, rows) => {
+    if (err) {
+      console.log('err viewboard');
+    } else {
+      const id = rows.filter((data) => {
+        return data.id === Number(req.body.upload_id);
+      });
+      const sendId = id[0];
+      res.send(sendId);
+    }
+  });
+});
+*/
+
+app.post('/view', (req, res) => {
+  console.log(req.body.username);
+  connection.query('select * from upload_data', (err, rows) => {
+    if (err) {
+      console.log('err viewboard');
+    } else {
+      const id = rows.filter((data) => {
+        return data.id === Number(req.body.upload_id);
+      });
+      const sendId = id[0];
+
+      if (sendId.username === req.body.username) {
+        res.send({ ...sendId, checkUser: true });
+      } else {
+        res.send({ ...sendId, checkUser: false });
+      }
+    }
+  });
+});
+
+app.post('/heart', (req, res) => {
+  if (req.body.isHeart === false) {
+    req.session.isHeart = true;
+    connection.query(
+      `update upload_data set heart = ${Number(req.body.heart) + 1} where id = ${Number(req.body.upload_id)}`,
+      (err, rows) => {
+        if (err) {
+          console.log('err');
+        } else {
+          connection.query(`select heart from upload_data where id = ${Number(req.body.upload_id)}`, (err, rows) => {
+            if (err) {
+              console.log('err');
+            } else {
+              const heart = rows[0].heart;
+              res.send({ heart: heart, isHeart: true });
+            }
+          });
+        }
+      },
+    );
+  } else if (req.body.isHeart === true) {
+    req.session.isHeart = false;
+    connection.query(
+      `update upload_data set heart = ${Number(req.body.heart) - 1} where id = ${Number(req.body.upload_id)}`,
+      (err, rows) => {
+        if (err) {
+          console.log('err');
+        } else {
+          connection.query(`select heart from upload_data where id = ${Number(req.body.upload_id)}`, (err, rows) => {
+            if (err) {
+              console.log('err');
+            } else {
+              const heart = rows[0].heart;
+              res.send({ heart: heart, isHeart: false });
+            }
+          });
+        }
+      },
+    );
+  }
+});
+
+// 세션으로 좋아요 했는지 확인 및 새로고침해도 좋아요 유지
+app.post('/heartCheck', (req, res) => {
+  if (req.session.isHeart) {
+    connection.query(`select heart from upload_data where id = ${req.body.upload_id}`, (err, rows) => {
+      if (err) {
+        console.log('err');
+      } else {
+        const heart = rows[0].heart;
+        res.send({ checkHeart: true, heart: heart });
+      }
+    });
+  } else {
+    connection.query(`select heart from upload_data where id = ${req.body.upload_id}`, (err, rows) => {
+      if (err) {
+        console.log('err');
+      } else {
+        const heart = rows[0].heart;
+        res.send({ checkHeart: false, heart: heart });
+      }
+    });
+  }
 });
 
 // video 로직
