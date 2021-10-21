@@ -78,6 +78,7 @@
 .heart-icon {
   margin-right: 5px;
   pointer-events: none;
+  transition: all 0.1s;
 }
 
 .comment-length {

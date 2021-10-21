@@ -13,7 +13,7 @@ function ViewBoard({ isLogin, username }) {
     <div className="contents">
       <div className="view-board">
         <ViewUser isLogin={isLogin} username={username} />
-        <ViewComment />
+        <ViewComment isLogin={isLogin} username={username} />
         <Board />
         <Footer />
       </div>

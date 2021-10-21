@@ -149,24 +149,7 @@ app.get('/list', (req, res) => {
   });
 });
 
-/*
 app.post('/view', (req, res) => {
-  connection.query('select * from upload_data', (err, rows) => {
-    if (err) {
-      console.log('err viewboard');
-    } else {
-      const id = rows.filter((data) => {
-        return data.id === Number(req.body.upload_id);
-      });
-      const sendId = id[0];
-      res.send(sendId);
-    }
-  });
-});
-*/
-
-app.post('/view', (req, res) => {
-  console.log(req.body.username);
   connection.query('select * from upload_data', (err, rows) => {
     if (err) {
       console.log('err viewboard');
@@ -185,70 +168,132 @@ app.post('/view', (req, res) => {
   });
 });
 
+// 좋아요 로직
+
 app.post('/heart', (req, res) => {
   if (req.body.isHeart === false) {
-    req.session.isHeart = true;
     connection.query(
-      `update upload_data set heart = ${Number(req.body.heart) + 1} where id = ${Number(req.body.upload_id)}`,
+      'insert into heart_data(username, upload_id, heart_check) values(?,?,?)',
+      [req.body.username, req.body.upload_id, 'yes'],
       (err, rows) => {
         if (err) {
-          console.log('err');
+          console.log('err add heart');
         } else {
-          connection.query(`select heart from upload_data where id = ${Number(req.body.upload_id)}`, (err, rows) => {
-            if (err) {
-              console.log('err');
-            } else {
-              const heart = rows[0].heart;
-              res.send({ heart: heart, isHeart: true });
-            }
-          });
+          connection.query(
+            `update upload_data set heart = ${Number(req.body.heartLength) + 1} where id = ${req.body.upload_id}`,
+            (err, rows) => {
+              if (err) {
+                console.log('err add heart update');
+              } else {
+                connection.query(`select heart from upload_data where id = ${req.body.upload_id}`, (err, rows) => {
+                  if (err) {
+                    console.log('err select heart');
+                  } else {
+                    const heart = rows[0].heart;
+                    res.send({ heart: heart, isHeart: true, heartColor: true });
+                  }
+                });
+              }
+            },
+          );
         }
       },
     );
   } else if (req.body.isHeart === true) {
-    req.session.isHeart = false;
     connection.query(
-      `update upload_data set heart = ${Number(req.body.heart) - 1} where id = ${Number(req.body.upload_id)}`,
+      `delete from heart_data where upload_id=? and username=?`,
+      [req.body.upload_id, req.body.username],
       (err, rows) => {
         if (err) {
-          console.log('err');
+          console.log('err delete heart');
         } else {
-          connection.query(`select heart from upload_data where id = ${Number(req.body.upload_id)}`, (err, rows) => {
-            if (err) {
-              console.log('err');
-            } else {
-              const heart = rows[0].heart;
-              res.send({ heart: heart, isHeart: false });
-            }
-          });
+          connection.query(
+            `update upload_data set heart = ${Number(req.body.heartLength) - 1} where id = ${req.body.upload_id}`,
+            (err, rows) => {
+              if (err) {
+                console.log('err minus heart update');
+              } else {
+                connection.query(`select heart from upload_data where id = ${req.body.upload_id}`, (err, rows) => {
+                  if (err) {
+                    console.log('err select heart');
+                  } else {
+                    const heart = rows[0].heart;
+                    res.send({ heart: heart, isHeart: false, heartColor: false });
+                  }
+                });
+              }
+            },
+          );
         }
       },
     );
   }
 });
 
-// 세션으로 좋아요 했는지 확인 및 새로고침해도 좋아요 유지
-app.post('/heartCheck', (req, res) => {
-  if (req.session.isHeart) {
-    connection.query(`select heart from upload_data where id = ${req.body.upload_id}`, (err, rows) => {
+// 좋아요 유지 로직
+
+app.post('/heartColor', (req, res) => {
+  connection.query(
+    'select * from heart_data where username=? and upload_id=?',
+    [req.body.username, req.body.upload_id],
+    (err, rows) => {
       if (err) {
-        console.log('err');
+        console.log('err heart color');
       } else {
-        const heart = rows[0].heart;
-        res.send({ checkHeart: true, heart: heart });
+        if (rows[0]) {
+          res.send({ heartColor: true });
+        } else {
+          res.send({ heartColor: false });
+        }
       }
-    });
-  } else {
-    connection.query(`select heart from upload_data where id = ${req.body.upload_id}`, (err, rows) => {
-      if (err) {
-        console.log('err');
-      } else {
-        const heart = rows[0].heart;
-        res.send({ checkHeart: false, heart: heart });
-      }
-    });
-  }
+    },
+  );
 });
+
+app.post('/heartCheck', (req, res) => {
+  connection.query('select heart from upload_data where id = ?', [req.body.upload_id], (err, rows) => {
+    if (err) {
+      console.log('err check heart');
+    } else {
+      const heart = rows[0].heart;
+      connection.query(
+        `delete from heart_data where upload_id=? and username=?`,
+        [req.body.upload_id, req.body.username],
+        (err, rows) => {
+          if (err) {
+            console.log('err delete heart');
+          } else {
+            connection.query(
+              `update upload_data set heart = ${Number(heart) - 1} where id = ${req.body.upload_id}`,
+              (err, rows) => {
+                if (err) {
+                  console.log('err minus heart update');
+                } else {
+                  connection.query(`select heart from upload_data where id = ${req.body.upload_id}`, (err, rows) => {
+                    if (err) {
+                      console.log('err select heart');
+                    } else {
+                      const heart = rows[0].heart;
+                      res.send({ heart: heart, isHeart: false, heartColor: false });
+                    }
+                  });
+                }
+              },
+            );
+          }
+        },
+      );
+    }
+  });
+});
+
+// 댓글 로직
+
+/*
+app.post('/comment', (req, res) => {
+  connection.query('insert into'); // 댓글 db에 추가
+});
+*/
 
 // video 로직
 

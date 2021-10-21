@@ -6,10 +6,12 @@ import { withRouter } from 'react-router-dom';
 import './../../styles/layouts/view/view-user.css';
 
 function ViewUser({ match, history, isLogin, username }) {
-  const [viewUserData, setViewUserData] = useState({});
-  const [isHeart, setIsHeart] = useState(false);
-  const [heart, setHeart] = useState(0);
-  const [checkUser, setCheckUser] = useState(false);
+  const [viewUserData, setViewUserData] = useState({}); // DB에 저장된 해당 뷰보드 만든 유저의 데이터
+  const [isHeart, setIsHeart] = useState(false); // 하트를 했나 안했나 체크
+  const [heart, setHeart] = useState(0); // 뷰유저데이터의 heart를 이 heart로 바꿔줌.
+  const [checkUser, setCheckUser] = useState(false); // 해당 뷰보드를 만든 유저인지 체크
+  const [heartColor, setHeartColor] = useState(false);
+  // 하트 색깔 변경
 
   const heartRef = useRef();
 
@@ -18,17 +20,49 @@ function ViewUser({ match, history, isLogin, username }) {
   const date = moment(viewUserData.date).format('YYYY.MM.DD HH:MM');
 
   const handleHeart = async () => {
+    // 하트를 클릭했을 때
     if (isLogin) {
-      if (isHeart === false) {
-        await axios.post('/heart', { heart: viewUserData.heart, upload_id: upload_id, isHeart: false }).then((res) => {
-          setIsHeart(res.data.isHeart);
-          setHeart(res.data.heart);
-        });
-      } else if (isHeart === true) {
-        await axios.post('/heart', { heart: viewUserData.heart, upload_id: upload_id, isHeart: true }).then((res) => {
-          setIsHeart(res.data.isHeart);
-          setHeart(res.data.heart);
-        });
+      if (heartColor === true) {
+        await axios
+          .post('/heartCheck', {
+            username: username,
+            upload_id: upload_id,
+            isHeart: true,
+            heartLength: heart,
+          })
+          .then((res) => {
+            setIsHeart(res.data.isHeart);
+            setHeart(res.data.heart);
+            setHeartColor(res.data.heartColor);
+          });
+      } else {
+        if (isHeart === false) {
+          await axios
+            .post('/heart', {
+              username: username,
+              upload_id: upload_id,
+              isHeart: false,
+              heartLength: viewUserData.heart,
+            })
+            .then((res) => {
+              setIsHeart(res.data.isHeart);
+              setHeart(res.data.heart);
+              setHeartColor(res.data.heartColor);
+            });
+        } else if (isHeart === true) {
+          await axios
+            .post('/heart', {
+              username: username,
+              upload_id: upload_id,
+              isHeart: true,
+              heartLength: heart,
+            })
+            .then((res) => {
+              setIsHeart(res.data.isHeart);
+              setHeart(res.data.heart);
+              setHeartColor(res.data.heartColor);
+            });
+        }
       }
     } else {
       const yesLogin = window.confirm('로그인이 필요합니다.');
@@ -41,23 +75,21 @@ function ViewUser({ match, history, isLogin, username }) {
   };
 
   useEffect(async () => {
-    if (isHeart) {
+    await axios.post('/view', { upload_id: upload_id, username: username }).then((res) => {
+      setViewUserData({ ...res.data });
+      setCheckUser(res.data.checkUser); // 체크유저는 하트와 무관, 해당 뷰보드를 만든 유저인지 확인하는 것. 수정 또는 신고하기
+    });
+    if (heartColor) {
       heartRef.current.style.color = 'red';
     } else {
       heartRef.current.style.color = '#999';
     }
-    await axios.post('/view', { upload_id: upload_id, username: username }).then((res) => {
-      setViewUserData({ ...res.data });
-      setCheckUser(res.data.checkUser);
-      console.log(res.data);
-      console.log(res.data.checkUser);
-    });
-  }, [upload_id, isHeart, username, checkUser]);
+  }, [checkUser, heartColor]);
 
   useEffect(async () => {
-    await axios.post('/heartCheck', { upload_id: upload_id }).then((res) => {
-      setIsHeart(res.data.checkHeart);
-      setHeart(res.data.heart);
+    // 좋아요 유지 로직
+    await axios.post('/heartColor', { username: username, upload_id: upload_id }).then((res) => {
+      setHeartColor(res.data.heartColor);
     });
   });
 
