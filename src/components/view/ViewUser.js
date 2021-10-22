@@ -84,14 +84,14 @@ function ViewUser({ match, history, isLogin, username }) {
     } else {
       heartRef.current.style.color = '#999';
     }
-  }, [checkUser, heartColor]);
+  }, [checkUser, heartColor, upload_id, username]);
 
   useEffect(async () => {
     // 좋아요 유지 로직
     await axios.post('/heartColor', { username: username, upload_id: upload_id }).then((res) => {
       setHeartColor(res.data.heartColor);
     });
-  });
+  }, [heartColor]);
 
   return (
     <div className="user-upload-box">

@@ -289,11 +289,41 @@ app.post('/heartCheck', (req, res) => {
 
 // 댓글 로직
 
-/*
 app.post('/comment', (req, res) => {
-  connection.query('insert into'); // 댓글 db에 추가
+  // 댓글 db에 추가
+  connection.query(
+    'INSERT INTO comment_data(comment, username, upload_id, date) values(?,?,?, NOW())',
+    [req.body.userText, req.body.username, req.body.upload_id],
+    (err, rows) => {
+      if (err) {
+        console.log('err comment add');
+      } else {
+        connection.query(
+          'select * from comment_data where upload_id=? and username=? order by date desc limit 1',
+          [req.body.upload_id, req.body.username],
+          (err, rows) => {
+            if (err) {
+              console.log('err select comment');
+            } else {
+              res.send(rows);
+            }
+          },
+        );
+      }
+    },
+  );
 });
-*/
+
+app.post('/comment/keep', (req, res) => {
+  // 댓글 유지 및 모든 댓글 가져오기
+  connection.query('select * from comment_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+    if (err) {
+      console.log('err all comment');
+    } else {
+      res.send(rows);
+    }
+  });
+});
 
 // video 로직
 
