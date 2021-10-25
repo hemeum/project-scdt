@@ -287,6 +287,9 @@ app.post('/heartCheck', (req, res) => {
   });
 });
 
+//
+//
+
 // 댓글 로직
 
 app.post('/comment', (req, res) => {
@@ -299,12 +302,24 @@ app.post('/comment', (req, res) => {
         console.log('err comment add');
       } else {
         connection.query(
+          'update upload_data set comment = ? where id = ?',
+          [req.body.commentLength + 1, req.body.upload_id],
+          (err, rows) => {
+            if (err) {
+              console.log('err update comment');
+            } else {
+              console.log('커멘트 + 1 성공');
+            }
+          },
+        );
+        connection.query(
           'select * from comment_data where upload_id=? and username=? order by date desc limit 1',
           [req.body.upload_id, req.body.username],
           (err, rows) => {
             if (err) {
               console.log('err select comment');
             } else {
+              console.log('커멘트 가져오기 성공');
               res.send(rows);
             }
           },
@@ -321,6 +336,17 @@ app.post('/comment/keep', (req, res) => {
       console.log('err all comment');
     } else {
       res.send(rows);
+    }
+  });
+});
+
+app.post('/comment/length', (req, res) => {
+  // 댓글 개수 불러오기
+  connection.query('select comment from upload_data where id = ?', [req.body.upload_id], (err, rows) => {
+    if (err) {
+      console.log('err select comment length');
+    } else {
+      res.send({ comment: rows[0].comment });
     }
   });
 });

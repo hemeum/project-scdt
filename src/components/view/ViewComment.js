@@ -5,10 +5,9 @@ import moment from 'moment';
 
 import './../../styles/layouts/view/view-comment.css';
 
-function ViewComment({ isLogin, username, history, match }) {
+function ViewComment({ isLogin, username, history, match, userComment, setUserComment, setComment, comment }) {
   const [userText, setUserText] = useState('');
   const [isText, setIsText] = useState(false);
-  const [userComment, setUserComment] = useState([]);
 
   const { upload_id } = match.params;
 
@@ -24,8 +23,21 @@ function ViewComment({ isLogin, username, history, match }) {
         setIsText(true); // 댓글 작성해주세요 or 작성한 댓글 보여주기
         setUserText(''); // 입력창에 쓰인 글
 
-        await axios.post('/comment', { userText: userText, username: username, upload_id: upload_id }).then((res) => {
-          setUserComment(userComment.concat(res.data));
+        // 댓글 전체
+        await axios
+          .post('/comment', {
+            userText: userText,
+            username: username,
+            upload_id: upload_id,
+            commentLength: userComment.length,
+          })
+          .then((res) => {
+            setUserComment(userComment.concat(res.data));
+          });
+
+        // 댓글 개수 추가
+        await axios.post('/comment/length', { upload_id: upload_id, commentLength: userComment.length }).then((res) => {
+          setComment(res.data.comment);
         });
       } else {
         alert('댓글을 먼저 작성해주세요.');
@@ -53,8 +65,16 @@ function ViewComment({ isLogin, username, history, match }) {
     });
   }, [upload_id]);
 
+  useEffect(async () => {
+    // 댓글 개수 가져오면서 유지하기
+    await axios.post('/comment/length', { upload_id: upload_id, commentLength: userComment.length }).then((res) => {
+      setComment(res.data.comment);
+    });
+  }, [comment]);
+
   const userComments = userComment.map((comment, index) => {
-    const date = moment(comment.date).format('YYYY.MM.DD HH:MM');
+    // 댓글 리스트 반복
+    const date = moment(comment.date).format('YYYY-MM-DD HH:mm');
     return (
       <li key={index} className="comment-item">
         <div className="user-comment-box">
