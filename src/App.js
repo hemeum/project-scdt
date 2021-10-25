@@ -39,7 +39,7 @@ export function App() {
           />
           <Route path="/auth" component={Auth} />
           <Route path="/video" component={Video} />
-          <Route path="/uploadform" render={() => <UpLoadForm username={username} />} />
+          <Route exact path="/uploadform" render={() => <UpLoadForm username={username} />} />
           <Route path="/board_view/:upload_id" render={() => <ViewBoard isLogin={isLogin} username={username} />} />
           <Route path="/" component={NotFound} />
         </Switch>

@@ -12,12 +12,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import './../../styles/layouts/uploadform/summernote.css';
 
-function Summernote({ username, inputTitle, category, history, tx, isEdit }) {
-  const [textValue, setTextValue] = useState('');
+function Summernote({ username, inputTitle, category, history, location }) {
+  const [value, setValue] = useState(location.state ? location.state.text : '입력하세요');
 
   const onChange = (content) => {
-    setTextValue(content);
-    console.log('onChange', content);
+    setValue(content);
   };
 
   const onImageUpload = (images, insertImage) => {
@@ -39,7 +38,7 @@ function Summernote({ username, inputTitle, category, history, tx, isEdit }) {
       username: username,
       title: inputTitle,
       category: category,
-      text: textValue,
+      text: value,
     });
     history.push('/');
   };
@@ -48,7 +47,7 @@ function Summernote({ username, inputTitle, category, history, tx, isEdit }) {
     <>
       <form className="editor" onSubmit={uploadDataSubmit}>
         <ReactSummernote
-          value={isEdit ? tx : textValue}
+          value="{value1}"
           options={{
             lang: 'ko-KR',
             height: 420,

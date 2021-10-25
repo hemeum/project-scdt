@@ -44,9 +44,6 @@ function HeaderGnb({ isLogin, setIsLogin, username, history }) {
         <GnbTitle></GnbTitle>
         <SearchInput value={inputValue} onChange={handleInputValue} onClick={handleSearchButton}></SearchInput>
         <WriteButton onClick={handleWriteButton} write={'글쓰기'}></WriteButton>
-        <Link to="foodgame">
-          <WriteButton write={'오늘 뭐 먹지?'}></WriteButton>
-        </Link>
         <GnbMenu></GnbMenu>
         <TopAuth username={username} isLogin={isLogin} setIsLogin={setIsLogin}></TopAuth>
       </header>

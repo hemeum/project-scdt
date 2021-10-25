@@ -5,7 +5,7 @@ function EditDeleteButton({ category, text, title, history }) {
   const handleEdit = () => {
     history.push({
       pathname: '/uploadform',
-      state: { category: category, title: title, text: text, isEdit: true },
+      state: { category: category, title: title, text: text },
     });
   };
   return (
