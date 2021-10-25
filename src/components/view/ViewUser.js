@@ -3,9 +3,11 @@ import axios from 'axios';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 
+import EditDeleteButton from './EditDeleteButton';
+
 import './../../styles/layouts/view/view-user.css';
 
-function ViewUser({ match, history, isLogin, username }) {
+function ViewUser({ match, history, isLogin, username, userComment, comment }) {
   const [viewUserData, setViewUserData] = useState({}); // DB에 저장된 해당 뷰보드 만든 유저의 데이터
   const [isHeart, setIsHeart] = useState(false); // 하트를 했나 안했나 체크
   const [heart, setHeart] = useState(0); // 뷰유저데이터의 heart를 이 heart로 바꿔줌.
@@ -75,6 +77,7 @@ function ViewUser({ match, history, isLogin, username }) {
   };
 
   useEffect(async () => {
+    // 해당 보드뷰를 만든 유저의 데이터 가져오기
     await axios.post('/view', { upload_id: upload_id, username: username }).then((res) => {
       setViewUserData({ ...res.data });
       setCheckUser(res.data.checkUser); // 체크유저는 하트와 무관, 해당 뷰보드를 만든 유저인지 확인하는 것. 수정 또는 신고하기
@@ -91,7 +94,7 @@ function ViewUser({ match, history, isLogin, username }) {
     await axios.post('/heartColor', { username: username, upload_id: upload_id }).then((res) => {
       setHeartColor(res.data.heartColor);
     });
-  }, [heartColor]);
+  });
 
   return (
     <div className="user-upload-box">
@@ -111,8 +114,7 @@ function ViewUser({ match, history, isLogin, username }) {
         <div className="user-button-box">
           {checkUser ? (
             <>
-              <button type="button">수정</button>
-              <button type="button">삭제</button>
+              <EditDeleteButton category={viewUserData.category} title={viewUserData.title} text={viewUserData.text} />
             </>
           ) : (
             <button type="button">신고하기</button>
@@ -130,7 +132,7 @@ function ViewUser({ match, history, isLogin, username }) {
         </div>
       </div>
       <p className="comment-length">
-        댓글 <span>{viewUserData.comment}</span>
+        댓글 <span>{comment}</span>
       </p>
     </div>
   );

@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import './../../styles/layouts/uploadform/summernote.css';
 
-function Summernote({ username, inputTitle, category, history }) {
+function Summernote({ username, inputTitle, category, history, tx, isEdit }) {
   const [textValue, setTextValue] = useState('');
 
   const onChange = (content) => {
@@ -48,7 +48,7 @@ function Summernote({ username, inputTitle, category, history }) {
     <>
       <form className="editor" onSubmit={uploadDataSubmit}>
         <ReactSummernote
-          value={textValue}
+          value={isEdit ? tx : textValue}
           options={{
             lang: 'ko-KR',
             height: 420,
