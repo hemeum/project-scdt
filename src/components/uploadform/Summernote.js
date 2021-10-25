@@ -13,7 +13,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './../../styles/layouts/uploadform/summernote.css';
 
 function Summernote({ username, inputTitle, category, history, location }) {
-  const [value, setValue] = useState(location.state ? location.state.text : '입력하세요');
+  const [value, setValue] = useState(location.state ? location.state.text : '');
 
   const onChange = (content) => {
     setValue(content);
@@ -43,11 +43,22 @@ function Summernote({ username, inputTitle, category, history, location }) {
     history.push('/');
   };
 
+  const editUploadData = async (e) => {
+    e.preventDefault();
+    await axios.put('/upload/update', {
+      title: inputTitle,
+      category: category,
+      text: value,
+      upload_id: location.state.upload_id,
+    });
+    history.push('/');
+  };
+
   return (
     <>
-      <form className="editor" onSubmit={uploadDataSubmit}>
+      <form className="editor" onSubmit={location.state ? editUploadData : uploadDataSubmit}>
         <ReactSummernote
-          value="{value1}"
+          children={value}
           options={{
             lang: 'ko-KR',
             height: 420,
@@ -71,7 +82,7 @@ function Summernote({ username, inputTitle, category, history, location }) {
             취소
           </button>
           <button type="submit" className="register-button">
-            등록
+            {location.state ? '수정' : '등록'}
           </button>
         </div>
       </form>

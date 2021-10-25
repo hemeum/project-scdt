@@ -168,6 +168,35 @@ app.post('/view', (req, res) => {
   });
 });
 
+// upload view 수정 로직
+
+app.put('/upload/update', (req, res) => {
+  connection.query(
+    'update upload_data set category=?, title=?, text=?, date=NOW() where id=?',
+    [req.body.category, req.body.title, req.body.text, req.body.upload_id],
+    (err, rows) => {
+      if (err) {
+        console.log('update err upload data');
+      } else {
+        res.send('완료');
+      }
+    },
+  );
+});
+
+// upload view 삭제 로직
+
+app.put('/upload/delete', (req, res) => {
+  connection.query('delete from upload_data where id = ?', [req.body.upload_id], (err, rows) => {
+    if (err) {
+      console.log('err delete upload data');
+    } else {
+      console.log('삭제 완료');
+      res.send('삭제완료');
+    }
+  });
+});
+
 // 좋아요 로직
 
 app.post('/heart', (req, res) => {

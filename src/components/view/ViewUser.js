@@ -114,7 +114,12 @@ function ViewUser({ match, history, isLogin, username, userComment, comment }) {
         <div className="user-button-box">
           {checkUser ? (
             <>
-              <EditDeleteButton category={viewUserData.category} title={viewUserData.title} text={viewUserData.text} />
+              <EditDeleteButton
+                category={viewUserData.category}
+                title={viewUserData.title}
+                text={viewUserData.text}
+                uploadId={upload_id}
+              />
             </>
           ) : (
             <button type="button">신고하기</button>
