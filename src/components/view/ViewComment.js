@@ -95,7 +95,7 @@ function ViewComment({ isLogin, username, history, match, userComment, setUserCo
   }, [isEdit]);
 
   const handleCommentEdit = async () => {
-    await axios.post('/edit', { upload_id: upload_id, comment_id: commentId, newText: editText });
+    await axios('/comment/edit', { upload_id: upload_id, comment_id: commentId, newText: editText });
   };
 
   const userComments = userComment.map((comment, index) => {

@@ -381,7 +381,7 @@ app.post('/comment/length', (req, res) => {
   });
 });
 
-app.post('/edit', (req, res) => {
+app.put('/comment/edit', (req, res) => {
   // 댓글 수정하기
   connection.query(
     'update comment_data set comment = ? where upload_id=? and id=?',
@@ -390,6 +390,7 @@ app.post('/edit', (req, res) => {
       if (err) {
         console.log('err updata comment');
       } else {
+        console.log('댓글 수정 완료');
         res.send('수정 완료');
       }
     },
