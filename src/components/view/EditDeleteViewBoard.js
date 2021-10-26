@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-function EditDeleteButton({ category, text, title, history, uploadId }) {
+function EditDeleteViewBoard({ category, text, title, history, uploadId }) {
   const handleEdit = () => {
     history.push({
       pathname: '/uploadform',
@@ -34,4 +34,4 @@ function EditDeleteButton({ category, text, title, history, uploadId }) {
   );
 }
 
-export default withRouter(EditDeleteButton);
+export default withRouter(EditDeleteViewBoard);

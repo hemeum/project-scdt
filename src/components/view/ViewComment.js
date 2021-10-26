@@ -3,15 +3,21 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 
+import EditDeleteComment from './EditDeleteComment';
+
 import './../../styles/layouts/view/view-comment.css';
 
 function ViewComment({ isLogin, username, history, match, userComment, setUserComment, setComment, comment }) {
   const [userText, setUserText] = useState('');
   const [isText, setIsText] = useState(false);
+  const [isEdit, setIsEdit] = useState([]);
+  const [editText, setEditText] = useState('');
+  const [commentId, setCommentId] = useState('');
 
   const { upload_id } = match.params;
 
   const textRef = useRef();
+  const editRef = useRef();
 
   const handleText = (e) => {
     setUserText(e.target.value);
@@ -72,6 +78,26 @@ function ViewComment({ isLogin, username, history, match, userComment, setUserCo
     });
   }, [comment]);
 
+  const cancelEdit = () => {
+    setIsEdit([]);
+  };
+
+  useEffect(() => {
+    if (
+      isEdit.filter((data) => {
+        return data === true;
+      }).length !== 0
+    ) {
+      editRef.current.focus();
+    } else {
+      return;
+    }
+  }, [isEdit]);
+
+  const handleCommentEdit = async () => {
+    await axios.post('/edit', { upload_id: upload_id, comment_id: commentId, newText: editText });
+  };
+
   const userComments = userComment.map((comment, index) => {
     // 댓글 리스트 반복
     const date = moment(comment.date).format('YYYY-MM-DD HH:mm');
@@ -81,19 +107,50 @@ function ViewComment({ isLogin, username, history, match, userComment, setUserCo
           <img src={process.env.PUBLIC_URL + '/img/cafelatte.png'} className="user-profile-img" />
           <div className="user-comment-data">
             <p className="user-comment-nickname">{comment.username}</p>
-            <p className="user-comment">{comment.comment}</p>
-            <p className="user-comment-time">
-              {date}
-              <button type="button">답글 쓰기</button>
-            </p>
-            {comment.username === username ? (
-              <button type="button" className="report-comment-button">
-                수정 삭제
-              </button>
+            {isEdit[index] ? (
+              <>
+                <div className="edit-box">
+                  <textarea
+                    ref={editRef}
+                    className="edit-comment-input"
+                    value={editText}
+                    onChange={(e) => {
+                      setEditText(e.target.value);
+                    }}
+                  ></textarea>
+                  <button type="button" className="edit-comment-button" onClick={handleCommentEdit}>
+                    수정
+                  </button>
+                </div>
+                <button type="button" className="edit-delete-comment-button" onClick={cancelEdit}>
+                  수정취소
+                </button>
+              </>
             ) : (
-              <button type="button" className="report-comment-button">
-                신고하기
-              </button>
+              <>
+                <p className="user-comment">{comment.comment}</p>
+                <p className="user-comment-time">
+                  {date}
+                  <button type="button">답글 쓰기</button>
+                </p>
+
+                {comment.username === username ? (
+                  <EditDeleteComment
+                    id={comment.id}
+                    setCommentId={setCommentId}
+                    comment={comment.comment}
+                    setEditText={setEditText}
+                    userComment={userComment}
+                    index={index}
+                    setIsEdit={setIsEdit}
+                    isEdit={isEdit}
+                  />
+                ) : (
+                  <button type="button" className="report-comment-button">
+                    신고하기
+                  </button>
+                )}
+              </>
             )}
           </div>
         </div>

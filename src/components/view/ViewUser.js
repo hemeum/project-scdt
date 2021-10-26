@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 
-import EditDeleteButton from './EditDeleteButton';
+import EditDeleteViewBoard from './EditDeleteViewBoard';
 
 import './../../styles/layouts/view/view-user.css';
 
@@ -114,7 +114,7 @@ function ViewUser({ match, history, isLogin, username, userComment, comment }) {
         <div className="user-button-box">
           {checkUser ? (
             <>
-              <EditDeleteButton
+              <EditDeleteViewBoard
                 category={viewUserData.category}
                 title={viewUserData.title}
                 text={viewUserData.text}

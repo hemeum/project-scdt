@@ -187,6 +187,7 @@ app.put('/upload/update', (req, res) => {
 // upload view 삭제 로직
 
 app.put('/upload/delete', (req, res) => {
+  connection.query('delete from comment_data where id = ?', [req.body.upload_id]);
   connection.query('delete from upload_data where id = ?', [req.body.upload_id], (err, rows) => {
     if (err) {
       console.log('err delete upload data');
@@ -378,6 +379,21 @@ app.post('/comment/length', (req, res) => {
       res.send({ comment: rows[0].comment });
     }
   });
+});
+
+app.post('/edit', (req, res) => {
+  // 댓글 수정하기
+  connection.query(
+    'update comment_data set comment = ? where upload_id=? and id=?',
+    [req.body.newText, req.body.upload_id, req.body.comment_id],
+    (err, rows) => {
+      if (err) {
+        console.log('err updata comment');
+      } else {
+        res.send('수정 완료');
+      }
+    },
+  );
 });
 
 // video 로직
