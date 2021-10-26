@@ -384,14 +384,23 @@ app.post('/comment/length', (req, res) => {
 app.put('/comment/edit', (req, res) => {
   // 댓글 수정하기
   connection.query(
-    'update comment_data set comment = ? where upload_id=? and id=?',
+    'update comment_data set comment = ?, date=NOW() where upload_id=? and id=?',
     [req.body.newText, req.body.upload_id, req.body.comment_id],
     (err, rows) => {
       if (err) {
         console.log('err updata comment');
       } else {
-        console.log('댓글 수정 완료');
-        res.send('수정 완료');
+        connection.query(
+          'select * from comment_data where upload_id=? and id=?',
+          [req.body.upload_id, req.body.comment_id],
+          (err, rows) => {
+            if (err) {
+              console.log('수정한 커멘트 불러오기 실패');
+            } else {
+              res.send(rows[0]);
+            }
+          },
+        );
       }
     },
   );

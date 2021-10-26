@@ -4,15 +4,16 @@ import axios from 'axios';
 import moment from 'moment';
 
 import EditDeleteComment from './EditDeleteComment';
+import EditTextarea from './EditTextarea';
 
 import './../../styles/layouts/view/view-comment.css';
 
 function ViewComment({ isLogin, username, history, match, userComment, setUserComment, setComment, comment }) {
-  const [userText, setUserText] = useState('');
-  const [isText, setIsText] = useState(false);
-  const [isEdit, setIsEdit] = useState([]);
-  const [editText, setEditText] = useState('');
-  const [commentId, setCommentId] = useState('');
+  const [userText, setUserText] = useState(''); // 유저가 쓴 댓글 인풋창
+  const [isText, setIsText] = useState(false); // 유저가 댓글을 쓴게 하나라도 있나 없나
+  const [isEdit, setIsEdit] = useState([]); // 편집 중인 댓글만 트루이며, 댓글 갯수만큼 false가 채워지고 수정 누르는 댓글만 true로 바뀜
+  const [editText, setEditText] = useState(''); // 편집중인 인풋 댓글
+  const [commentId, setCommentId] = useState(''); // 댓글의 DB 고유 id값
 
   const { upload_id } = match.params;
 
@@ -78,26 +79,6 @@ function ViewComment({ isLogin, username, history, match, userComment, setUserCo
     });
   }, [comment]);
 
-  const cancelEdit = () => {
-    setIsEdit([]);
-  };
-
-  useEffect(() => {
-    if (
-      isEdit.filter((data) => {
-        return data === true;
-      }).length !== 0
-    ) {
-      editRef.current.focus();
-    } else {
-      return;
-    }
-  }, [isEdit]);
-
-  const handleCommentEdit = async () => {
-    await axios('/comment/edit', { upload_id: upload_id, comment_id: commentId, newText: editText });
-  };
-
   const userComments = userComment.map((comment, index) => {
     // 댓글 리스트 반복
     const date = moment(comment.date).format('YYYY-MM-DD HH:mm');
@@ -108,24 +89,17 @@ function ViewComment({ isLogin, username, history, match, userComment, setUserCo
           <div className="user-comment-data">
             <p className="user-comment-nickname">{comment.username}</p>
             {isEdit[index] ? (
-              <>
-                <div className="edit-box">
-                  <textarea
-                    ref={editRef}
-                    className="edit-comment-input"
-                    value={editText}
-                    onChange={(e) => {
-                      setEditText(e.target.value);
-                    }}
-                  ></textarea>
-                  <button type="button" className="edit-comment-button" onClick={handleCommentEdit}>
-                    수정
-                  </button>
-                </div>
-                <button type="button" className="edit-delete-comment-button" onClick={cancelEdit}>
-                  수정취소
-                </button>
-              </>
+              <EditTextarea
+                isEdit={isEdit}
+                userComment={userComment}
+                setUserComment={setUserComment}
+                setEditText={setEditText}
+                index={index}
+                upload_id={upload_id}
+                comment_id={commentId}
+                setIsEdit={setIsEdit}
+                editText={editText}
+              />
             ) : (
               <>
                 <p className="user-comment">{comment.comment}</p>
