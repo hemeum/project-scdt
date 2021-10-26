@@ -86,9 +86,15 @@ function ViewComment({ isLogin, username, history, match, userComment, setUserCo
               {date}
               <button type="button">답글 쓰기</button>
             </p>
-            <button type="button" className="report-comment-button">
-              수정 삭제 신고하기
-            </button>
+            {comment.username === username ? (
+              <button type="button" className="report-comment-button">
+                수정 삭제
+              </button>
+            ) : (
+              <button type="button" className="report-comment-button">
+                신고하기
+              </button>
+            )}
           </div>
         </div>
       </li>
