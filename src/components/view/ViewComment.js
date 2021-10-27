@@ -110,14 +110,18 @@ function ViewComment({ isLogin, username, history, match, userComment, setUserCo
 
                 {comment.username === username ? (
                   <EditDeleteComment
+                    history={history}
+                    upload_id={upload_id}
                     id={comment.id}
                     setCommentId={setCommentId}
                     comment={comment.comment}
                     setEditText={setEditText}
                     userComment={userComment}
+                    setUserComment={setUserComment}
                     index={index}
                     setIsEdit={setIsEdit}
                     isEdit={isEdit}
+                    setComment={setComment}
                   />
                 ) : (
                   <button type="button" className="report-comment-button">

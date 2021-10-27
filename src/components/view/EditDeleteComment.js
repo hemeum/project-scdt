@@ -1,6 +1,19 @@
 import React, { useEffect } from 'react';
+import axios from 'axios';
 
-function EditDeleteComment({ index, isEdit, setIsEdit, userComment, setEditText, comment, id, setCommentId }) {
+function EditDeleteComment({
+  upload_id,
+  index,
+  isEdit,
+  setIsEdit,
+  userComment,
+  setUserComment,
+  setEditText,
+  comment,
+  id,
+  setCommentId,
+  setComment,
+}) {
   useEffect(() => {
     setIsEdit(Array(userComment.length).fill(false));
   }, []);
@@ -13,12 +26,33 @@ function EditDeleteComment({ index, isEdit, setIsEdit, userComment, setEditText,
     setCommentId(id);
   };
 
+  const handleDelete = async () => {
+    let yesDelete = window.confirm('정말 삭제하시겠습니까?');
+    if (yesDelete) {
+      await axios
+        .put('/comment/delete', {
+          upload_id: upload_id,
+          comment_id: id,
+          comment_length: userComment.length,
+        })
+        .then((res) => {
+          setUserComment(res.data);
+          setComment(res.data.length);
+        });
+      window.scrollTo(0, 0);
+    } else {
+      return;
+    }
+  };
+
   return (
     <div className="edit-delete-comment-button">
       <button type="button" onClick={handleEdit}>
         수정
       </button>
-      <button type="button">삭제</button>
+      <button type="button" onClick={handleDelete}>
+        삭제
+      </button>
     </div>
   );
 }

@@ -187,7 +187,7 @@ app.put('/upload/update', (req, res) => {
 // upload view 삭제 로직
 
 app.put('/upload/delete', (req, res) => {
-  connection.query('delete from comment_data where id = ?', [req.body.upload_id]);
+  connection.query('delete from comment_data where upload_id = ?', [req.body.upload_id]);
   connection.query('delete from upload_data where id = ?', [req.body.upload_id], (err, rows) => {
     if (err) {
       console.log('err delete upload data');
@@ -401,6 +401,28 @@ app.put('/comment/edit', (req, res) => {
             }
           },
         );
+      }
+    },
+  );
+});
+
+app.put('/comment/delete', (req, res) => {
+  connection.query('update upload_data set comment=? where id=?', [req.body.comment_length - 1, req.body.upload_id]);
+  connection.query(
+    'delete from comment_data where upload_id=? and id=?',
+    [req.body.upload_id, req.body.comment_id],
+    (err, rows) => {
+      if (err) {
+        console.log('delete comment err');
+      } else {
+        console.log('댓글 삭제 완료');
+        connection.query('select * from comment_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+          if (err) {
+            console.log('댓글 삭제 후 댓글 목록 불러오기 실패');
+          } else {
+            res.send(rows);
+          }
+        });
       }
     },
   );
