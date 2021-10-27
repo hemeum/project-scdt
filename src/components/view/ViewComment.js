@@ -5,8 +5,10 @@ import moment from 'moment';
 
 import EditDeleteComment from './EditDeleteComment';
 import EditTextarea from './EditTextarea';
+import ViewRecomment from './ViewRecomment';
 
 import './../../styles/layouts/view/view-comment.css';
+import './../../styles/layouts/view/view-recomment.css';
 
 function ViewComment({ isLogin, username, history, match, userComment, setUserComment, setComment, comment }) {
   const [userText, setUserText] = useState(''); // 유저가 쓴 댓글 인풋창
@@ -14,14 +16,20 @@ function ViewComment({ isLogin, username, history, match, userComment, setUserCo
   const [isEdit, setIsEdit] = useState([]); // 편집 중인 댓글만 트루이며, 댓글 갯수만큼 false가 채워지고 수정 누르는 댓글만 true로 바뀜
   const [editText, setEditText] = useState(''); // 편집중인 인풋 댓글
   const [commentId, setCommentId] = useState(''); // 댓글의 DB 고유 id값
+  const [isRecomment, setIsRecomment] = useState([]); // 답글쓰기를 어떤 댓글에서 눌렀는가, 답글쓰기를 누른 댓글에서만 트루
+  const [recomment, setRecomment] = useState(''); // 답글
+  const [yesRecomment, setYesRecomment] = useState(false); // 답글을 등록했는가
 
   const { upload_id } = match.params;
 
   const textRef = useRef();
-  const editRef = useRef();
 
   const handleText = (e) => {
     setUserText(e.target.value);
+  };
+
+  const handleRecomment = () => {
+    setYesRecomment(true);
   };
 
   const registerText = async () => {
@@ -105,7 +113,25 @@ function ViewComment({ isLogin, username, history, match, userComment, setUserCo
                 <p className="user-comment">{comment.comment}</p>
                 <p className="user-comment-time">
                   {date}
-                  <button type="button">답글 쓰기</button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (isLogin) {
+                        const reply = [...Array(userComment.length).fill(false)];
+                        reply.splice(index, 1, true);
+                        setIsRecomment(reply);
+                      } else {
+                        const yesLogin = window.confirm('로그인이 필요합니다.');
+                        if (yesLogin) {
+                          history.push('/user');
+                        } else {
+                          return;
+                        }
+                      }
+                    }}
+                  >
+                    답글 쓰기
+                  </button>
                 </p>
 
                 {comment.username === username ? (
@@ -132,6 +158,27 @@ function ViewComment({ isLogin, username, history, match, userComment, setUserCo
             )}
           </div>
         </div>
+        {isRecomment[index] ? (
+          <div className="recomment-box">
+            {yesRecomment ? (
+              <ViewRecomment />
+            ) : (
+              <>
+                <textarea
+                  className="recomment-input"
+                  placeholder="정책 위반 댓글은 삭제될 수 있습니다."
+                  value={recomment}
+                  onChange={(e) => {
+                    setRecomment(e.target.value);
+                  }}
+                ></textarea>
+                <button type="button" className="recomment-register-button" onClick={handleRecomment}>
+                  등록
+                </button>
+              </>
+            )}
+          </div>
+        ) : undefined}
       </li>
     );
   });
