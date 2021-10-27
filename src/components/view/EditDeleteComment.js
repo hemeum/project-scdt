@@ -14,17 +14,19 @@ function EditDeleteComment({
   setCommentId,
   setComment,
 }) {
+  /*
   useEffect(() => {
     setIsEdit(Array(userComment.length).fill(false));
-  }, []);
+  }, []);*/
 
   const handleEdit = () => {
-    const edit = [...isEdit];
+    const edit = [...Array(userComment.length).fill(false)];
     edit.splice(index, 1, true);
     setIsEdit(edit);
     setEditText(comment);
     setCommentId(id);
   };
+  console.log(isEdit);
 
   const handleDelete = async () => {
     let yesDelete = window.confirm('정말 삭제하시겠습니까?');
