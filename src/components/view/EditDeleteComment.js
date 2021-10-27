@@ -26,7 +26,6 @@ function EditDeleteComment({
     setEditText(comment);
     setCommentId(id);
   };
-  console.log(isEdit);
 
   const handleDelete = async () => {
     let yesDelete = window.confirm('정말 삭제하시겠습니까?');
