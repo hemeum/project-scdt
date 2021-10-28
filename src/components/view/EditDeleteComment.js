@@ -10,6 +10,7 @@ function EditDeleteComment({
   setUserComment,
   setEditText,
   comment,
+  commentLength,
   id,
   setCommentId,
   setComment,
@@ -34,7 +35,7 @@ function EditDeleteComment({
         .put('/comment/delete', {
           upload_id: upload_id,
           comment_id: id,
-          comment_length: userComment.length,
+          comment_length: Number(commentLength),
         })
         .then((res) => {
           setUserComment(res.data);

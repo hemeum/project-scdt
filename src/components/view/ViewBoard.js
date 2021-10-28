@@ -10,19 +10,22 @@ import './../../styles/layouts/view/view-board.css';
 
 function ViewBoard({ isLogin, username }) {
   const [userComment, setUserComment] = useState([]);
-  const [comment, setComment] = useState('0');
+  const [commentLength, setCommentLength] = useState('0');
+  const [replyLength, setReplyLength] = useState('0');
 
   return (
     <div className="contents">
       <div className="view-board">
-        <ViewUser isLogin={isLogin} username={username} userComment={userComment} comment={comment} />
+        <ViewUser isLogin={isLogin} username={username} userComment={userComment} commentLength={commentLength} />
         <ViewComment
           isLogin={isLogin}
           username={username}
           userComment={userComment}
           setUserComment={setUserComment}
-          comment={comment}
-          setComment={setComment}
+          commentLength={commentLength}
+          setCommentLength={setCommentLength}
+          replyLength={replyLength}
+          setReplyLength={setReplyLength}
         />
         <Board />
         <Footer />

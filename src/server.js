@@ -324,7 +324,7 @@ app.post('/comment', (req, res) => {
       } else {
         connection.query(
           'update upload_data set comment = ? where id = ?',
-          [req.body.commentLength + 1, req.body.upload_id],
+          [req.body.comment_length + 1, req.body.upload_id],
           (err, rows) => {
             if (err) {
               console.log('err update comment');
@@ -362,6 +362,17 @@ app.post('/comment/keep', (req, res) => {
 });
 
 app.post('/comment/length', (req, res) => {
+  // 댓글 개수 불러오기
+  connection.query('select comment from upload_data where id = ?', [req.body.upload_id], (err, rows) => {
+    if (err) {
+      console.log('err select comment length');
+    } else {
+      res.send({ comment: rows[0].comment });
+    }
+  });
+});
+
+app.post('/comment/addlength', (req, res) => {
   // 댓글 개수 불러오기
   connection.query('select comment from upload_data where id = ?', [req.body.upload_id], (err, rows) => {
     if (err) {
@@ -419,6 +430,63 @@ app.put('/comment/delete', (req, res) => {
   );
 });
 
+// reply 로직
+
+app.post('/reply/add', (req, res) => {
+  connection.query(
+    'insert into reply_data(reply, username, upload_id, comment_id, date) values(?,?,?,?,NOW())',
+    [req.body.reply, req.body.username, req.body.upload_id, req.body.comment_id],
+    (err, rows) => {
+      if (err) {
+        console.log('err add reply');
+      } else {
+        connection.query(
+          'select * from reply_data where upload_id = ? order by date desc limit 1',
+          [req.body.upload_id],
+          (err, rows) => {
+            if (err) {
+              console.log('err selete reply');
+            } else {
+              res.send(rows[0]);
+            }
+          },
+        );
+      }
+    },
+  );
+});
+
+app.post('/reply/addlength', (req, res) => {
+  connection.query(
+    'update upload_data set comment=? where id=?',
+    [Number(req.body.comment_length) + 1, req.body.upload_id],
+    (err, rows) => {
+      if (err) {
+        console.log('err update length');
+      } else {
+        connection.query('select comment from upload_data where id = ?', [req.body.upload_id], (err, rows) => {
+          if (err) {
+            console.log('err reply + comment length');
+          } else {
+            res.send({ comment: rows[0].comment });
+          }
+        });
+      }
+    },
+  );
+});
+
+/*
+app.post('/reply/keep', (req, res) => {
+  connection.query('select * from reply_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+    if (err) {
+      console.log('err');
+    } else {
+      res.send(rows);
+    }
+  });
+});
+*/
 // video 로직
 
 app.get('/video/data', (req, res) => {

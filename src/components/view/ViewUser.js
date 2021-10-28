@@ -7,7 +7,7 @@ import EditDeleteViewBoard from './EditDeleteViewBoard';
 
 import './../../styles/layouts/view/view-user.css';
 
-function ViewUser({ match, history, isLogin, username, userComment, comment }) {
+function ViewUser({ match, history, isLogin, username, userComment, commentLength }) {
   const [viewUserData, setViewUserData] = useState({}); // DB에 저장된 해당 뷰보드 만든 유저의 데이터
   const [isHeart, setIsHeart] = useState(false); // 하트를 했나 안했나 체크
   const [heart, setHeart] = useState(0); // 뷰유저데이터의 heart를 이 heart로 바꿔줌.
@@ -137,7 +137,7 @@ function ViewUser({ match, history, isLogin, username, userComment, comment }) {
         </div>
       </div>
       <p className="comment-length">
-        댓글 <span>{comment}</span>
+        댓글 <span>{commentLength}</span>
       </p>
     </div>
   );

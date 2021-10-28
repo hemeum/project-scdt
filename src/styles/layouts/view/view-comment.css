@@ -73,41 +73,6 @@
   font-size: 13px;
 }
 
-.user-recomment-box {
-  display: flex;
-  margin-top: 20px;
-  padding-left: 50px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgb(230, 229, 229);
-}
-
-.user-recomment-data {
-  position: relative;
-  width: 100%;
-}
-
-.user-recomment-nickname {
-  color: #999;
-  font-size: 12px;
-}
-
-.user-recomment {
-  margin: 2px 0 10px;
-}
-
-.user-recomment-time {
-  color: #999;
-  font-size: 13px;
-}
-
-.report-recomment-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #999;
-  font-size: 13px;
-}
-
 .edit-box {
   display: flex;
   margin-top: 5px;
