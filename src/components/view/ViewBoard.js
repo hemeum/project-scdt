@@ -11,7 +11,6 @@ import './../../styles/layouts/view/view-board.css';
 function ViewBoard({ isLogin, username }) {
   const [userComment, setUserComment] = useState([]);
   const [commentLength, setCommentLength] = useState('0');
-  const [replyLength, setReplyLength] = useState('0');
 
   return (
     <div className="contents">
@@ -24,8 +23,6 @@ function ViewBoard({ isLogin, username }) {
           setUserComment={setUserComment}
           commentLength={commentLength}
           setCommentLength={setCommentLength}
-          replyLength={replyLength}
-          setReplyLength={setReplyLength}
         />
         <Board />
         <Footer />

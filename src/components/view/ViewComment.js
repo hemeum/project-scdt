@@ -19,8 +19,6 @@ function ViewComment({
   setUserComment,
   setCommentLength,
   commentLength,
-  replyLength,
-  setReplyLength,
 }) {
   const [userText, setUserText] = useState(''); // 유저가 쓴 댓글 인풋창
   const [isText, setIsText] = useState(false); // 유저가 댓글을 쓴게 하나라도 있나 없나
@@ -32,6 +30,8 @@ function ViewComment({
   const [clickReply, setClickReply] = useState([]); // 답글쓰기 클릭했을 때 트루, 펄스 토글
   const [replys, setReplys] = useState([]); // 댓글 별 답글 모음
   const [inputReply, setInputReply] = useState(''); // 텍스트창에서 입력하는 답글 ..
+
+  const [replyExist, setReplyExist] = useState(false);
 
   const { upload_id } = match.params;
 
@@ -83,37 +83,29 @@ function ViewComment({
   };
 
   useEffect(async () => {
-    // 모든 댓글 가져오기
-    await axios.post('/comment/keep', { upload_id: upload_id }).then((res) => {
-      if (res.data.length !== 0) {
-        setIsText(true);
-        setUserComment(res.data);
-      } else {
-        return;
-      }
-    });
-  }, [upload_id]);
-
-  useEffect(async () => {
     // 댓글 개수 가져오면서 댓글 유지하기
     await axios.post('/comment/length', { upload_id: upload_id, comment_length: Number(commentLength) }).then((res) => {
       setCommentLength(res.data.comment);
     });
   }, [commentLength]);
 
-  /*
   useEffect(async () => {
     await axios.post('/reply/keep', { upload_id: upload_id }).then((res) => {
-      setReplys(res.data);
-      console.log(res.data);
+      if (res.data.length !== 0) {
+        setIsText(true);
+        setUserComment(res.data);
+        setReplyExist(true);
+      } else {
+        return;
+      }
     });
-  }, []);*/
+  }, [upload_id, isText, replyExist]);
 
   const userComments = userComment.map((comment, index) => {
     // 댓글 리스트 반복
     const date = moment(comment.date).format('YYYY-MM-DD HH:mm');
     return (
-      <li key={index} className="comment-item">
+      <li key={comment.id} className="comment-item">
         <div className="user-comment-box">
           <img src={process.env.PUBLIC_URL + '/img/cafelatte.png'} className="user-profile-img" />
           <div className="user-comment-data">
@@ -167,7 +159,7 @@ function ViewComment({
                     setIsEdit={setIsEdit}
                     isEdit={isEdit}
                     commentLength={commentLength}
-                    setComment={setCommentLength}
+                    setCommentLength={setCommentLength}
                   />
                 ) : (
                   <button type="button" className="report-comment-button">
@@ -200,13 +192,13 @@ function ViewComment({
                     comment_id: comment.id,
                   })
                   .then((res) => {
-                    console.log(replys[index], replys, replys);
-                    const replyData = [...replys[index], res.data];
-                    const newReplys = [...replys];
-                    newReplys.splice(index, 1, replyData);
-                    setReplys(newReplys);
+                    const replyComment = res.data;
+                    const newUserComment = [...userComment];
+                    newUserComment.splice(index, 1, replyComment);
+                    setUserComment(newUserComment);
                     setClickReply([]);
                     setInputReply('');
+                    setReplyExist(true);
                   });
 
                 await axios
@@ -220,10 +212,21 @@ function ViewComment({
             </button>
           </div>
         ) : undefined}
-        {replys.length === 0 ? undefined : <ViewReply userReply={replys[index]}></ViewReply>}
+        {replyExist ? (
+          <ViewReply
+            upload_id={upload_id}
+            username={username}
+            userComment={userComment}
+            index={index}
+            setUserComment={setUserComment}
+            commentLength={commentLength}
+            setCommentLength={setCommentLength}
+          ></ViewReply>
+        ) : undefined}
       </li>
     );
   });
+
   return (
     <div className="comment-box">
       <div className="user-textarea">

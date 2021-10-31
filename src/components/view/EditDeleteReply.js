@@ -1,52 +1,47 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
 import axios from 'axios';
 
-function EditDeleteComment({
+function EditDeleteReply({
+  id,
   upload_id,
-  index,
-  isEdit,
   setIsEdit,
   userComment,
   setUserComment,
-  setEditText,
-  comment,
+  comment_index,
+  reply_index,
+  reply,
+  setEditReply,
   commentLength,
-  id,
-  setCommentId,
   setCommentLength,
 }) {
-  /*
-  useEffect(() => {
-    setIsEdit(Array(userComment.length).fill(false));
-  }, []);*/
+  const userReply = userComment[comment_index].reply;
 
   const handleEdit = () => {
-    const edit = [...Array(userComment.length).fill(false)];
-    edit.splice(index, 1, true);
+    const edit = [...Array(userReply.length).fill(false)];
+    edit.splice(reply_index, 1, true);
     setIsEdit(edit);
-    setEditText(comment);
-    setCommentId(id);
+    setEditReply(reply);
   };
 
   const handleDelete = async () => {
     let yesDelete = window.confirm('정말 삭제하시겠습니까?');
     if (yesDelete) {
       await axios
-        .put('/comment/delete', {
+        .post('/reply/delete', {
           upload_id: upload_id,
-          comment_id: id,
-          comment_length: Number(commentLength),
+          reply_id: id,
+          comment_length: commentLength,
         })
         .then((res) => {
-          setUserComment(res.data);
-          setCommentLength(res.data.length);
+          setUserComment(res.data[0]);
+          setCommentLength(Number(res.data[1]));
         });
       window.scrollTo(0, 0);
     } else {
       return;
     }
   };
-
   return (
     <div className="edit-delete-comment-button">
       <button type="button" onClick={handleEdit}>
@@ -59,4 +54,4 @@ function EditDeleteComment({
   );
 }
 
-export default EditDeleteComment;
+export default EditDeleteReply;

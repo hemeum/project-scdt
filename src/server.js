@@ -341,7 +341,8 @@ app.post('/comment', (req, res) => {
               console.log('err select comment');
             } else {
               console.log('커멘트 가져오기 성공');
-              res.send(rows);
+              const comment = { ...rows[0], reply: [] };
+              res.send([comment]);
             }
           },
         );
@@ -350,16 +351,21 @@ app.post('/comment', (req, res) => {
   );
 });
 
+/*
 app.post('/comment/keep', (req, res) => {
   // 댓글 유지 및 모든 댓글 가져오기
   connection.query('select * from comment_data where upload_id=?', [req.body.upload_id], (err, rows) => {
     if (err) {
       console.log('err all comment');
     } else {
-      res.send(rows);
+      const comment = rows.map((data) => {
+        return { ...data, reply: [] };
+      });
+      res.send(comment);
     }
   });
 });
+*/
 
 app.post('/comment/length', (req, res) => {
   // 댓글 개수 불러오기
@@ -441,13 +447,24 @@ app.post('/reply/add', (req, res) => {
         console.log('err add reply');
       } else {
         connection.query(
-          'select * from reply_data where upload_id = ? order by date desc limit 1',
-          [req.body.upload_id],
+          'select * from reply_data where upload_id = ? and comment_id=?',
+          [req.body.upload_id, req.body.comment_id],
           (err, rows) => {
             if (err) {
               console.log('err selete reply');
             } else {
-              res.send(rows[0]);
+              const addReply = rows;
+              connection.query('select * from comment_data', (err, rows) => {
+                if (err) {
+                  console.log('err select comment + reply');
+                } else {
+                  const replyComment = rows.filter((data) => {
+                    return data.id === Number(addReply[0].comment_id);
+                  })[0];
+                  const newReplyComment = { ...replyComment, reply: addReply };
+                  res.send(newReplyComment);
+                }
+              });
             }
           },
         );
@@ -476,17 +493,145 @@ app.post('/reply/addlength', (req, res) => {
   );
 });
 
-/*
 app.post('/reply/keep', (req, res) => {
   connection.query('select * from reply_data where upload_id=?', [req.body.upload_id], (err, rows) => {
     if (err) {
-      console.log('err');
+      console.log('err reply keep');
     } else {
-      res.send(rows);
+      const allReply = rows;
+      if (allReply.length !== 0) {
+        connection.query('select * from comment_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+          if (err) {
+            console.log('err keep comment and reply');
+          } else {
+            const comment = rows.map((data) => {
+              const replyComment = allReply.filter((replyData) => {
+                return data.id === Number(replyData.comment_id);
+              });
+              return { ...data, reply: replyComment };
+            });
+            res.send(comment);
+          }
+        });
+      } else {
+        connection.query('select * from comment_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+          if (err) {
+            console.log('err keep comment and reply');
+          } else {
+            const comment = rows.map((data) => {
+              return { ...data, reply: [] };
+            });
+            res.send(comment);
+          }
+        });
+      }
     }
   });
 });
-*/
+
+app.post('/reply/edit', (req, res) => {
+  connection.query(
+    'update reply_data set reply = ?, date=NOW() where upload_id=? and id=?',
+    [req.body.newReply, req.body.upload_id, req.body.reply_id],
+    (err, rows) => {
+      if (err) {
+        console.log('err updata comment');
+      } else {
+        connection.query('select * from reply_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+          if (err) {
+            console.log('err reply keep');
+          } else {
+            const allReply = rows;
+            if (allReply.length !== 0) {
+              connection.query('select * from comment_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+                if (err) {
+                  console.log('err keep comment and reply');
+                } else {
+                  const comment = rows.map((data) => {
+                    const replyComment = allReply.filter((replyData) => {
+                      return data.id === Number(replyData.comment_id);
+                    });
+                    return { ...data, reply: replyComment };
+                  });
+                  res.send(comment);
+                }
+              });
+            } else {
+              connection.query('select * from comment_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+                if (err) {
+                  console.log('err keep comment and reply');
+                } else {
+                  const comment = rows.map((data) => {
+                    return { ...data, reply: [] };
+                  });
+                  res.send(comment);
+                }
+              });
+            }
+          }
+        });
+      }
+    },
+  );
+});
+
+app.post('/reply/delete', (req, res) => {
+  connection.query('update upload_data set comment=? where id=?', [
+    Number(req.body.comment_length) - 1,
+    req.body.upload_id,
+  ]);
+  connection.query(
+    'delete from reply_data where upload_id=? and id=?',
+    [req.body.upload_id, req.body.reply_id],
+    (err, rows) => {
+      if (err) {
+        console.log('delete comment err');
+      } else {
+        console.log('답글 삭제 완료');
+        connection.query('select * from reply_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+          if (err) {
+            console.log('err reply keep');
+          } else {
+            const allReply = rows;
+            if (allReply.length !== 0) {
+              connection.query('select * from comment_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+                if (err) {
+                  console.log('err keep comment and reply');
+                } else {
+                  const comment = rows.map((data) => {
+                    const replyComment = allReply.filter((replyData) => {
+                      return data.id === Number(replyData.comment_id);
+                    });
+                    return { ...data, reply: replyComment };
+                  });
+                  connection.query('select * from upload_data where id=?', [req.body.upload_id], (err, rows) => {
+                    if (err) {
+                      console.log('err 답글 삭제한 커멘트 갯수 가져오기 실패..');
+                    } else {
+                      res.send([comment, rows[0].comment]);
+                    }
+                  });
+                }
+              });
+            } else {
+              connection.query('select * from comment_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+                if (err) {
+                  console.log('err keep comment and reply');
+                } else {
+                  const comment = rows.map((data) => {
+                    return { ...data, reply: [] };
+                  });
+                  res.send(comment);
+                }
+              });
+            }
+          }
+        });
+      }
+    },
+  );
+});
+
 // video 로직
 
 app.get('/video/data', (req, res) => {
