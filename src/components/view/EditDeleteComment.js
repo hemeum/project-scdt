@@ -15,11 +15,6 @@ function EditDeleteComment({
   setCommentId,
   setCommentLength,
 }) {
-  /*
-  useEffect(() => {
-    setIsEdit(Array(userComment.length).fill(false));
-  }, []);*/
-
   const handleEdit = () => {
     const edit = [...Array(userComment.length).fill(false)];
     edit.splice(index, 1, true);
@@ -38,8 +33,8 @@ function EditDeleteComment({
           comment_length: Number(commentLength),
         })
         .then((res) => {
-          setUserComment(res.data);
-          setCommentLength(res.data.length);
+          setUserComment(res.data[0]);
+          setCommentLength(res.data[1]);
         });
       window.scrollTo(0, 0);
     } else {

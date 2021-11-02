@@ -178,6 +178,8 @@ app.put('/upload/update', (req, res) => {
 // upload view 삭제 로직
 
 app.put('/upload/delete', (req, res) => {
+  connection.query('delete from heart_data where upload_id=?', [req.body.upload_id]);
+  connection.query('delete from reply_data where upload_id=?', [req.body.upload_id]);
   connection.query('delete from comment_data where upload_id = ?', [req.body.upload_id]);
   connection.query('delete from upload_data where id = ?', [req.body.upload_id], (err, rows) => {
     if (err) {
@@ -415,25 +417,70 @@ app.put('/comment/edit', (req, res) => {
 });
 
 app.put('/comment/delete', (req, res) => {
-  connection.query('update upload_data set comment=? where id=?', [req.body.comment_length - 1, req.body.upload_id]);
-  connection.query(
-    'delete from comment_data where upload_id=? and id=?',
-    [req.body.upload_id, req.body.comment_id],
-    (err, rows) => {
-      if (err) {
-        console.log('delete comment err');
-      } else {
-        console.log('댓글 삭제 완료');
-        connection.query('select * from comment_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+  connection.query('select * from reply_data where comment_id=?', [req.body.comment_id], (err, rows) => {
+    if (err) {
+      console.log('err comment reply');
+    } else {
+      const commentReplyLength = rows.length;
+      connection.query('update upload_data set comment=? where id=?', [
+        req.body.comment_length - 1 - commentReplyLength,
+        req.body.upload_id,
+      ]);
+      connection.query(
+        'delete from comment_data where upload_id=? and id=?',
+        [req.body.upload_id, req.body.comment_id],
+        (err, rows) => {
           if (err) {
-            console.log('댓글 삭제 후 댓글 목록 불러오기 실패');
+            console.log('delete comment err');
           } else {
-            res.send(rows);
+            console.log('댓글 삭제 완료');
+            connection.query('select * from reply_data where upload_id=?', [req.body.upload_id], (err, rows) => {
+              // 댓글과 답글 합쳐서 불러오는 로직(이걸 반복해서 넣으면 됌.)
+              if (err) {
+                console.log('err reply keep');
+              } else {
+                const allReply = rows;
+                if (allReply.length !== 0) {
+                  connection.query(
+                    'select * from comment_data where upload_id=?',
+                    [req.body.upload_id],
+                    (err, rows) => {
+                      if (err) {
+                        console.log('err keep comment and reply');
+                      } else {
+                        const comment = rows.map((data) => {
+                          const replyComment = allReply.filter((replyData) => {
+                            return data.id === Number(replyData.comment_id);
+                          });
+                          return { ...data, reply: replyComment };
+                        });
+                        res.send([comment, rows.length + allReply.length]);
+                      }
+                    },
+                  );
+                } else {
+                  connection.query(
+                    'select * from comment_data where upload_id=?',
+                    [req.body.upload_id],
+                    (err, rows) => {
+                      if (err) {
+                        console.log('err keep comment and reply');
+                      } else {
+                        const comment = rows.map((data) => {
+                          return { ...data, reply: [] };
+                        });
+                        res.send(comment);
+                      }
+                    },
+                  );
+                }
+              }
+            });
           }
-        });
-      }
-    },
-  );
+        },
+      );
+    }
+  });
 });
 
 // reply 로직
@@ -494,6 +541,7 @@ app.post('/reply/addlength', (req, res) => {
 });
 
 app.post('/reply/keep', (req, res) => {
+  // 댓글, 답글 유지
   connection.query('select * from reply_data where upload_id=?', [req.body.upload_id], (err, rows) => {
     if (err) {
       console.log('err reply keep');
