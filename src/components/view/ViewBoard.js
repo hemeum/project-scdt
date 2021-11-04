@@ -11,11 +11,19 @@ import './../../styles/layouts/view/view-board.css';
 function ViewBoard({ isLogin, username }) {
   const [userComment, setUserComment] = useState([]);
   const [commentLength, setCommentLength] = useState('0');
+  const [viewUserData, setViewUserData] = useState({}); // DB에 저장된 해당 뷰보드 만든 유저의 데이터
 
   return (
     <div className="contents">
       <div className="view-board">
-        <ViewUser isLogin={isLogin} username={username} userComment={userComment} commentLength={commentLength} />
+        <ViewUser
+          isLogin={isLogin}
+          username={username}
+          userComment={userComment}
+          commentLength={commentLength}
+          viewUserData={viewUserData}
+          setViewUserData={setViewUserData}
+        />
         <ViewComment
           isLogin={isLogin}
           username={username}
@@ -24,7 +32,7 @@ function ViewBoard({ isLogin, username }) {
           commentLength={commentLength}
           setCommentLength={setCommentLength}
         />
-        <Board />
+        <Board viewUserData={viewUserData} />
         <Footer />
       </div>
     </div>

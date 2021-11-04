@@ -7,13 +7,13 @@ import EditDeleteViewBoard from './EditDeleteViewBoard';
 
 import './../../styles/layouts/view/view-user.css';
 
-function ViewUser({ match, history, isLogin, username, userComment, commentLength }) {
-  const [viewUserData, setViewUserData] = useState({}); // DB에 저장된 해당 뷰보드 만든 유저의 데이터
+function ViewUser({ match, history, isLogin, username, userComment, commentLength, viewUserData, setViewUserData }) {
   const [isHeart, setIsHeart] = useState(false); // 하트를 했나 안했나 체크
   const [heart, setHeart] = useState(0); // 뷰유저데이터의 heart를 이 heart로 바꿔줌.
   const [checkUser, setCheckUser] = useState(false); // 해당 뷰보드를 만든 유저인지 체크
   const [heartColor, setHeartColor] = useState(false);
   // 하트 색깔 변경
+  const [disabled, setDisabled] = useState(false);
 
   const heartRef = useRef();
 
@@ -21,10 +21,90 @@ function ViewUser({ match, history, isLogin, username, userComment, commentLengt
 
   const date = moment(viewUserData.date).format('YYYY.MM.DD HH:MM');
 
-  const handleHeart = async () => {
+  let heartFlag = false;
+
+  const heartCheck = () => {
+    if (heartFlag) {
+      return heartFlag;
+    } else {
+      heartFlag = true;
+      return false;
+    }
+  };
+
+  const handleHeart = async (e) => {
+    setTimeout(async () => {
+      if (isLogin) {
+        if (heartColor === true) {
+          // 하트를 이미 누르고 다시 접속했을 때
+          if (heartCheck()) {
+            return;
+          }
+
+          await axios
+            .post('/heartCheck', {
+              username: username,
+              upload_id: upload_id,
+              isHeart: true,
+              heartLength: heart,
+            })
+            .then((res) => {
+              setIsHeart(res.data.isHeart);
+              setHeart(res.data.heart);
+              setHeartColor(res.data.heartColor);
+            });
+        } else {
+          if (isHeart === false) {
+            // 최초 하트를 클릭했을 때(false에서 true로)
+            if (heartCheck()) {
+              return;
+            }
+            await axios
+              .post('/heart', {
+                username: username,
+                upload_id: upload_id,
+                isHeart: false,
+                heartLength: viewUserData.heart,
+              })
+              .then((res) => {
+                setIsHeart(res.data.isHeart);
+                setHeart(res.data.heart);
+                setHeartColor(res.data.heartColor);
+              });
+          } else if (isHeart === true) {
+            // 하트를  취소하기 위해 다시 클릭했을 때(true에서 false)
+            if (heartCheck()) {
+              return;
+            }
+
+            await axios
+              .post('/heart', {
+                username: username,
+                upload_id: upload_id,
+                isHeart: true,
+                heartLength: heart,
+              })
+              .then((res) => {
+                setIsHeart(res.data.isHeart);
+                setHeart(res.data.heart);
+                setHeartColor(res.data.heartColor);
+              });
+          }
+        }
+      } else {
+        const yesLogin = window.confirm('로그인이 필요합니다.');
+        if (yesLogin) {
+          history.push('/user');
+        } else {
+          return;
+        }
+      }
+    }, 500);
+    /*
     // 하트를 클릭했을 때
     if (isLogin) {
       if (heartColor === true) {
+        // 하트를 이미 누르고 다시 접속했을 때
         await axios
           .post('/heartCheck', {
             username: username,
@@ -39,6 +119,7 @@ function ViewUser({ match, history, isLogin, username, userComment, commentLengt
           });
       } else {
         if (isHeart === false) {
+          // 최초 하트를 클릭했을 때(false에서 true로)
           await axios
             .post('/heart', {
               username: username,
@@ -52,6 +133,8 @@ function ViewUser({ match, history, isLogin, username, userComment, commentLengt
               setHeartColor(res.data.heartColor);
             });
         } else if (isHeart === true) {
+          // 하트를  취소하기 위해 다시 클릭했을 때(true에서 false)
+
           await axios
             .post('/heart', {
               username: username,
@@ -74,6 +157,7 @@ function ViewUser({ match, history, isLogin, username, userComment, commentLengt
         return;
       }
     }
+    */
   };
 
   useEffect(async () => {
@@ -82,11 +166,12 @@ function ViewUser({ match, history, isLogin, username, userComment, commentLengt
       setViewUserData({ ...res.data });
       setCheckUser(res.data.checkUser); // 체크유저는 하트와 무관, 해당 뷰보드를 만든 유저인지 확인하는 것. 수정 또는 신고하기
     });
+    /*
     if (heartColor) {
       heartRef.current.style.color = 'red';
     } else {
       heartRef.current.style.color = '#999';
-    }
+    }*/
   }, [checkUser, heartColor, upload_id, username]);
 
   useEffect(async () => {
@@ -131,13 +216,16 @@ function ViewUser({ match, history, isLogin, username, userComment, commentLengt
       </div>
       <div className="user-heart-box">
         <button type="button" className="heart-button"></button>
-        <div className="user-heart" onClick={handleHeart}>
-          <i ref={heartRef} class="far fa-heart heart-icon"></i>
-          <p className="heart-length">{isHeart ? heart : viewUserData.heart}</p>
-        </div>
+        <button type="button" className="user-heart" onClick={handleHeart}>
+          <i
+            ref={heartRef}
+            className={heartColor ? 'far fa-heart heart-icon-red' : 'far fa-heart heart-icon-black'}
+          ></i>
+          <p className="heart-length">{isHeart ? heart : viewUserData.heart ? viewUserData.heart : 0}</p>
+        </button>
       </div>
       <p className="comment-length">
-        댓글 <span>{commentLength}</span>
+        댓글 <span>{commentLength ? commentLength : 0}</span>
       </p>
     </div>
   );

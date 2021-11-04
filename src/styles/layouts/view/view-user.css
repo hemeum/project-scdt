@@ -75,8 +75,16 @@
   line-height: 21px;
 }
 
-.heart-icon {
+.heart-icon-red {
   margin-right: 5px;
+  color: red;
+  pointer-events: none;
+  transition: all 0.1s;
+}
+
+.heart-icon-black {
+  margin-right: 5px;
+  color: #999;
   pointer-events: none;
   transition: all 0.1s;
 }

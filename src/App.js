@@ -30,7 +30,9 @@ export function App() {
         <HeaderGnb isLogin={isLogin} setIsLogin={setIsLogin} username={username} setUsername={setUsername} />
         <Switch>
           <Route exact path="/" component={Contents} />
-          <Route path="/notice" render={() => <NoticeContents />} />
+          <Route path="/board_list/:ctg" render={() => <NoticeContents />} />
+          <Route path="/board_list/:ctg" render={() => <NoticeContents />} />
+          <Route path="/board_list/:ctg" render={() => <NoticeContents />} />
           <Route
             path="/user"
             render={() => (
@@ -38,7 +40,7 @@ export function App() {
             )}
           />
           <Route path="/auth" component={Auth} />
-          <Route path="/video" component={Video} />
+          <Route path="/video_list" component={Video} />
           <Route exact path="/uploadform" render={() => <UpLoadForm username={username} />} />
           <Route path="/board_view/:upload_id" render={() => <ViewBoard isLogin={isLogin} username={username} />} />
           <Route path="/" component={NotFound} />

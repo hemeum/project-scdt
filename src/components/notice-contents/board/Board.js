@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import moment from 'moment';
 import axios from 'axios';
+import { withRouter, useParams } from 'react-router-dom';
 
 import BoardSearch from './../search/BoardSearch.js';
 import BoardItem from './BoardItem';
@@ -10,7 +11,7 @@ import Footer from './../Footer';
 
 import './../../../styles/layouts/notice-board/board.css';
 
-function Board() {
+function Board({ match }) {
   const [newData, setNewData] = useState([]);
   const [initialBoard, setInitialBoard] = useState(true);
   const [order, setOrder] = useState(0);
@@ -18,11 +19,13 @@ function Board() {
 
   const boardCollectionRef = useRef();
 
+  const { ctg } = match.params;
+
   useEffect(async () => {
-    await axios.get('/list').then((res) => {
+    await axios.post('/list', { ctg: ctg }).then((res) => {
       setBoardList(res.data);
     });
-  }, []);
+  }, [ctg]);
 
   const spliceBoardList = [...boardList].splice(order, 10);
   const spliceSearchBoardList = [...newData].splice(order, 10);
@@ -62,7 +65,7 @@ function Board() {
 
   return (
     <>
-      <BoardTop />
+      {ctg === 'notice' ? <BoardTop /> : undefined}
       <BoardSearch
         data={boardList}
         setInitialBoard={setInitialBoard}
@@ -83,4 +86,4 @@ function Board() {
   );
 }
 
-export default Board;
+export default withRouter(Board);

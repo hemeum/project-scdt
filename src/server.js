@@ -4,6 +4,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mysql = require('mysql');
+const { default: axios } = require('axios');
 const MysqlStore = require('express-mysql-session')(session);
 
 const options = {
@@ -130,8 +131,18 @@ app.post('/upload', (req, res) => {
   );
 });
 
-app.get('/list', (req, res) => {
-  connection.query('select * from upload_data', (err, rows) => {
+app.post('/list', (req, res) => {
+  const ctg = () => {
+    if (req.body.ctg === 'notice' || req.body.ctg === '공지사항') {
+      return '공지사항';
+    } else if (req.body.ctg === 'free' || req.body.ctg === '자유게시판') {
+      return '자유게시판';
+    } else if (req.body.ctg === 'recommend' || req.body.ctg === '추천게시판') {
+      return '추천게시판';
+    }
+  };
+  console.log(ctg());
+  connection.query('select * from upload_data where category = ?', [ctg()], (err, rows) => {
     if (err) {
       console.log('err');
     } else {
@@ -691,6 +702,24 @@ app.get('/video/data', (req, res) => {
     }
   });
 });
+
+// 조회수 증가 로직
+
+app.post('/increase/views', (req, res) => {
+  connection.query('select * from upload_data where id = ?', [req.body.upload_id], (err, rows) => {
+    if (err) {
+      console.log('err upload select increase');
+    } else {
+      const views = rows[0].views;
+      connection.query('update upload_data set views = ? where id = ?', [
+        Number(views) + Number(1),
+        req.body.upload_id,
+      ]);
+    }
+  });
+});
+
+//
 
 app.listen(port, () => {
   console.log(`서버 ${port}가 열렸습니다.`);

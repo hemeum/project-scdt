@@ -33,7 +33,6 @@ function Summernote({ username, inputTitle, category, history, location }) {
 
   const uploadDataSubmit = async (e) => {
     e.preventDefault();
-    console.log('submit');
     await axios.post('/upload', {
       username: username,
       title: inputTitle,
