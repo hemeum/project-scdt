@@ -21,6 +21,12 @@ export default function BoardControll({ order, setOrder }) {
       buttonRef4.current.classList.remove('on');
       buttonRef5.current.classList.remove('on');
       buttonRef1.current.classList.add('on');
+    } else if (order === 10) {
+      buttonRef2.current.classList.add('on');
+      buttonRef3.current.classList.remove('on');
+      buttonRef4.current.classList.remove('on');
+      buttonRef5.current.classList.remove('on');
+      buttonRef1.current.classList.remove('on');
     }
   }, [order]);
 

@@ -1,6 +1,8 @@
+/*공지사항은 푸터랑 컨트롤러 높이 다시 주기*/
+
 .notice-board-footer {
   position: absolute;
-  bottom: -150px;
+  bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
   width: 900px;

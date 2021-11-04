@@ -201,10 +201,10 @@ export default function Board() {
 }
 */
 
-function Board({ viewUserData }) {
+function Board({ viewUserData, order, setOrder }) {
   const [newData, setNewData] = useState([]);
   const [initialBoard, setInitialBoard] = useState(true);
-  const [order, setOrder] = useState(0);
+  /*const [order, setOrder] = useState(0);*/
   const [boardList, setBoardList] = useState([]);
 
   const boardCollectionRef = useRef();
@@ -218,7 +218,7 @@ function Board({ viewUserData }) {
   const spliceBoardList = [...boardList].splice(order, 10);
   const spliceSearchBoardList = [...newData].splice(order, 10);
 
-  const board = spliceBoardList.reverse().map((boardItem, index) => {
+  const board = spliceBoardList.map((boardItem, index) => {
     const date = moment(boardItem.date).format('YYYY.MM.DD');
     return (
       <BoardItem
@@ -235,7 +235,7 @@ function Board({ viewUserData }) {
     );
   });
 
-  const newBoard = spliceSearchBoardList.reverse().map((boardItem, index) => {
+  const newBoard = spliceSearchBoardList.map((boardItem, index) => {
     const date = moment(boardItem.date).format('YYYY.MM.DD');
     return (
       <BoardItem

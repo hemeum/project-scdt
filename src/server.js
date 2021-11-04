@@ -142,7 +142,7 @@ app.post('/list', (req, res) => {
     }
   };
   console.log(ctg());
-  connection.query('select * from upload_data where category = ?', [ctg()], (err, rows) => {
+  connection.query('select * from upload_data where category = ? order by id desc', [ctg()], (err, rows) => {
     if (err) {
       console.log('err');
     } else {
@@ -157,15 +157,32 @@ app.post('/view', (req, res) => {
       console.log('err viewboard');
     } else {
       const id = rows.filter((data) => {
+        // 업로드 데이터의 id가 upload_id
         return data.id === Number(req.body.upload_id);
       });
-      const sendId = id[0];
 
-      if (sendId.username === req.body.username) {
-        res.send({ ...sendId, checkUser: true });
-      } else {
-        res.send({ ...sendId, checkUser: false });
-      }
+      const ctg = id[0].category;
+      /*const sendId = id[0];*/
+
+      connection.query('select * from upload_data where category = ? order by id desc', [ctg], (err, rows) => {
+        const sid = rows.filter((data) => {
+          // 업로드 데이터의 id가 upload_id
+          return data.id === Number(req.body.upload_id);
+        });
+        const sendId = sid[0];
+
+        const order = rows.indexOf(sendId);
+
+        if (err) {
+          console.log('err ctg and upload_data');
+        } else {
+          if (sendId.username === req.body.username) {
+            res.send([{ ...sendId, checkUser: true }, order]);
+          } else {
+            res.send([{ ...sendId, checkUser: false }, order]);
+          }
+        }
+      });
     }
   });
 });

@@ -30,7 +30,7 @@ function Board({ match }) {
   const spliceBoardList = [...boardList].splice(order, 10);
   const spliceSearchBoardList = [...newData].splice(order, 10);
 
-  const board = spliceBoardList.reverse().map((boardItem, index) => {
+  const board = spliceBoardList.map((boardItem, index) => {
     const date = moment(boardItem.date).format('YYYY.MM.DD');
     return (
       <BoardItem
@@ -47,7 +47,7 @@ function Board({ match }) {
     );
   });
 
-  const newBoard = spliceSearchBoardList.reverse().map((boardItem, index) => {
+  const newBoard = spliceSearchBoardList.map((boardItem, index) => {
     const date = moment(boardItem.date).format('YYYY.MM.DD');
     return (
       <BoardItem
