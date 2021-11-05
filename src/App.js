@@ -3,7 +3,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import HeaderGnb from './components/HeaderGnb';
 import Contents from './components/contents/Contents';
 import NotFound from './pages/NotFound';
-import BoardList from './components/notice-contents/BoardList';
+import BoardList from './components/board-list/BoardList';
 import Video from './components/video/Video';
 import UpLoadForm from './components/uploadform/UpLoadForm';
 import ViewBoard from './components/view/ViewBoard';
