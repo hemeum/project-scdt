@@ -12,12 +12,8 @@ function ViewBoard({ isLogin, username }) {
   const [userComment, setUserComment] = useState([]);
   const [commentLength, setCommentLength] = useState('0');
   const [viewUserData, setViewUserData] = useState({}); // DB에 저장된 해당 뷰보드 만든 유저의 데이터
-  const [order, setOrder] = useState(0);
-  const [newData, setNewData] = useState([]);
-  const [initialBoard, setInitialBoard] = useState(true);
-  const [boardList, setBoardList] = useState([]);
 
-  const ctg = viewUserData.category;
+  const categoryData = viewUserData.category;
 
   return (
     <div className="contents">
@@ -38,15 +34,7 @@ function ViewBoard({ isLogin, username }) {
           commentLength={commentLength}
           setCommentLength={setCommentLength}
         />
-        <Board
-          ctg={ctg}
-          order={order}
-          initialBoard={initialBoard}
-          boardList={boardList}
-          setBoardList={setBoardList}
-          newData={newData}
-          setOrder={setOrder}
-        />
+        <Board categoryData={categoryData} />
         <Footer />
       </div>
     </div>

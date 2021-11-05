@@ -133,11 +133,11 @@ app.post('/upload', (req, res) => {
 
 app.post('/list', (req, res) => {
   const ctg = () => {
-    if (req.body.ctg === 'notice' || req.body.ctg === '공지사항') {
+    if (req.body.ctg === 'notice' || req.body.category_data === '공지사항') {
       return '공지사항';
-    } else if (req.body.ctg === 'free' || req.body.ctg === '자유게시판') {
+    } else if (req.body.ctg === 'free' || req.body.category_data === '자유게시판') {
       return '자유게시판';
-    } else if (req.body.ctg === 'recommend' || req.body.ctg === '추천게시판') {
+    } else if (req.body.ctg === 'recommend' || req.body.category_data === '추천게시판') {
       return '추천게시판';
     }
   };

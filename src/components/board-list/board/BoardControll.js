@@ -14,16 +14,6 @@ export default function BoardControll({ order, setOrder }) {
   const buttonRef4 = useRef();
   const buttonRef5 = useRef();
 
-  useEffect(() => {
-    if (order === 0) {
-      buttonRef2.current.classList.remove('on');
-      buttonRef3.current.classList.remove('on');
-      buttonRef4.current.classList.remove('on');
-      buttonRef5.current.classList.remove('on');
-      buttonRef1.current.classList.add('on');
-    }
-  }, [order]);
-
   const handlePaging = (e) => {
     setOrder((e.target.id - 1) * 10);
     if (e.target.id === String(buttonValue[1])) {
