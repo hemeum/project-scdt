@@ -30,25 +30,18 @@ function ViewUser({
 
   const date = moment(viewUserData.date).format('YYYY.MM.DD HH:MM');
 
-  let heartFlag = false;
-
-  const heartCheck = () => {
-    if (heartFlag) {
-      return heartFlag;
-    } else {
-      heartFlag = true;
-      return false;
-    }
-  };
+  let debouncer;
 
   const handleHeart = async (e) => {
-    setTimeout(async () => {
+    // 디바운싱으로 연달아서 하트 클릭하는거 제어해줌.
+    if (debouncer) {
+      clearTimeout(debouncer);
+    }
+    debouncer = setTimeout(async () => {
+      console.log('하트 클릭 완료');
       if (isLogin) {
         if (heartColor === true) {
           // 하트를 이미 누르고 다시 접속했을 때
-          if (heartCheck()) {
-            return;
-          }
 
           await axios
             .post('/heartCheck', {
@@ -65,9 +58,7 @@ function ViewUser({
         } else {
           if (isHeart === false) {
             // 최초 하트를 클릭했을 때(false에서 true로)
-            if (heartCheck()) {
-              return;
-            }
+
             await axios
               .post('/heart', {
                 username: username,
@@ -82,9 +73,6 @@ function ViewUser({
               });
           } else if (isHeart === true) {
             // 하트를  취소하기 위해 다시 클릭했을 때(true에서 false)
-            if (heartCheck()) {
-              return;
-            }
 
             await axios
               .post('/heart', {
@@ -108,7 +96,7 @@ function ViewUser({
           return;
         }
       }
-    }, 500);
+    }, 1000);
   };
 
   useEffect(async () => {
