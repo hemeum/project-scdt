@@ -116,7 +116,7 @@ app.post('/auth/username', (req, res) => {
 
 app.post('/upload', (req, res) => {
   console.log(req.body);
-  let data = [req.body.category, req.body.title, req.body.username, req.body.text];
+  let data = [req.body.category, req.body.title, req.body.username, req.body.text.replace(/(<([^>]+)>)/gi, '')];
   connection.query(
     'INSERT INTO upload_data(category, title, username, text, date) values(?, ?, ?, ?, NOW())',
     data,
