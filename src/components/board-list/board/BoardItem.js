@@ -14,7 +14,7 @@ function BoardItem({ uploadId, index, category, title, comment, views, heart, da
   };
 
   return (
-    <li key={index} className="notice-list-item" onClick={listClick}>
+    <li key={index} className="board-list-item" onClick={listClick}>
       <Link to={`/board_view/${uploadId}`}>
         <p>
           <span class="menu-color">[{category}]</span>

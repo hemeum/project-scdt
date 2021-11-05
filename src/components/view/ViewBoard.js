@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Footer from './Footer';
-import Board from './board/Board';
+import Board from './../board-list/board/Board';
 import ViewUser from './ViewUser';
 import ViewComment from './ViewComment';
 
@@ -13,6 +13,11 @@ function ViewBoard({ isLogin, username }) {
   const [commentLength, setCommentLength] = useState('0');
   const [viewUserData, setViewUserData] = useState({}); // DB에 저장된 해당 뷰보드 만든 유저의 데이터
   const [order, setOrder] = useState(0);
+  const [newData, setNewData] = useState([]);
+  const [initialBoard, setInitialBoard] = useState(true);
+  const [boardList, setBoardList] = useState([]);
+
+  const ctg = viewUserData.category;
 
   return (
     <div className="contents">
@@ -24,7 +29,6 @@ function ViewBoard({ isLogin, username }) {
           commentLength={commentLength}
           viewUserData={viewUserData}
           setViewUserData={setViewUserData}
-          setOrder={setOrder}
         />
         <ViewComment
           isLogin={isLogin}
@@ -34,7 +38,15 @@ function ViewBoard({ isLogin, username }) {
           commentLength={commentLength}
           setCommentLength={setCommentLength}
         />
-        <Board viewUserData={viewUserData} order={order} setOrder={setOrder} />
+        <Board
+          ctg={ctg}
+          order={order}
+          initialBoard={initialBoard}
+          boardList={boardList}
+          setBoardList={setBoardList}
+          newData={newData}
+          setOrder={setOrder}
+        />
         <Footer />
       </div>
     </div>

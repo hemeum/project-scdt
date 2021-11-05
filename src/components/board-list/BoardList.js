@@ -41,12 +41,10 @@ function BoardList({ match }) {
           boardList={boardList}
           setBoardList={setBoardList}
           newData={newData}
+          setOrder={setOrder}
         />
-        <BoardControll order={order} setOrder={setOrder} />
       </div>
-      <div className="section-footer">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }

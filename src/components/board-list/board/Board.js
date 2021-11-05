@@ -3,8 +3,9 @@ import moment from 'moment';
 import axios from 'axios';
 
 import BoardItem from './BoardItem';
+import BoardControll from './BoardControll';
 
-function Board({ order, initialBoard, boardList, setBoardList, newData, ctg }) {
+function Board({ order, initialBoard, boardList, setBoardList, newData, ctg, setOrder }) {
   const boardCollectionRef = useRef();
 
   useEffect(async () => {
@@ -57,6 +58,7 @@ function Board({ order, initialBoard, boardList, setBoardList, newData, ctg }) {
             {initialBoard ? board : newData.length === 0 ? <div className="not-search">검색 결과 - 0</div> : newBoard}
           </ul>
         </div>
+        <BoardControll order={order} setOrder={setOrder} />
       </div>
     </>
   );

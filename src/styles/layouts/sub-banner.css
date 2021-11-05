@@ -1,11 +1,10 @@
 .sub-banner {
   width: 1000px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .sub-banner-list {
   display: flex;
-  justify-content: center;
 }
 
 .sub-banner-list-item {

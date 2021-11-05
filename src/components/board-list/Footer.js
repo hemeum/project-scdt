@@ -5,7 +5,7 @@ import './../../styles/layouts/board-list/footer.css';
 
 export default function Footer() {
   return (
-    <div className="notice-board-footer">
+    <div className="board-list-footer">
       <p>
         <a href="">이용약관 | </a>
         <a href="">개인정보 처리방침 | </a>

@@ -1,10 +1,10 @@
-.notice-list-item {
+.board-list-item {
   position: relative;
   border-bottom: 1px solid rgba(219, 216, 216, 0.5);
   padding: 12px 0;
 }
 
-.notice-list-item p {
+.board-list-item p {
   position: relative;
   font-size: 16px;
   padding-left: 7px;

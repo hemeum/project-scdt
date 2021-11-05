@@ -7,17 +7,7 @@ import EditDeleteViewBoard from './EditDeleteViewBoard';
 
 import './../../styles/layouts/view/view-user.css';
 
-function ViewUser({
-  match,
-  history,
-  isLogin,
-  username,
-  userComment,
-  commentLength,
-  viewUserData,
-  setViewUserData,
-  setOrder,
-}) {
+function ViewUser({ match, history, isLogin, username, userComment, commentLength, viewUserData, setViewUserData }) {
   const [isHeart, setIsHeart] = useState(false); // 하트를 했나 안했나 체크
   const [heart, setHeart] = useState(0); // 뷰유저데이터의 heart를 이 heart로 바꿔줌.
   const [checkUser, setCheckUser] = useState(false); // 해당 뷰보드를 만든 유저인지 체크
@@ -174,11 +164,6 @@ function ViewUser({
     await axios.post('/view', { upload_id: upload_id, username: username }).then((res) => {
       setViewUserData({ ...res.data[0] });
       setCheckUser(res.data[0].checkUser); // 체크유저는 하트와 무관, 해당 뷰보드를 만든 유저인지 확인하는 것. 수정 또는 신고하기
-      if (res.data[1] < 10) {
-        setOrder(0);
-      } else if (res.data[1] < 20) {
-        setOrder(10);
-      }
     });
     /*
     if (heartColor) {

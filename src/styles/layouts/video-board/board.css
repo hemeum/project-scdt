@@ -1,19 +1,13 @@
 .board {
   position: relative;
   width: 900px;
-  margin: 0 0 50px 63.5px;
-  overflow: hidden;
+  margin: 0 0 50px 0;
 }
 
 .board-list {
   width: 900px;
-  margin-top: 10px;
+  margin-top: 30px;
   border-top: 1px solid #ccc;
-}
-
-.board-collection {
-  display: flex;
-  width: 1400%;
 }
 
 .video-board-controller {
