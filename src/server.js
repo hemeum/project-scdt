@@ -171,7 +171,7 @@ app.post('/view', (req, res) => {
         });
         const sendId = sid[0];
 
-        const order = rows.indexOf(sendId);
+        const order = req.body.order;
 
         if (err) {
           console.log('err ctg and upload_data');

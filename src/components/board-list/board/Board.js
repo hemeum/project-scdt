@@ -8,12 +8,13 @@ import BoardControll from './BoardControll';
 import BoardSearch from './../search/BoardSearch';
 import BoardTop from './../board-top/BoardTop';
 
-function Board({ match, categoryData }) {
+function Board({ match, categoryData, order, setOrder }) {
   // categoryData는 viewboard에서 viewuserdata의 category를 의미함
   const [newData, setNewData] = useState([]);
   const [initialBoard, setInitialBoard] = useState(true);
-  const [order, setOrder] = useState(0);
   const [boardList, setBoardList] = useState([]);
+
+  console.log(order);
 
   const { ctg } = match.params; // board_list에서 free, notice 등 의미함
 
