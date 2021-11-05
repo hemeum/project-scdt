@@ -14,8 +14,6 @@ function Board({ match, categoryData, order, setOrder }) {
   const [initialBoard, setInitialBoard] = useState(true);
   const [boardList, setBoardList] = useState([]);
 
-  console.log(order);
-
   const { ctg } = match.params; // board_list에서 free, notice 등 의미함
 
   const boardCollectionRef = useRef();
@@ -33,6 +31,7 @@ function Board({ match, categoryData, order, setOrder }) {
     const date = moment(boardItem.date).format('YYYY.MM.DD');
     return (
       <BoardItem
+        order={order}
         uploadId={boardItem.id}
         index={index}
         category={boardItem.category}

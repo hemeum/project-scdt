@@ -14,6 +14,41 @@ export default function BoardControll({ order, setOrder }) {
   const buttonRef4 = useRef();
   const buttonRef5 = useRef();
 
+  useEffect(() => {
+    console.log(order);
+    if (order === (buttonValue[0] - 1) * 10) {
+      buttonRef1.current.classList.add('on');
+      buttonRef2.current.classList.remove('on');
+      buttonRef3.current.classList.remove('on');
+      buttonRef4.current.classList.remove('on');
+      buttonRef5.current.classList.remove('on');
+    } else if (order === (buttonValue[1] - 1) * 10) {
+      buttonRef1.current.classList.remove('on');
+      buttonRef2.current.classList.add('on');
+      buttonRef3.current.classList.remove('on');
+      buttonRef4.current.classList.remove('on');
+      buttonRef5.current.classList.remove('on');
+    } else if (order === (buttonValue[2] - 1) * 10) {
+      buttonRef1.current.classList.remove('on');
+      buttonRef2.current.classList.remove('on');
+      buttonRef3.current.classList.add('on');
+      buttonRef4.current.classList.remove('on');
+      buttonRef5.current.classList.remove('on');
+    } else if (order === (buttonValue[3] - 1) * 10) {
+      buttonRef1.current.classList.remove('on');
+      buttonRef2.current.classList.remove('on');
+      buttonRef3.current.classList.remove('on');
+      buttonRef4.current.classList.add('on');
+      buttonRef5.current.classList.remove('on');
+    } else if (order === (buttonValue[4] - 1) * 10) {
+      buttonRef1.current.classList.remove('on');
+      buttonRef2.current.classList.remove('on');
+      buttonRef3.current.classList.remove('on');
+      buttonRef4.current.classList.remove('on');
+      buttonRef5.current.classList.add('on');
+    }
+  }, [order, buttonValue]);
+
   const handlePaging = (e) => {
     setOrder((e.target.id - 1) * 10);
     if (e.target.id === String(buttonValue[1])) {

@@ -6,11 +6,12 @@ import './../../../styles/layouts/board-list/board-item.css';
 
 import ArticleInfo from './ArticleInfo';
 
-function BoardItem({ uploadId, index, category, title, comment, views, heart, date, username }) {
+function BoardItem({ order, uploadId, index, category, title, comment, views, heart, date, username }) {
   const listClick = () => {
     // 클릭하면 조회수 1 증가
     axios.post('/increase/views', { upload_id: uploadId });
     window.scrollTo(0, 0);
+    localStorage.setItem('order', order);
   };
 
   return (
