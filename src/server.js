@@ -112,6 +112,22 @@ app.post('/auth/username', (req, res) => {
   });
 });
 
+// main-news > home page
+
+app.get('/main_news', (req, res) => {
+  connection.query(
+    'select * from upload_data where category = ? order by id desc limit 20',
+    ['공지사항'],
+    (err, rows) => {
+      if (err) {
+        console.log('err main news select');
+      } else {
+        res.send(rows);
+      }
+    },
+  );
+});
+
 // upload 로직
 
 app.post('/upload', (req, res) => {

@@ -9,8 +9,8 @@ export default function BoardItem(props) {
     <li className="main-news-list-item">
       <a href="/">
         <p>
-          <span class="menu-color">{props.title}</span>
-          {props.desc}
+          <span class="menu-color">{`[${props.category}]`}</span>
+          {props.title}
           <span className="new-icon"></span>
         </p>
         <div className="thumb">
@@ -18,10 +18,10 @@ export default function BoardItem(props) {
         </div>
         <div className="comment">
           <i class="far fa-comment-dots comment-icon"></i>
-          <p class="comment-number">{props.cm}</p>
+          <p class="comment-number">{props.comment}</p>
         </div>
       </a>
-      <ArticleInfo eye={props.eye} like={props.like} date={props.date}></ArticleInfo>
+      <ArticleInfo eye={props.views} like={props.heart} date={props.date}></ArticleInfo>
     </li>
   );
 }
