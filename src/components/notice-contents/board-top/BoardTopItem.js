@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './../../../styles/layouts/notice-board/board-top-item.css';
+import './../../../styles/layouts/board-list/board-top-item.css';
 
 import ArticleInfo from './ArticleInfo';
 

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import './../../../styles/layouts/notice-board/board.css';
+import './../../../styles/layouts/board-list/board.css';
 
 export default function BoardControll({ order, setOrder }) {
   const [buttonValue, setButtonValue] = useState([1, 2, 3, 4, 5]);

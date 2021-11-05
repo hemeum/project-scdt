@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-import './../../../styles/layouts/notice-board/board-item.css';
+import './../../../styles/layouts/board-list/board-item.css';
 
 import ArticleInfo from './ArticleInfo';
 

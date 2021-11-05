@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import './../../../styles/layouts/notice-board/board-search-input.css';
+import './../../../styles/layouts/board-list/board-search-input.css';
 
 export default function SearchInput({ data, setOrder, setNewData, categoryTag, categoryData, setInitialBoard }) {
   const [inputValue, setInputValue] = useState('');

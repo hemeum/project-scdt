@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './../../images/logo.jpg';
 
-import './../../styles/layouts/notice-board/footer.css';
+import './../../styles/layouts/board-list/footer.css';
 
 export default function Footer() {
   return (

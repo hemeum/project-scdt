@@ -3,7 +3,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import HeaderGnb from './components/HeaderGnb';
 import Contents from './components/contents/Contents';
 import NotFound from './pages/NotFound';
-import NoticeContents from './components/notice-contents/NoticeContents';
+import BoardList from './components/notice-contents/BoardList';
 import Video from './components/video/Video';
 import UpLoadForm from './components/uploadform/UpLoadForm';
 import ViewBoard from './components/view/ViewBoard';
@@ -30,9 +30,9 @@ export function App() {
         <HeaderGnb isLogin={isLogin} setIsLogin={setIsLogin} username={username} setUsername={setUsername} />
         <Switch>
           <Route exact path="/" component={Contents} />
-          <Route path="/board_list/:ctg" render={() => <NoticeContents />} />
-          <Route path="/board_list/:ctg" render={() => <NoticeContents />} />
-          <Route path="/board_list/:ctg" render={() => <NoticeContents />} />
+          <Route path="/board_list/:ctg" render={() => <BoardList />} />
+          <Route path="/board_list/:ctg" render={() => <BoardList />} />
+          <Route path="/board_list/:ctg" render={() => <BoardList />} />
           <Route
             path="/user"
             render={() => (

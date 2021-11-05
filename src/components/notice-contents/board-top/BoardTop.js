@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 import BoardTopItem from './BoardTopItem';
 
-import './../../../styles/layouts/notice-board/board-top.css';
+import './../../../styles/layouts/board-list/board-top.css';
 
 import eventThumb from './../../../images/event.png';
 import updateThumb from './../../../images/update.png';

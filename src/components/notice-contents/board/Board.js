@@ -1,25 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import moment from 'moment';
 import axios from 'axios';
-import { withRouter, useParams } from 'react-router-dom';
 
-import BoardSearch from './../search/BoardSearch.js';
 import BoardItem from './BoardItem';
-import BoardControll from './BoardControll';
-import BoardTop from './../board-top/BoardTop';
-import Footer from './../Footer';
 
-import './../../../styles/layouts/notice-board/board.css';
-
-function Board({ match }) {
-  const [newData, setNewData] = useState([]);
-  const [initialBoard, setInitialBoard] = useState(true);
-  const [order, setOrder] = useState(0);
-  const [boardList, setBoardList] = useState([]);
-
+function Board({ order, initialBoard, boardList, setBoardList, newData, ctg }) {
   const boardCollectionRef = useRef();
-
-  const { ctg } = match.params;
 
   useEffect(async () => {
     await axios.post('/list', { ctg: ctg }).then((res) => {
@@ -65,14 +51,6 @@ function Board({ match }) {
 
   return (
     <>
-      {ctg === 'notice' ? <BoardTop /> : undefined}
-      <BoardSearch
-        data={boardList}
-        setInitialBoard={setInitialBoard}
-        setNewData={setNewData}
-        newData={newData}
-        setOrder={setOrder}
-      ></BoardSearch>
       <div className="board">
         <div ref={boardCollectionRef} className="board-collection">
           <ul className="board-list">
@@ -80,10 +58,8 @@ function Board({ match }) {
           </ul>
         </div>
       </div>
-      <BoardControll order={order} setOrder={setOrder}></BoardControll>
-      <Footer></Footer>
     </>
   );
 }
 
-export default withRouter(Board);
+export default Board;

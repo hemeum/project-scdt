@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-import './../../../styles/layouts/notice-board/board-search.css';
+import './../../../styles/layouts/board-list/board-search.css';
 
 import SearchInput from './SearchInput';
 
