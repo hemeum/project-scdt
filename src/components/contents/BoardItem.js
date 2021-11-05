@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './../../styles/layouts/board-item.css';
 
@@ -6,8 +7,14 @@ import ArticleInfo from './ArticleInfo';
 
 export default function BoardItem(props) {
   return (
-    <li className="main-news-list-item">
-      <a href="/">
+    <li
+      className="main-news-list-item"
+      onClick={() => {
+        window.scrollTo(0, 0);
+        localStorage.setItem('order', props.order);
+      }}
+    >
+      <Link to={`/board_view/${props.uploadId}`}>
         <p>
           <span class="menu-color">{`[${props.category}]`}</span>
           {props.title}
@@ -20,7 +27,7 @@ export default function BoardItem(props) {
           <i class="far fa-comment-dots comment-icon"></i>
           <p class="comment-number">{props.comment}</p>
         </div>
-      </a>
+      </Link>
       <ArticleInfo eye={props.views} like={props.heart} date={props.date}></ArticleInfo>
     </li>
   );

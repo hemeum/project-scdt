@@ -114,7 +114,7 @@ app.post('/auth/username', (req, res) => {
 
 // main-news > home page
 
-app.get('/main_news', (req, res) => {
+app.post('/main_news', (req, res) => {
   connection.query(
     'select * from upload_data where category = ? order by id desc limit 20',
     ['공지사항'],
@@ -122,7 +122,8 @@ app.get('/main_news', (req, res) => {
       if (err) {
         console.log('err main news select');
       } else {
-        res.send(rows);
+        const mainNews = rows.splice(req.body.controll, 5);
+        res.send(mainNews);
       }
     },
   );

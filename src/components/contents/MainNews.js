@@ -11,6 +11,7 @@ import updateThumb from './../../images/update.png';
 
 export default function MainNews() {
   const [boardList, setBoardList] = useState([]); // 가장 최신 20개만 가져오기
+  const [order, setOrder] = useState(0);
 
   const newsCollectionRef = useRef();
   const newsOrderRef = useRef();
@@ -19,36 +20,60 @@ export default function MainNews() {
 
   const handleRightController = (e) => {
     if (newsOrderRef.current.textContent === '1 / 4') {
+      setOrder(0);
       newsCollectionRef.current.style.transform = 'translateX(-900px)';
       newsOrderRef.current.textContent = '2 / 4';
       leftController.current.style.color = '#333';
+      axios.post('/main_news', { controll: 5 }).then((res) => {
+        setBoardList(res.data);
+      });
     } else if (newsOrderRef.current.textContent === '2 / 4') {
+      setOrder(10);
       newsCollectionRef.current.style.transform = 'translateX(-1800px)';
       newsOrderRef.current.textContent = '3 / 4';
+      axios.post('/main_news', { controll: 10 }).then((res) => {
+        setBoardList(res.data);
+      });
     } else if (newsOrderRef.current.textContent === '3 / 4') {
+      setOrder(10);
       newsCollectionRef.current.style.transform = 'translateX(-2700px)';
       newsOrderRef.current.textContent = '4 / 4';
       e.target.style.color = '#ccc';
+      axios.post('/main_news', { controll: 15 }).then((res) => {
+        setBoardList(res.data);
+      });
     }
   };
 
   const handleLeftController = (e) => {
     if (newsOrderRef.current.textContent === '4 / 4') {
+      setOrder(10);
       newsCollectionRef.current.style.transform = 'translateX(-1800px)';
       newsOrderRef.current.textContent = '3 / 4';
       rightController.current.style.color = '#333';
+      axios.post('/main_news', { controll: 10 }).then((res) => {
+        setBoardList(res.data);
+      });
     } else if (newsOrderRef.current.textContent === '3 / 4') {
+      setOrder(0);
       newsCollectionRef.current.style.transform = 'translateX(-900px)';
       newsOrderRef.current.textContent = '2 / 4';
+      axios.post('/main_news', { controll: 5 }).then((res) => {
+        setBoardList(res.data);
+      });
     } else if (newsOrderRef.current.textContent === '2 / 4') {
+      setOrder(0);
       newsCollectionRef.current.style.transform = 'translateX(0px)';
       newsOrderRef.current.textContent = '1 / 4';
       e.target.style.color = '#ccc';
+      axios.post('/main_news', { controll: 0 }).then((res) => {
+        setBoardList(res.data);
+      });
     }
   };
 
   useEffect(async () => {
-    await axios.get('/main_news').then((res) => {
+    await axios.post('/main_news', { controll: 0 }).then((res) => {
       setBoardList(res.data);
     });
   }, []);
@@ -57,6 +82,8 @@ export default function MainNews() {
     const date = moment(boardItem.date).format('YYYY.MM.DD HH:mm');
     return (
       <BoardItem
+        order={order}
+        uploadId={boardItem.id}
         category={boardItem.category}
         title={boardItem.title}
         text={boardItem.text}

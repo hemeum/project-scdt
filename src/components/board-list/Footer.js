@@ -1,11 +1,14 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+
 import logo from './../../images/logo.jpg';
 
 import './../../styles/layouts/board-list/footer.css';
 
-export default function Footer() {
+function Footer({ match }) {
+  const { ctg } = match.params;
   return (
-    <div className="board-list-footer">
+    <div className={ctg === 'notice' ? 'notice-board-list-footer' : 'board-list-footer'}>
       <p>
         <a href="">이용약관 | </a>
         <a href="">개인정보 처리방침 | </a>
@@ -15,3 +18,4 @@ export default function Footer() {
     </div>
   );
 }
+export default withRouter(Footer);
