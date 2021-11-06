@@ -28,6 +28,7 @@ function GnbMenu({ setOrder }) {
               onClick={() => {
                 window.scrollTo(0, 0);
                 setOrder(0);
+                localStorage.removeItem('keepOrder');
               }}
             >
               <Link to={item.url} aria-label={item.value}>

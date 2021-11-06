@@ -80,7 +80,7 @@ function Board({ match, categoryData, order, setOrder }) {
             {initialBoard ? board : newData.length === 0 ? <div className="not-search">검색 결과 - 0</div> : newBoard}
           </ul>
         </div>
-        <BoardControll order={order} setOrder={setOrder} />
+        <BoardControll order={order} setOrder={setOrder} categoryData={categoryData} />
       </div>
     </>
   );

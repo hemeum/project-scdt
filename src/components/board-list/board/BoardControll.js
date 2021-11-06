@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import './../../../styles/layouts/board-list/board.css';
 
-export default function BoardControll({ order, setOrder }) {
+function BoardControll({ order, setOrder, match, history, categoryData }) {
   const [buttonValue, setButtonValue] = useState([1, 2, 3, 4, 5]);
 
   const listPagingRef = useRef();
@@ -14,6 +15,8 @@ export default function BoardControll({ order, setOrder }) {
   const buttonRef4 = useRef();
   const buttonRef5 = useRef();
 
+  const { ctg } = match.params;
+
   useEffect(() => {
     if (order === (buttonValue[0] - 1) * 10) {
       buttonRef1.current.classList.add('on');
@@ -21,34 +24,56 @@ export default function BoardControll({ order, setOrder }) {
       buttonRef3.current.classList.remove('on');
       buttonRef4.current.classList.remove('on');
       buttonRef5.current.classList.remove('on');
+      if (order !== 0) {
+        localStorage.setItem('keepOrder', (buttonValue[0] - 1) * 10);
+      }
     } else if (order === (buttonValue[1] - 1) * 10) {
       buttonRef1.current.classList.remove('on');
       buttonRef2.current.classList.add('on');
       buttonRef3.current.classList.remove('on');
       buttonRef4.current.classList.remove('on');
       buttonRef5.current.classList.remove('on');
+      localStorage.setItem('keepOrder', (buttonValue[1] - 1) * 10);
     } else if (order === (buttonValue[2] - 1) * 10) {
       buttonRef1.current.classList.remove('on');
       buttonRef2.current.classList.remove('on');
       buttonRef3.current.classList.add('on');
       buttonRef4.current.classList.remove('on');
       buttonRef5.current.classList.remove('on');
+      localStorage.setItem('keepOrder', (buttonValue[2] - 1) * 10);
     } else if (order === (buttonValue[3] - 1) * 10) {
       buttonRef1.current.classList.remove('on');
       buttonRef2.current.classList.remove('on');
       buttonRef3.current.classList.remove('on');
       buttonRef4.current.classList.add('on');
       buttonRef5.current.classList.remove('on');
+      localStorage.setItem('keepOrder', (buttonValue[3] - 1) * 10);
     } else if (order === (buttonValue[4] - 1) * 10) {
       buttonRef1.current.classList.remove('on');
       buttonRef2.current.classList.remove('on');
       buttonRef3.current.classList.remove('on');
       buttonRef4.current.classList.remove('on');
       buttonRef5.current.classList.add('on');
+      localStorage.setItem('keepOrder', (buttonValue[4] - 1) * 10);
     }
   }, [order, buttonValue]);
 
   const handlePaging = (e) => {
+    if (!ctg) {
+      window.scrollTo(0, 0);
+      const newCtg = () => {
+        if (categoryData === '자유게시판') {
+          return 'free';
+        } else if (categoryData === '공지사항') {
+          return 'notice';
+        } else if (categoryData === '추천게시판') {
+          return 'recommend';
+        }
+      };
+      history.push({ pathname: `/board_list/${newCtg()}`, state: { newOrder: (e.target.id - 1) * 10 } });
+      return;
+    }
+    localStorage.removeItem('keepOrder'); // 1페이지일 때만 삭제 됌 나머진 useEffect로 다시 생성
     setOrder((e.target.id - 1) * 10);
     if (e.target.id === String(buttonValue[1])) {
       buttonRef1.current.classList.remove('on');
@@ -147,3 +172,5 @@ export default function BoardControll({ order, setOrder }) {
     </div>
   );
 }
+
+export default withRouter(BoardControll);

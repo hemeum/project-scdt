@@ -11,6 +11,7 @@ function BoardItem({ order, uploadId, index, category, title, comment, views, he
     // 클릭하면 조회수 1 증가
     axios.post('/increase/views', { upload_id: uploadId });
     window.scrollTo(0, 0);
+    localStorage.setItem('order', order);
   };
 
   return (
