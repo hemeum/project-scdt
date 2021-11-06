@@ -3,19 +3,25 @@
   width: 1027px;
   height: 1100px;
   margin-top: 87px;
-  padding-left: 63.5px;
 }
 
 .section-top {
   width: 100%;
+  padding-left: 63.5px;
+}
+
+.section-main {
+  padding-left: 63.5px;
 }
 
 .section-bottom {
   width: 100%;
   margin-top: 30px;
+  padding-left: 63.5px;
 }
 
 .section-footer {
   width: 100%;
   margin-top: 30px;
+  padding-left: 63.5px;
 }

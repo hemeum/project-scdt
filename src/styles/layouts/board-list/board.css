@@ -2,6 +2,7 @@
   position: relative;
   width: 900px;
   margin-bottom: 50px;
+  padding-left: 63.5px;
 }
 
 .board-list {
@@ -17,6 +18,7 @@
   bottom: -80px;
   left: 50%;
   height: 50px;
+  padding-left: 63.5px;
   align-items: center;
   transform: translateX(-50%);
 }
