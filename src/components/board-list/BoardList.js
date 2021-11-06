@@ -6,11 +6,11 @@ import Footer from './Footer';
 import './../../styles/layouts/contents.css';
 import './../../styles/layouts/board-list/board.css';
 
-function BoardList() {
-  const [order, setOrder] = useState(0);
+function BoardList({ order, setOrder }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <div className="contents">
       <div className="section">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function GnbMenu() {
+function GnbMenu({ setOrder }) {
   const handleChevron = (e) => {
     e.preventDefault();
     if (e.target.className === 'gnb-menu-item-chevron-down') {
@@ -27,6 +27,7 @@ function GnbMenu() {
               key={index}
               onClick={() => {
                 window.scrollTo(0, 0);
+                setOrder(0);
               }}
             >
               <Link to={item.url} aria-label={item.value}>

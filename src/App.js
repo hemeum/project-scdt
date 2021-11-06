@@ -17,6 +17,7 @@ import axios from 'axios';
 export function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState('');
+  const [order, setOrder] = useState(0);
 
   useEffect(async () => {
     const res = await axios.get('/loginCheck');
@@ -27,12 +28,16 @@ export function App() {
   return (
     <HashRouter>
       <div className="contain">
-        <HeaderGnb isLogin={isLogin} setIsLogin={setIsLogin} username={username} setUsername={setUsername} />
+        <HeaderGnb
+          setOrder={setOrder}
+          isLogin={isLogin}
+          setIsLogin={setIsLogin}
+          username={username}
+          setUsername={setUsername}
+        />
         <Switch>
           <Route exact path="/" component={Contents} />
-          <Route path="/board_list/:ctg" render={() => <BoardList />} />
-          <Route path="/board_list/:ctg" render={() => <BoardList />} />
-          <Route path="/board_list/:ctg" render={() => <BoardList />} />
+          <Route path="/board_list/:ctg" render={() => <BoardList order={order} setOrder={setOrder} />} />
           <Route
             path="/user"
             render={() => (
