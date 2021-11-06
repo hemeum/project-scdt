@@ -15,7 +15,6 @@ export default function BoardControll({ order, setOrder }) {
   const buttonRef5 = useRef();
 
   useEffect(() => {
-    console.log(order);
     if (order === (buttonValue[0] - 1) * 10) {
       buttonRef1.current.classList.add('on');
       buttonRef2.current.classList.remove('on');

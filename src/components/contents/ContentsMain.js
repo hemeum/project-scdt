@@ -5,10 +5,10 @@ import VideoContents from './VideoContents';
 
 import './../../styles/layouts/contents.css';
 
-export default function ContentsMain() {
+export default function ContentsMain({ order, setOrder }) {
   return (
     <div className="section-bottom">
-      <MainNews></MainNews>
+      <MainNews order={order} setOrder={setOrder}></MainNews>
       <VideoContents></VideoContents>
     </div>
   );

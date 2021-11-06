@@ -36,7 +36,7 @@ export function App() {
           setUsername={setUsername}
         />
         <Switch>
-          <Route exact path="/" component={Contents} />
+          <Route exact path="/" render={() => <Contents order={order} setOrder={setOrder} />} />
           <Route path="/board_list/:ctg" render={() => <BoardList order={order} setOrder={setOrder} />} />
           <Route
             path="/user"
@@ -47,7 +47,10 @@ export function App() {
           <Route path="/auth" component={Auth} />
           <Route path="/video_list" component={Video} />
           <Route exact path="/uploadform" render={() => <UpLoadForm username={username} />} />
-          <Route path="/board_view/:upload_id" render={() => <ViewBoard isLogin={isLogin} username={username} />} />
+          <Route
+            path="/board_view/:upload_id"
+            render={() => <ViewBoard order={order} setOrder={setOrder} isLogin={isLogin} username={username} />}
+          />
           <Route path="/" component={NotFound} />
         </Switch>
       </div>

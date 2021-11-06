@@ -9,9 +9,8 @@ import './../../styles/layouts/main-news.css';
 import eventThumb from './../../images/event.png';
 import updateThumb from './../../images/update.png';
 
-export default function MainNews() {
+export default function MainNews({ order, setOrder }) {
   const [boardList, setBoardList] = useState([]); // 가장 최신 20개만 가져오기
-  const [order, setOrder] = useState(0);
 
   const newsCollectionRef = useRef();
   const newsOrderRef = useRef();
