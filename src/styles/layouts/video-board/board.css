@@ -13,9 +13,10 @@
 .video-board-controller {
   display: flex;
   position: absolute;
-  bottom: -430px;
+  bottom: -720px;
   left: 50%;
   height: 50px;
+  margin-left: 63.5px;
   align-items: center;
   transform: translateX(-50%);
 }

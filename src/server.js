@@ -156,9 +156,10 @@ app.post('/list', (req, res) => {
       return '자유게시판';
     } else if (req.body.ctg === 'recommend' || req.body.category_data === '추천게시판') {
       return '추천게시판';
+    } else if (req.body.ctg === 'video' || req.body.category_data === '영상콘텐츠') {
+      return '영상콘텐츠';
     }
   };
-  console.log(ctg());
   connection.query('select * from upload_data where category = ? order by id desc', [ctg()], (err, rows) => {
     if (err) {
       console.log('err');

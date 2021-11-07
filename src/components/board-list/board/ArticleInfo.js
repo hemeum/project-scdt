@@ -7,7 +7,7 @@ export default function ArticleInfo(props) {
     <div className="info">
       <span className="autor">
         <i class="fas fa-volume-up speaker"></i>
-        {props.username}
+        {props.ctg === 'video' ? '운영자ㅎ' : props.username}
       </span>
       <span className="date">{props.date}</span>
       <span className="counter-eye">

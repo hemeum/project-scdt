@@ -18,43 +18,43 @@ function BoardControll({ order, setOrder, match, history, categoryData }) {
   const { ctg } = match.params;
 
   useEffect(() => {
-    if (order === (buttonValue[0] - 1) * 10) {
+    if (order === (buttonValue[0] - 1) * (ctg === 'video' ? 12 : 10)) {
       buttonRef1.current.classList.add('on');
       buttonRef2.current.classList.remove('on');
       buttonRef3.current.classList.remove('on');
       buttonRef4.current.classList.remove('on');
       buttonRef5.current.classList.remove('on');
       if (order !== 0) {
-        localStorage.setItem('keepOrder', (buttonValue[0] - 1) * 10);
+        localStorage.setItem('keepOrder', (buttonValue[0] - 1) * (ctg === 'video' ? 12 : 10));
       }
-    } else if (order === (buttonValue[1] - 1) * 10) {
+    } else if (order === (buttonValue[1] - 1) * (ctg === 'video' ? 12 : 10)) {
       buttonRef1.current.classList.remove('on');
       buttonRef2.current.classList.add('on');
       buttonRef3.current.classList.remove('on');
       buttonRef4.current.classList.remove('on');
       buttonRef5.current.classList.remove('on');
-      localStorage.setItem('keepOrder', (buttonValue[1] - 1) * 10);
-    } else if (order === (buttonValue[2] - 1) * 10) {
+      localStorage.setItem('keepOrder', (buttonValue[1] - 1) * (ctg === 'video' ? 12 : 10));
+    } else if (order === (buttonValue[2] - 1) * (ctg === 'video' ? 12 : 10)) {
       buttonRef1.current.classList.remove('on');
       buttonRef2.current.classList.remove('on');
       buttonRef3.current.classList.add('on');
       buttonRef4.current.classList.remove('on');
       buttonRef5.current.classList.remove('on');
-      localStorage.setItem('keepOrder', (buttonValue[2] - 1) * 10);
-    } else if (order === (buttonValue[3] - 1) * 10) {
+      localStorage.setItem('keepOrder', (buttonValue[2] - 1) * (ctg === 'video' ? 12 : 10));
+    } else if (order === (buttonValue[3] - 1) * (ctg === 'video' ? 12 : 10)) {
       buttonRef1.current.classList.remove('on');
       buttonRef2.current.classList.remove('on');
       buttonRef3.current.classList.remove('on');
       buttonRef4.current.classList.add('on');
       buttonRef5.current.classList.remove('on');
-      localStorage.setItem('keepOrder', (buttonValue[3] - 1) * 10);
-    } else if (order === (buttonValue[4] - 1) * 10) {
+      localStorage.setItem('keepOrder', (buttonValue[3] - 1) * (ctg === 'video' ? 12 : 10));
+    } else if (order === (buttonValue[4] - 1) * (ctg === 'video' ? 12 : 10)) {
       buttonRef1.current.classList.remove('on');
       buttonRef2.current.classList.remove('on');
       buttonRef3.current.classList.remove('on');
       buttonRef4.current.classList.remove('on');
       buttonRef5.current.classList.add('on');
-      localStorage.setItem('keepOrder', (buttonValue[4] - 1) * 10);
+      localStorage.setItem('keepOrder', (buttonValue[4] - 1) * (ctg === 'video' ? 12 : 10));
     }
   }, [order, buttonValue]);
 
@@ -70,11 +70,15 @@ function BoardControll({ order, setOrder, match, history, categoryData }) {
           return 'recommend';
         }
       };
-      history.push({ pathname: `/board_list/${newCtg()}`, state: { newOrder: (e.target.id - 1) * 10 } });
+      history.push({
+        pathname: `/board_list/${newCtg()}`,
+        state: { newOrder: (e.target.id - 1) * (ctg === 'video' ? 12 : 10) },
+      });
       return;
     }
     localStorage.removeItem('keepOrder'); // 1페이지일 때만 삭제 됌 나머진 useEffect로 다시 생성
-    setOrder((e.target.id - 1) * 10);
+    setOrder((e.target.id - 1) * (ctg === 'video' ? 12 : 10));
+
     if (e.target.id === String(buttonValue[1])) {
       buttonRef1.current.classList.remove('on');
       buttonRef3.current.classList.remove('on');
@@ -113,7 +117,7 @@ function BoardControll({ order, setOrder, match, history, categoryData }) {
       return value + 5;
     });
     setButtonValue(newButtonValue);
-    setOrder((newButtonValue[0] - 1) * 10);
+    setOrder((newButtonValue[0] - 1) * (ctg === 'video' ? 12 : 10));
     buttonRef5.current.classList.remove('on');
     buttonRef4.current.classList.remove('on');
     buttonRef3.current.classList.remove('on');
@@ -128,7 +132,7 @@ function BoardControll({ order, setOrder, match, history, categoryData }) {
       return value - 5;
     });
     setButtonValue(newButtonValue);
-    setOrder((newButtonValue[4] - 1) * 10);
+    setOrder((newButtonValue[4] - 1) * (ctg === 'video' ? 12 : 10));
     buttonRef5.current.classList.add('on');
     buttonRef4.current.classList.remove('on');
     buttonRef3.current.classList.remove('on');
@@ -141,7 +145,7 @@ function BoardControll({ order, setOrder, match, history, categoryData }) {
   };
 
   return (
-    <div className="board-controller">
+    <div className={ctg === 'video' ? 'video-board-controller' : 'board-controller'}>
       <i
         ref={pagingLeftController}
         className="far fa-caret-square-left list-paging-left"

@@ -7,6 +7,11 @@ import Footer from './Footer';
 import './../../styles/layouts/contents.css';
 import './../../styles/layouts/board-list/board.css';
 
+import './../../styles/layouts/video-board/board.css';
+import './../../styles/layouts/video-board/board-item.css';
+import './../../styles/layouts/video-board/board.css';
+import './../../styles/layouts/video-board/footer.css';
+
 function BoardList({ order, setOrder, location }) {
   useEffect(() => {
     if (location.state) {

@@ -15,7 +15,7 @@ function GnbMenu({ setOrder }) {
     { value: 'notice list items', items: ['공지사항', '2', '3', '4'], url: '/board_list/notice' },
     { value: 'community list item', items: ['자유게시판', '6', '7', '8'], url: '/board_list/free' },
     { value: 'recommend list item', items: ['추천게시판', 'b', 'c', 'd'], url: '/board_list/recommend' },
-    { value: 'video list item', items: ['영상콘텐츠', 'f', 'g', 'h'], url: '/video_list' },
+    { value: 'video list item', items: ['영상콘텐츠', 'f', 'g', 'h'], url: '/board_list/video' },
   ];
   const menuList = listItems.map((item, index) => {
     return (

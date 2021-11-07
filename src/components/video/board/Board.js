@@ -7,8 +7,6 @@ import BoardItem from './BoardItem';
 import BoardControll from './BoardControll';
 import Footer from './../Footer';
 
-import './../../../styles/layouts/video-board/board.css';
-
 export default function Board({ videoList, setVideoList }) {
   const [newData, setNewData] = useState([]);
   const [initialBoard, setInitialBoard] = useState(true);

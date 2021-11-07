@@ -24,13 +24,14 @@ function Board({ match, categoryData, order, setOrder }) {
     });
   }, [ctg, categoryData]);
 
-  const spliceBoardList = [...boardList].splice(order, 10);
-  const spliceSearchBoardList = [...newData].splice(order, 10);
+  const spliceBoardList = [...boardList].splice(order, ctg === 'video' ? 12 : 10);
+  const spliceSearchBoardList = [...newData].splice(order, ctg === 'video' ? 12 : 10);
 
   const board = spliceBoardList.map((boardItem, index) => {
     const date = moment(boardItem.date).format('YYYY.MM.DD');
     return (
       <BoardItem
+        ctg={ctg}
         order={order}
         uploadId={boardItem.id}
         index={index}
@@ -41,6 +42,8 @@ function Board({ match, categoryData, order, setOrder }) {
         comment={boardItem.comment}
         username={boardItem.username}
         heart={boardItem.heart}
+        img={boardItem.img}
+        alt={boardItem.alt}
       />
     );
   });

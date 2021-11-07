@@ -8,7 +8,11 @@ import './../../styles/layouts/board-list/footer.css';
 function Footer({ match }) {
   const { ctg } = match.params;
   return (
-    <div className={ctg === 'notice' ? 'notice-board-list-footer' : 'board-list-footer'}>
+    <div
+      className={
+        ctg === 'notice' ? 'notice-board-list-footer' : ctg === 'video' ? 'video-board-footer' : ' board-list-footer'
+      }
+    >
       <p>
         <a href="">이용약관 | </a>
         <a href="">개인정보 처리방침 | </a>
