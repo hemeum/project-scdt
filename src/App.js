@@ -4,7 +4,7 @@ import HeaderGnb from './components/HeaderGnb';
 import Contents from './components/contents/Contents';
 import NotFound from './pages/NotFound';
 import BoardList from './components/board-list/BoardList';
-import Video from './components/video/Video';
+
 import UpLoadForm from './components/uploadform/UpLoadForm';
 import ViewBoard from './components/view/ViewBoard';
 import Login from './components/login/Login';
@@ -57,7 +57,7 @@ export function App() {
             )}
           />
           <Route path="/auth" component={Auth} />
-          <Route path="/video_list" render={() => <Video videoList={videoList} setVideoList={setVideoList} />} />
+
           <Route exact path="/uploadform" render={() => <UpLoadForm username={username} />} />
           <Route
             path="/board_view/:upload_id"
