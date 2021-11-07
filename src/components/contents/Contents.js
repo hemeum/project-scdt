@@ -7,11 +7,11 @@ import Footer from './Footer';
 
 import './../../styles/layouts/contents.css';
 
-export default function Contents({ order, setOrder }) {
+export default function Contents({ order, setOrder, videoList, setVideoList }) {
   return (
     <div className="contents">
       <ContentsHeader></ContentsHeader>
-      <ContentsMain order={order} setOrder={setOrder}></ContentsMain>
+      <ContentsMain order={order} setOrder={setOrder} videoList={videoList} setVideoList={setVideoList}></ContentsMain>
       <ContentsFooter></ContentsFooter>
       <Footer></Footer>
     </div>
