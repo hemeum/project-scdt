@@ -63,7 +63,9 @@ function Board({ match, categoryData, order, setOrder }) {
 
   return (
     <>
-      {ctg === 'notice' ? <BoardTop /> : undefined}
+      {ctg === 'notice' ? (
+        <BoardTop order={order} setOrder={setOrder} boardList={boardList} setBoardList={setBoardList} />
+      ) : undefined}
       {ctg ? (
         <BoardSearch
           data={boardList}

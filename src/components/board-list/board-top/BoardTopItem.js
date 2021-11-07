@@ -1,21 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './../../../styles/layouts/board-list/board-top-item.css';
 
 import ArticleInfo from './ArticleInfo';
 
+import eventThumb from './../../../images/event.png';
+
 export default function BoardTopItem(props) {
   return (
     <li className="board-top-list-item">
-      <a href="/">
+      <Link to={`/board_view/${props.uploadId}`}>
         <p>
-          <span class="menu-color">{props.title}</span>
-          {props.desc}
+          <span class="menu-color">{props.category}</span>
+          {props.title}
         </p>
-        <ArticleInfo eye={props.eye} like={props.like} date={props.date}></ArticleInfo>
-      </a>
+        <ArticleInfo eye={props.views} like={props.heart} date={props.date}></ArticleInfo>
+      </Link>
       <div className="board-top-thumb">
-        <img className="board-top-thumb-img" src={props.thumb} alt="주요소식 안내드립니다" />
+        <img className="board-top-thumb-img" src={eventThumb} alt="주요소식 안내드립니다" />
       </div>
     </li>
   );
