@@ -69,6 +69,7 @@ function GnbMenu({ setOrder }) {
                 window.scrollTo(0, 0);
                 setOrder(0);
                 localStorage.removeItem('keepOrder');
+                localStorage.removeItem('keepButtonValue');
               }}
             >
               <Link to={item.url} aria-label={item.value}>

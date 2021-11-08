@@ -18,6 +18,17 @@ function BoardControll({ order, setOrder, match, history, categoryData }) {
   const { ctg } = match.params;
 
   useEffect(() => {
+    // 바뀐 buttonValue 유지하기
+    if (localStorage.getItem('keepButtonValue')) {
+      setButtonValue(JSON.parse(localStorage.getItem('keepButtonValue')));
+      if (JSON.parse(localStorage.getItem('keepButtonValue'))[0] !== 1) {
+        pagingLeftController.current.style.opacity = '1';
+        pagingLeftController.current.style.visibility = 'visible';
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (order === (buttonValue[0] - 1) * (ctg === 'video' || categoryData === '영상콘텐츠' ? 12 : 10)) {
       buttonRef1.current.classList.add('on');
       buttonRef2.current.classList.remove('on');
@@ -131,8 +142,11 @@ function BoardControll({ order, setOrder, match, history, categoryData }) {
 
   const handlePagingRight = () => {
     const newButtonValue = buttonValue.map((value) => {
-      return value + 5;
+      return Number(value + 5);
     });
+    localStorage.removeItem('keepOrder');
+    localStorage.setItem('keepButtonValue', JSON.stringify(newButtonValue));
+    console.log(localStorage.getItem('keepButtonValue'));
     setButtonValue(newButtonValue);
     setOrder((newButtonValue[0] - 1) * (ctg === 'video' || categoryData === '영상콘텐츠' ? 12 : 10));
     buttonRef5.current.classList.remove('on');
@@ -146,8 +160,11 @@ function BoardControll({ order, setOrder, match, history, categoryData }) {
 
   const handlePagingLeft = () => {
     const newButtonValue = buttonValue.map((value) => {
-      return value - 5;
+      return Number(value - 5);
     });
+    localStorage.removeItem('keepOrder');
+    localStorage.setItem('keepButtonValue', JSON.stringify(newButtonValue));
+    console.log(localStorage.getItem('keepButtonValue'));
     setButtonValue(newButtonValue);
     setOrder((newButtonValue[4] - 1) * (ctg === 'video' || categoryData === '영상콘텐츠' ? 12 : 10));
     buttonRef5.current.classList.add('on');
