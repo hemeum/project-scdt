@@ -9,7 +9,13 @@ import eventThumb from './../../../images/event.png';
 
 export default function BoardTopItem(props) {
   return (
-    <li className="board-top-list-item">
+    <li
+      className="board-top-list-item"
+      onClick={() => {
+        localStorage.removeItem('order');
+        props.setOrder(0);
+      }}
+    >
       <Link to={`/board_view/${props.uploadId}`}>
         <p>
           <span class="menu-color">{props.category}</span>
