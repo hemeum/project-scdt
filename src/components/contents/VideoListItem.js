@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 import './../../styles/layouts/video-contents.css';
 
@@ -12,8 +13,14 @@ export default function VideoListItem(props) {
     const date = moment(videoItem.date).format('YYYY.MM.DD HH:mm');
     return (
       <>
-        <li key={videoItem.id} className="video-contents-list-item">
-          <a href="/">
+        <li
+          key={videoItem.id}
+          className="video-contents-list-item"
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+        >
+          <Link to={`/board_view/${videoItem.id}`}>
             <div class="video-thumb">
               <img src={videoItem.img} alt={videoItem.alt} />
               <i class="far fa-play-circle play-icon"></i>
@@ -23,7 +30,7 @@ export default function VideoListItem(props) {
               {videoItem.title}
             </p>
             <div className="video-overay" aria-hidden></div>
-          </a>
+          </Link>
           <ArticleInfo eye={videoItem.views} like={videoItem.heart} date={date} />
         </li>
       </>
