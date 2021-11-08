@@ -5,12 +5,21 @@ import logo from './../../images/logo.jpg';
 
 import './../../styles/layouts/board-list/footer.css';
 
-function Footer({ match }) {
+function Footer({ match, categoryData }) {
   const { ctg } = match.params;
+
   return (
     <div
       className={
-        ctg === 'notice' ? 'notice-board-list-footer' : ctg === 'video' ? 'video-board-footer' : ' board-list-footer'
+        ctg === 'notice'
+          ? 'notice-board-list-footer'
+          : ctg === 'video'
+          ? 'video-board-footer'
+          : categoryData === '영상콘텐츠'
+          ? 'view-video-board-footer'
+          : categoryData
+          ? 'view-board-footer'
+          : ' board-list-footer'
       }
     >
       <p>
