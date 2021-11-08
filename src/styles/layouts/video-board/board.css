@@ -40,3 +40,18 @@
   visibility: hidden;
   margin-right: 18px;
 }
+
+.view-video-board-controller {
+  display: flex;
+  position: absolute;
+  bottom: -220px;
+  left: 50%;
+  height: 50px;
+  margin-left: 63.5px;
+  align-items: center;
+  transform: translateX(-50%);
+}
+
+.view-video-board-controller i {
+  font-size: 30px;
+}

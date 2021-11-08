@@ -14,6 +14,8 @@ function BoardItem({ ctg, order, uploadId, index, category, title, comment, view
     localStorage.setItem('order', order);
   };
 
+  // 뷰보드에선 ctg는 undefined
+
   return (
     <li key={index} className={ctg === 'video' ? 'video-list-item' : 'board-list-item'} onClick={listClick}>
       <Link to={`/board_view/${uploadId}`}>

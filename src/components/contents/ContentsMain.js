@@ -9,7 +9,7 @@ export default function ContentsMain({ order, setOrder }) {
   return (
     <div className="section-bottom">
       <MainNews order={order} setOrder={setOrder}></MainNews>
-      <VideoContents></VideoContents>
+      <VideoContents order={order} setOrder={setOrder}></VideoContents>
     </div>
   );
 }

@@ -24,8 +24,8 @@ function Board({ match, categoryData, order, setOrder }) {
     });
   }, [ctg, categoryData]);
 
-  const spliceBoardList = [...boardList].splice(order, ctg === 'video' ? 12 : 10);
-  const spliceSearchBoardList = [...newData].splice(order, ctg === 'video' ? 12 : 10);
+  const spliceBoardList = [...boardList].splice(order, ctg === 'video' || categoryData === '영상콘텐츠' ? 12 : 10);
+  const spliceSearchBoardList = [...newData].splice(order, ctg === 'video' || categoryData === '영상콘텐츠' ? 12 : 10);
 
   const board = spliceBoardList.map((boardItem, index) => {
     const date = moment(boardItem.date).format('YYYY.MM.DD');

@@ -14,14 +14,11 @@
   padding-top: 20px;
 }
 
-.video-collection {
-  display: flex;
-}
-
 .video-contents-list-item {
   position: relative;
-  width: 33%;
-  margin-right: 3.5%;
+  width: 290px;
+  float: left;
+  margin-right: 15px;
   margin-bottom: 50px;
 }
 
@@ -32,8 +29,9 @@
   height: 40px;
 }
 
-.video-contents-list-item:last-child {
-  margin-right: 0;
+.video-contents-list-item:nth-of-type(3),
+.video-contents-list-item:nth-of-type(6) {
+  margin-right: 0px;
 }
 
 .video-thumb {

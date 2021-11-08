@@ -112,9 +112,9 @@ app.post('/auth/username', (req, res) => {
   });
 });
 
-// main-news > home page
+// upload_data notice-main-news > home page
 
-app.post('/main_news', (req, res) => {
+app.post('/upload/notice', (req, res) => {
   connection.query(
     'select * from upload_data where category = ? order by id desc limit 20',
     ['공지사항'],
@@ -124,6 +124,22 @@ app.post('/main_news', (req, res) => {
       } else {
         const mainNews = rows.splice(req.body.controll, 5);
         res.send(mainNews);
+      }
+    },
+  );
+});
+
+// upload_data video > home page
+
+app.get('/upload/video', (req, res) => {
+  connection.query(
+    'select * from upload_data where category=? order by id desc limit 6',
+    ['영상콘텐츠'],
+    (err, rows) => {
+      if (err) {
+        console.log('video err select');
+      } else {
+        res.send(rows);
       }
     },
   );
@@ -726,6 +742,7 @@ app.post('/reply/delete', (req, res) => {
   );
 });
 
+/*
 // video 로직
 
 app.get('/video/data', (req, res) => {
@@ -737,6 +754,7 @@ app.get('/video/data', (req, res) => {
     }
   });
 });
+*/
 
 // 조회수 증가 로직
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Footer from './Footer';
 import Board from './../board-list/board/Board';
+import Footer from './../board-list/Footer';
 import ViewUser from './ViewUser';
 import ViewComment from './ViewComment';
 
@@ -14,7 +14,7 @@ function ViewBoard({ isLogin, username, setOrder, order }) {
   const [commentLength, setCommentLength] = useState('0');
   const [viewUserData, setViewUserData] = useState({}); // DB에 저장된 해당 뷰보드 만든 유저의 데이터
 
-  const categoryData = viewUserData.category;
+  let categoryData = viewUserData.category;
 
   useEffect(() => {
     // 로컬스토리지로 이전 order값 유지
@@ -47,7 +47,7 @@ function ViewBoard({ isLogin, username, setOrder, order }) {
           setCommentLength={setCommentLength}
         />
         <Board categoryData={categoryData} order={order} setOrder={setOrder} />
-        <Footer />
+        <Footer categoryData={categoryData} />
       </div>
     </div>
   );
