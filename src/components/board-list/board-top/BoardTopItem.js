@@ -8,7 +8,6 @@ import ArticleInfo from './ArticleInfo';
 import eventThumb from './../../../images/event.png';
 
 export default function BoardTopItem(props) {
-  console.log(props.uploadId);
   return (
     <li
       key={props.uploadId}
@@ -20,7 +19,7 @@ export default function BoardTopItem(props) {
     >
       <Link to={`/board_view/${props.uploadId}`}>
         <p>
-          <span class="menu-color">{props.category}</span>
+          <span className="menu-color">{props.category}</span>
           {props.title}
         </p>
         <ArticleInfo eye={props.views} like={props.heart} date={props.date}></ArticleInfo>

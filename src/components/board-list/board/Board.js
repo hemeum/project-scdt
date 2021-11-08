@@ -31,6 +31,7 @@ function Board({ match, categoryData, order, setOrder }) {
     const date = moment(boardItem.date).format('YYYY.MM.DD');
     return (
       <BoardItem
+        key={boardItem.id}
         ctg={ctg}
         order={order}
         uploadId={boardItem.id}
@@ -52,6 +53,7 @@ function Board({ match, categoryData, order, setOrder }) {
     const date = moment(boardItem.date).format('YYYY.MM.DD');
     return (
       <BoardItem
+        key={boardItem.id}
         uploadId={boardItem.id}
         ctg={ctg}
         order={order}

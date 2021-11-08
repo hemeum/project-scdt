@@ -50,7 +50,7 @@ function Login({ isLogin, setIsLogin, history, username, setUsername }) {
         </header>
         <form onSubmit={handleSubmit}>
           <div className="login-box">
-            <label for="username">
+            <label htmlFor="username">
               <h3>아이디</h3>
             </label>
             <input
@@ -64,7 +64,7 @@ function Login({ isLogin, setIsLogin, history, username, setUsername }) {
             ></input>
           </div>
           <div className="login-box">
-            <label for="password">
+            <label htmlFor="password">
               <h3>비밀번호</h3>
             </label>
             <input

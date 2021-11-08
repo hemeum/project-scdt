@@ -126,7 +126,7 @@ function ViewUser({
           <p>
             {date}
             <span className="user-views">
-              <i class="far fa-eye eye"></i> {viewUserData.views}
+              <i className="far fa-eye eye"></i> {viewUserData.views}
             </span>
           </p>
         </div>

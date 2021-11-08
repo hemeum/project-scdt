@@ -283,7 +283,7 @@ function Auth({ history }) {
         </header>
         <form className="auth-content-list" onSubmit={submitJoin}>
           <div className="auth-content-list-item">
-            <label for="username">아이디</label>
+            <label htmlFor="username">아이디</label>
             <input
               type="text"
               id="username"
@@ -306,7 +306,7 @@ function Auth({ history }) {
             )}
           </div>
           <div className="auth-content-list-item">
-            <label for="pwd">비밀번호</label>
+            <label htmlFor="pwd">비밀번호</label>
             <input
               type="password"
               id="pwd"
@@ -322,7 +322,7 @@ function Auth({ history }) {
             )}
           </div>
           <div className="auth-content-list-item">
-            <label for="checkPwd">비밀번호 재확인</label>
+            <label htmlFor="checkPwd">비밀번호 재확인</label>
             <input
               type="password"
               id="checkPwd"
@@ -338,7 +338,7 @@ function Auth({ history }) {
             )}
           </div>
           <div className="auth-content-list-item">
-            <label for="name">이름</label>
+            <label htmlFor="name">이름</label>
             <input
               type="text"
               id="name"
@@ -356,17 +356,15 @@ function Auth({ history }) {
           <div className="auth-content-list-item">
             <p>성별</p>
             <select name="gender" ref={genderRef} onChange={selectGenderChange} onBlur={blurGender}>
-              <option value="gender" selected>
-                성별
-              </option>
+              <option value="gender">성별</option>
               <option value="men">남자</option>
               <option value="women">여자</option>
             </select>
-            <i class="fas fa-angle-down gender-icon"></i>
+            <i className="fas fa-angle-down gender-icon"></i>
             {genderFs.focus ? <span className="inputError">필수정보입니다.</span> : null}
           </div>
           <div className="auth-content-list-item">
-            <label for="yy" className="yy-header">
+            <label htmlFor="yy" className="yy-header">
               생년월일
             </label>
             <div className="birthday">
@@ -397,7 +395,7 @@ function Auth({ history }) {
                 <option value="nov">11</option>
                 <option value="dec">12</option>
               </select>
-              <i class="fas fa-angle-down mm-icon"></i>
+              <i className="fas fa-angle-down mm-icon"></i>
               <input
                 type="text"
                 maxLength="2"
@@ -415,7 +413,7 @@ function Auth({ history }) {
             {bDayFs.focus === true ? <span className="inputError">태어난 일을 정확하게 입력해주세요.</span> : null}
           </div>
           <div className="auth-content-list-item">
-            <label for="phoneNumber">휴대전화</label>
+            <label htmlFor="phoneNumber">휴대전화</label>
             <input
               type="text"
               id="phoneNumber"

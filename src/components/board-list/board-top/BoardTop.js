@@ -18,6 +18,7 @@ function BoardTop({ boardList, setBoardList, order, setOrder }) {
     const date = moment(boardTopItem.date).format('YYYY.MM.DD HH:mm');
     return (
       <BoardTopItem
+        key={boardTopItem.id}
         order={order}
         setOrder={setOrder}
         uploadId={boardTopItem.id}
