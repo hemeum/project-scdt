@@ -18,18 +18,12 @@ export function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState('');
   const [order, setOrder] = useState(0);
-  const [videoList, setVideoList] = useState([]);
 
   useEffect(async () => {
     const res = await axios.get('/loginCheck');
     setIsLogin(res.data.checkLogin);
     setUsername(res.data.username);
   }, [isLogin]);
-
-  useEffect(async () => {
-    const res = await axios.get('/video/data');
-    setVideoList(res.data);
-  }, [videoList]);
 
   return (
     <HashRouter>
@@ -42,13 +36,7 @@ export function App() {
           setUsername={setUsername}
         />
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <Contents videoList={videoList} setVideoList={setVideoList} order={order} setOrder={setOrder} />
-            )}
-          />
+          <Route exact path="/" render={() => <Contents order={order} setOrder={setOrder} />} />
           <Route path="/board_list/:ctg" render={() => <BoardList order={order} setOrder={setOrder} />} />
           <Route
             path="/user"

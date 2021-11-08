@@ -11,7 +11,7 @@ import mintLatte from './../../images/민트라떼.png';
 import persimmonLatte from './../../images/홍시라떼.png';
 import chocoLatte from './../../images/초코라떼.png';
 
-export default function VideoList({ videoList, setVideoList }) {
+export default function VideoList() {
   const videoInfo = [
     [
       {
