@@ -177,19 +177,19 @@ function BoardControll({ order, setOrder, match, history, categoryData }) {
         onClick={handlePagingLeft}
       ></i>
       <div ref={listPagingRef} className="list-paging">
-        <button ref={buttonRef1} type="button" id={buttonValue[0]} className="on" onClick={handlePaging}>
+        <button key={1} ref={buttonRef1} type="button" id={buttonValue[0]} className="on" onClick={handlePaging}>
           {buttonValue[0]}
         </button>
-        <button ref={buttonRef2} type="button" id={buttonValue[1]} onClick={handlePaging}>
+        <button key={2} ref={buttonRef2} type="button" id={buttonValue[1]} onClick={handlePaging}>
           {buttonValue[1]}
         </button>
-        <button ref={buttonRef3} type="button" id={buttonValue[2]} onClick={handlePaging}>
+        <button key={3} ref={buttonRef3} type="button" id={buttonValue[2]} onClick={handlePaging}>
           {buttonValue[2]}
         </button>
-        <button ref={buttonRef4} type="button" id={buttonValue[3]} onClick={handlePaging}>
+        <button key={4} ref={buttonRef4} type="button" id={buttonValue[3]} onClick={handlePaging}>
           {buttonValue[3]}
         </button>
-        <button ref={buttonRef5} type="button" id={buttonValue[4]} onClick={handlePaging}>
+        <button key={5} ref={buttonRef5} type="button" id={buttonValue[4]} onClick={handlePaging}>
           {buttonValue[4]}
         </button>
       </div>

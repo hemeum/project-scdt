@@ -81,6 +81,7 @@ export default function MainNews({ order, setOrder }) {
     const date = moment(boardItem.date).format('YYYY.MM.DD HH:mm');
     return (
       <BoardItem
+        key={boardItem.id}
         order={order}
         uploadId={boardItem.id}
         category={boardItem.category}
@@ -99,10 +100,18 @@ export default function MainNews({ order, setOrder }) {
     <div className="main-news">
       <h2>주요소식</h2>
       <div ref={newsCollectionRef} className="news-collection">
-        <ul className="main-news-list">{board}</ul>
-        <ul className="main-news-list">{board}</ul>
-        <ul className="main-news-list">{board}</ul>
-        <ul className="main-news-list">{board}</ul>
+        <ul key={1} className="main-news-list">
+          {board}
+        </ul>
+        <ul key={2} className="main-news-list">
+          {board}
+        </ul>
+        <ul key={3} className="main-news-list">
+          {board}
+        </ul>
+        <ul key={4} className="main-news-list">
+          {board}
+        </ul>
       </div>
       <div className="main-news-controller">
         <p ref={newsOrderRef} className="main-news-order">

@@ -19,16 +19,16 @@ export default function MainBanner() {
 
   const [translate, setTranslate] = useState(0);
   const imgs = [
-    { src: slide1, alt: '메가커피 배너' },
-    { src: slide2, alt: '스타벅스 배너' },
-    { src: slide3, alt: '래빗커피 배너' },
-    { src: slide4, alt: '컴포즈커피 배너' },
-    { src: slide5, alt: '빽다방 배너' },
+    { src: slide1, alt: '메가커피 배너', id: 1 },
+    { src: slide2, alt: '스타벅스 배너', id: 2 },
+    { src: slide3, alt: '래빗커피 배너', id: 3 },
+    { src: slide4, alt: '컴포즈커피 배너', id: 4 },
+    { src: slide5, alt: '빽다방 배너', id: 5 },
   ];
 
   const imgSlide = imgs.map((img, index) => {
     return (
-      <li key={index} className="main-banner-list-item">
+      <li key={img.id} className="main-banner-list-item">
         <a href="/">
           <img src={img.src} alt={img.alt} />
         </a>
@@ -153,17 +153,17 @@ export default function MainBanner() {
       </ul>
 
       <ul className="banner-navi">
-        <li ref={bannerNaviRef1} onClick={handlebannerNavi} className="is-active"></li>
-        <li ref={bannerNaviRef2} onClick={handlebannerNavi}></li>
-        <li ref={bannerNaviRef3} onClick={handlebannerNavi}></li>
-        <li ref={bannerNaviRef4} onClick={handlebannerNavi}></li>
+        <li key={1} ref={bannerNaviRef1} onClick={handlebannerNavi} className="is-active"></li>
+        <li key={2} ref={bannerNaviRef2} onClick={handlebannerNavi}></li>
+        <li key={3} ref={bannerNaviRef3} onClick={handlebannerNavi}></li>
+        <li key={4} ref={bannerNaviRef4} onClick={handlebannerNavi}></li>
       </ul>
 
       <button type="button" onClick={handleRightArrow}>
-        <i ref={rightArrowRef} class="fas fa-arrow-right arrow-right"></i>
+        <i ref={rightArrowRef} className="fas fa-arrow-right arrow-right"></i>
       </button>
       <button type="button" onClick={handleLeftArrow}>
-        <i ref={leftArrowRef} class="fas fa-arrow-left arrow-left"></i>
+        <i ref={leftArrowRef} className="fas fa-arrow-left arrow-left"></i>
       </button>
     </div>
   );

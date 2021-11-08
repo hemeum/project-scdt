@@ -11,21 +11,21 @@ export default function SearchInput({ data, setOrder, setNewData, categoryTag, c
 
   const handleSearchButton = () => {
     setOrder(0);
-    if (categoryTag.current.textContent === categoryData[0]) {
+    if (categoryTag.current.textContent === categoryData[0].category) {
       // 제목 + 내용일 때
       const newD = data.filter((item) => {
         return item.title.indexOf(inputValue) !== -1 || item.text.indexOf(inputValue) !== -1;
       });
       setNewData(newD);
       setInitialBoard(false);
-    } else if (categoryTag.current.textContent === categoryData[1]) {
+    } else if (categoryTag.current.textContent === categoryData[1].category) {
       // 제목일 때
       const newD = data.filter((item) => {
         return item.title.indexOf(inputValue) !== -1;
       });
       setNewData(newD);
       setInitialBoard(false);
-    } else if (categoryTag.current.textContent === categoryData[2]) {
+    } else if (categoryTag.current.textContent === categoryData[2].category) {
       // 내용일 때
       const newD = data.filter((item) => {
         return item.text.indexOf(inputValue) !== -1;

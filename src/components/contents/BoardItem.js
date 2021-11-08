@@ -8,6 +8,7 @@ import ArticleInfo from './ArticleInfo';
 export default function BoardItem(props) {
   return (
     <li
+      key={props.uploadId}
       className="main-news-list-item"
       onClick={() => {
         window.scrollTo(0, 0);
@@ -16,7 +17,7 @@ export default function BoardItem(props) {
     >
       <Link to={`/board_view/${props.uploadId}`}>
         <p>
-          <span class="menu-color">{`[${props.category}]`}</span>
+          <span className="menu-color">{`[${props.category}]`}</span>
           {props.title}
           <span className="new-icon"></span>
         </p>
@@ -24,8 +25,8 @@ export default function BoardItem(props) {
           <img className="thumb-img" src={props.thumb} alt="주요소식 안내드립니다" />
         </div>
         <div className="comment">
-          <i class="far fa-comment-dots comment-icon"></i>
-          <p class="comment-number">{props.comment}</p>
+          <i className="far fa-comment-dots comment-icon"></i>
+          <p className="comment-number">{props.comment}</p>
         </div>
       </Link>
       <ArticleInfo eye={props.views} like={props.heart} date={props.date}></ArticleInfo>

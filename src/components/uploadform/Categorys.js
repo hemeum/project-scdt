@@ -57,22 +57,22 @@ function Categorys({ category, setCategory }) {
           </p>
           <i className="fas fa-chevron-down ctg-chevron" ref={chevronRef}></i>
           <ul className="ctg-list-off" ref={ctgListRef}>
-            <li ref={ctgItemRef1} className="ctg-item ctg-active" onClick={categorySelecting}>
+            <li key={1} ref={ctgItemRef1} className="ctg-item ctg-active" onClick={categorySelecting}>
               자유게시판
             </li>
-            <li ref={ctgItemRef2} className="ctg-item" onClick={categorySelecting}>
+            <li key={2} ref={ctgItemRef2} className="ctg-item" onClick={categorySelecting}>
               추천게시판
             </li>
-            <li ref={ctgItemRef3} className="ctg-item" onClick={categorySelecting}>
+            <li key={3} ref={ctgItemRef3} className="ctg-item" onClick={categorySelecting}>
               영상콘텐츠
             </li>
-            <li ref={ctgItemRef4} className="ctg-item" onClick={categorySelecting}>
+            <li key={4} ref={ctgItemRef4} className="ctg-item" onClick={categorySelecting}>
               제작예정1
             </li>
-            <li ref={ctgItemRef5} className="ctg-item" onClick={categorySelecting}>
+            <li key={5} ref={ctgItemRef5} className="ctg-item" onClick={categorySelecting}>
               제작예정2
             </li>
-            <li ref={ctgItemRef6} className="ctg-item" onClick={categorySelecting}>
+            <li key={6} ref={ctgItemRef6} className="ctg-item" onClick={categorySelecting}>
               제작예정3
             </li>
           </ul>

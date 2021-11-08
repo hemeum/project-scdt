@@ -24,7 +24,7 @@ function TopAuth({ isLogin, setIsLogin, username }) {
         <div className="top-auth">
           <div className="inner">
             <a href="/" className="profile" aria-label="유저 프로필">
-              <i class="far fa-user-circle user-icon"></i>
+              <i className="far fa-user-circle user-icon"></i>
               <span className="nickname">{username}</span>
             </a>
             <button type="button" className="logout" onClick={handleLogout}>
@@ -36,7 +36,7 @@ function TopAuth({ isLogin, setIsLogin, username }) {
         <div className="top-auth">
           <div className="inner">
             <button type="text" aria-label="유저 로그인 버튼">
-              <i class="far fa-user user-icon"></i>
+              <i className="far fa-user user-icon"></i>
             </button>
             <button type="text" className="login">
               <Link to="/user">로그인</Link>

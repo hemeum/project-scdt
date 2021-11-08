@@ -8,8 +8,10 @@ import ArticleInfo from './ArticleInfo';
 import eventThumb from './../../../images/event.png';
 
 export default function BoardTopItem(props) {
+  console.log(props.uploadId);
   return (
     <li
+      key={props.uploadId}
       className="board-top-list-item"
       onClick={() => {
         localStorage.removeItem('order');

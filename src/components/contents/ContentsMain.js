@@ -7,7 +7,7 @@ import './../../styles/layouts/contents.css';
 
 export default function ContentsMain({ order, setOrder }) {
   return (
-    <div className="section-bottom">
+    <div className="section-middle">
       <MainNews order={order} setOrder={setOrder}></MainNews>
       <VideoContents order={order} setOrder={setOrder}></VideoContents>
     </div>

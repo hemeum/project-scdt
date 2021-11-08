@@ -13,6 +13,7 @@ function ViewReply({ upload_id, userComment, username, index, setUserComment, co
 
   const userReplys = userReply.map((reply, i) => {
     const date = moment(reply.date).format('YYYY.MM.DD HH:mm');
+    console.log(reply.id);
     return (
       <li key={reply.id} className="reply-item">
         <div className="user-reply-box">

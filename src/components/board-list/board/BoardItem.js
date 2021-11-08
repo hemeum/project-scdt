@@ -15,9 +15,10 @@ function BoardItem({ ctg, order, uploadId, index, category, title, comment, view
   };
 
   // 뷰보드에선 ctg는 undefined
+  console.log(uploadId);
 
   return (
-    <li key={index} className={ctg === 'video' ? 'video-list-item' : 'board-list-item'} onClick={listClick}>
+    <li key={uploadId} className={ctg === 'video' ? 'video-list-item' : 'board-list-item'} onClick={listClick}>
       <Link to={`/board_view/${uploadId}`}>
         {ctg === 'video' ? undefined : (
           <p>

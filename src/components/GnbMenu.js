@@ -12,10 +12,50 @@ function GnbMenu({ setOrder }) {
   };
 
   const listItems = [
-    { value: 'notice list items', items: ['공지사항', '2', '3', '4'], url: '/board_list/notice' },
-    { value: 'community list item', items: ['자유게시판', '6', '7', '8'], url: '/board_list/free' },
-    { value: 'recommend list item', items: ['추천게시판', 'b', 'c', 'd'], url: '/board_list/recommend' },
-    { value: 'video list item', items: ['영상콘텐츠', 'f', 'g', 'h'], url: '/board_list/video' },
+    {
+      value: 'notice list items',
+      items: [
+        { id: 1, category: '공지사항' },
+        { id: 2, category: '2' },
+        { id: 3, category: '3' },
+        { id: 4, category: '4' },
+      ],
+      url: '/board_list/notice',
+      id: 1,
+    },
+    {
+      value: 'community list item',
+      items: [
+        { id: 5, category: '자유게시판' },
+        { id: 6, category: '6' },
+        { id: 7, category: '7' },
+        { id: 8, category: '8' },
+      ],
+      url: '/board_list/free',
+      id: 2,
+    },
+    {
+      value: 'recommend list item',
+      items: [
+        { id: 9, category: '추천게시판' },
+        { id: 10, category: '10' },
+        { id: 11, category: '11' },
+        { id: 12, category: '12' },
+      ],
+      url: '/board_list/recommend',
+      id: 3,
+    },
+    {
+      value: 'video list item',
+      items: [
+        { id: 13, category: '영상콘텐츠' },
+        { id: 14, category: '14' },
+        { id: 15, category: '15' },
+        { id: 16, category: '16' },
+      ],
+      url: '/board_list/video',
+      id: 4,
+    },
   ];
   const menuList = listItems.map((item, index) => {
     return (
@@ -24,7 +64,7 @@ function GnbMenu({ setOrder }) {
           return (
             <li
               className="list-item"
-              key={index}
+              key={smallItem.id}
               onClick={() => {
                 window.scrollTo(0, 0);
                 setOrder(0);
@@ -32,7 +72,7 @@ function GnbMenu({ setOrder }) {
               }}
             >
               <Link to={item.url} aria-label={item.value}>
-                {smallItem}
+                {smallItem.category}
               </Link>
             </li>
           );
@@ -40,13 +80,18 @@ function GnbMenu({ setOrder }) {
       </>
     );
   });
-  const menuTitle = ['Notice', 'Community', 'Recommend', 'Video'];
+  const menuTitle = [
+    { id: 1, title: 'Notice' },
+    { id: 2, title: 'Community' },
+    { id: 3, title: 'Recommend' },
+    { id: 4, title: 'Video' },
+  ];
   const menu = menuTitle.map((item, index) => {
     return (
-      <li key={index} className="gnb-menu-item-chevron-down" onClick={handleChevron}>
+      <li key={item.id} className="gnb-menu-item-chevron-down" onClick={handleChevron}>
         <a href="/" className="gnb-menu-item" aria-label="목록리스트">
-          <i className={`fas fa-flag ${item}-icon`}></i>
-          <span>{item}</span>
+          <i className={`fas fa-flag ${item.title}-icon`}></i>
+          <span>{item.title}</span>
           <i className="fas fa-chevron-down chevron"></i>
         </a>
         <ul className="menu-list">{menuList[index]}</ul>

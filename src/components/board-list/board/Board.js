@@ -53,6 +53,8 @@ function Board({ match, categoryData, order, setOrder }) {
     return (
       <BoardItem
         uploadId={boardItem.id}
+        ctg={ctg}
+        order={order}
         index={index}
         title={boardItem.title}
         date={date}

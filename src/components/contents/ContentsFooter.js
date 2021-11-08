@@ -10,12 +10,12 @@ export default function ContentsFooter() {
   return (
     <div className="section-footer">
       <ul className="section-banner">
-        <li className="section-banner-item">
+        <li key={1} className="section-banner-item">
           <a href="/">
             <img src={bannerImgOne} alt="원두 상품 홍보 배너입니다" />
           </a>
         </li>
-        <li className="section-banner-item">
+        <li key={2} className="section-banner-item">
           <a href="/">
             <img src={bannerImgTwo} alt="원두제품 협력업체 홍보 배너입니다." />
           </a>
