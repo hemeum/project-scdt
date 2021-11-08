@@ -10,6 +10,12 @@
   border-top: 1px solid #ccc;
 }
 
+.video-collection:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
 .video-board-controller {
   display: flex;
   position: absolute;
