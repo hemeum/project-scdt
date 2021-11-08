@@ -72,7 +72,7 @@ export default function MainNews({ order, setOrder }) {
   };
 
   useEffect(async () => {
-    await axios.post('/main_news', { controll: 0 }).then((res) => {
+    await axios.post('/upload/notice', { controll: 0 }).then((res) => {
       setBoardList(res.data);
     });
   }, []);
