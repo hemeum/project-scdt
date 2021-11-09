@@ -26,6 +26,17 @@ const connection = mysql.createConnection({
   password: 'gmldms971506!',
 });
 
+const upload = multer({
+  stroage: multer.diskStorage({
+    destination(req, file, cb) {
+      cb(null, 'uploads/');
+    },
+    filename(req, file, cb) {
+      cb(null, file.originalname + _ + Date.now());
+    },
+  }),
+});
+
 connection.connect();
 
 app.use(express.static(path.join(__dirname, 'uploads'))); // localhost:5000/민트라떼.png로 접속하면 uploads폴더에 있는 민트라떼 이미지를 제공함
@@ -40,6 +51,8 @@ app.use(
     store: sessionStore,
   }),
 );
+
+//
 
 // 회원가입, 로그인 로직
 

@@ -29,6 +29,20 @@ function Summernote({ username, inputTitle, category, history, location }) {
 
       reader.readAsDataURL(images[i]);
     }
+
+    /*
+    const onImageUpload = (images, insertImage) => {
+    const formdata = new FormData();
+ 
+    for (let i = 0; i < images.length; i++) {
+      formdata.append('image', images[i]);
+      axios
+        .post('/thumbnail', formdata)
+        .then((res) => insertImage(res.data))
+        .catch((err) => console.log(err));
+    }
+  };
+    */
   };
 
   const uploadDataSubmit = async (e) => {
