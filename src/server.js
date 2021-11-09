@@ -1,10 +1,11 @@
 const express = require('express');
 const port = process.env.PORT || 5000;
 const app = express();
+const path = require('path');
+const multer = require('multer');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mysql = require('mysql');
-const { default: axios } = require('axios');
 const MysqlStore = require('express-mysql-session')(session);
 
 const options = {
@@ -27,6 +28,7 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
+app.use(express.static(path.join(__dirname, 'uploads'))); // localhost:5000/민트라떼.png로 접속하면 uploads폴더에 있는 민트라떼 이미지를 제공함
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());

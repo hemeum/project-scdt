@@ -55,7 +55,11 @@ function Summernote({ username, inputTitle, category, history, location }) {
 
   return (
     <>
-      <form className="editor" onSubmit={location.state ? editUploadData : uploadDataSubmit}>
+      <form
+        className="editor"
+        onSubmit={location.state ? editUploadData : uploadDataSubmit}
+        encType="multipart/form-data"
+      >
         <ReactSummernote
           children={value}
           options={{
