@@ -27,19 +27,17 @@ const connection = mysql.createConnection({
 });
 
 const upload = multer({
-  stroage: multer.diskStorage({
-    destination(req, file, cb) {
-      cb(null, 'uploads/');
-    },
-    filename(req, file, cb) {
-      cb(null, file.originalname + _ + Date.now());
+  storage: multer.diskStorage({
+    destination: path.join(__dirname, 'uploads/'),
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '_' + file.originalname);
     },
   }),
 });
 
 connection.connect();
 
-app.use(express.static(path.join(__dirname, 'uploads'))); // localhost:5000/민트라떼.png로 접속하면 uploads폴더에 있는 민트라떼 이미지를 제공함
+app.use('/image', express.static(path.join(__dirname, 'uploads'))); // localhost:5000/민트라떼.png로 접속하면 uploads폴더에 있는 민트라떼 이미지를 제공함
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
@@ -53,7 +51,10 @@ app.use(
 );
 
 //
-
+app.post('/upload/image', upload.single('image'), (req, res) => {
+  const image = `image/${req.file.filename}`; // filename으로 업로드 폴더에 저장해놨으니 파일 네임을 보내줘야 한다!!!!!!!!!!
+  res.send(image);
+});
 // 회원가입, 로그인 로직
 
 app.get('/loginCheck', (req, res) => {
@@ -163,17 +164,27 @@ app.get('/upload/video', (req, res) => {
 // upload 로직
 
 app.post('/upload', (req, res) => {
-  console.log(req.body);
-  let data = [req.body.category, req.body.title, req.body.username, req.body.text.replace(/(<([^>]+)>)/gi, '')];
+  // const newText = req.body.text.replace(/<(\/p|p)([^>]*)>/gi, ''); // p태그만 제거
+  //const img = req.body.text.match(/<img.*?src="(.*?)"[^\>]+>/g)[0]; // 이미지 태그만 가져오기
+
+  let removeTagText = req.body.text.replace(/(<([^>]+)>)/gi, ''); // 모든 태그 제거
+  let removeTagSpaceText = removeTagText.replace(/&nbsp;/gi, ''); // 모든 태그 제거한 다음 공백까지 제거함
+  let img;
+  req.body.text.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
+    img = capture;
+  }); // img태그에서 src만 추출
+  console.log(img, removeTagSpaceText);
+
+  let data = [req.body.category, req.body.title, req.body.username, removeTagSpaceText, img];
+
   connection.query(
-    'INSERT INTO upload_data(category, title, username, text, date) values(?, ?, ?, ?, NOW())',
+    'INSERT INTO upload_data(category, title, username, text, date, img) values(?, ?, ?, ?, NOW(), ?)',
     data,
     (err, rows) => {
       if (err) {
         console.log('err');
       } else {
-        console.log(rows);
-        res.send('완료');
+        res.send('글쓰기 추가 완료');
       }
     },
   );

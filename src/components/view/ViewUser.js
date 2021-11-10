@@ -147,6 +147,9 @@ function ViewUser({
       </div>
       <div className="user-text">
         <p>{viewUserData.text}</p>
+        {viewUserData.img ? (
+          <img className="user-upload-img" src={viewUserData.img} alt="유저 업로드 이미지입니다" />
+        ) : undefined}
       </div>
       <div className="user-heart-box">
         <button type="button" className="heart-button"></button>

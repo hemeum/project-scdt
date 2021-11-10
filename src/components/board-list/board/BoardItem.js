@@ -33,7 +33,7 @@ function BoardItem({ ctg, order, uploadId, index, category, title, comment, view
               <i className="far fa-play-circle video-play-icon"></i>
             </>
           ) : (
-            <img className="thumb-img" alt="주요소식 안내드립니다" />
+            <img className="thumb-img" src={img} alt="유저 업로드 이미지 썸네일입니다" />
           )}
         </div>
         {ctg === 'video' ? (

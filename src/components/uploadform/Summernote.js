@@ -18,9 +18,7 @@ function Summernote({ username, inputTitle, category, history, location }) {
   const onChange = (content) => {
     setValue(content);
   };
-
-  const onImageUpload = (images, insertImage) => {
-    for (let i = 0; i < images.length; i++) {
+  /*for (let i = 0; i < images.length; i++) {
       const reader = new FileReader();
 
       reader.onloadend = () => {
@@ -28,21 +26,16 @@ function Summernote({ username, inputTitle, category, history, location }) {
       };
 
       reader.readAsDataURL(images[i]);
-    }
+    } */
 
-    /*
-    const onImageUpload = (images, insertImage) => {
-    const formdata = new FormData();
- 
+  const onImageUpload = async (images, insertImage) => {
+    const formData = new FormData();
     for (let i = 0; i < images.length; i++) {
-      formdata.append('image', images[i]);
-      axios
-        .post('/thumbnail', formdata)
-        .then((res) => insertImage(res.data))
-        .catch((err) => console.log(err));
+      formData.append('image', images[i]);
     }
-  };
-    */
+    await axios.post('/upload/image', formData).then((res) => {
+      insertImage(res.data);
+    });
   };
 
   const uploadDataSubmit = async (e) => {
