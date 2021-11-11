@@ -96,7 +96,7 @@ function ViewUser({
           return;
         }
       }
-    }, 1000);
+    }, 1500);
   };
 
   useEffect(async () => {
