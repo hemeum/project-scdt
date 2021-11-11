@@ -6,7 +6,22 @@ import './../../../styles/layouts/board-list/board-item.css';
 
 import ArticleInfo from './ArticleInfo';
 
-function BoardItem({ ctg, order, uploadId, index, category, title, comment, views, heart, date, username, alt, img }) {
+function BoardItem({
+  ctg,
+  order,
+  uploadId,
+  index,
+  category,
+  title,
+  comment,
+  views,
+  heart,
+  date,
+  username,
+  alt,
+  img,
+  video,
+}) {
   const listClick = () => {
     // 클릭하면 조회수 1 증가
     axios.post('/increase/views', { upload_id: uploadId });
@@ -15,7 +30,6 @@ function BoardItem({ ctg, order, uploadId, index, category, title, comment, view
   };
 
   // 뷰보드에선 ctg는 undefined
-
   return (
     <li key={uploadId} className={ctg === 'video' ? 'video-list-item' : 'board-list-item'} onClick={listClick}>
       <Link to={`/board_view/${uploadId}`}>
@@ -29,12 +43,22 @@ function BoardItem({ ctg, order, uploadId, index, category, title, comment, view
         <div className={ctg === 'video' ? 'video-item-thumb' : 'thumb'}>
           {ctg === 'video' ? (
             <>
-              <img src={process.env.PUBLIC_URL + img} alt={alt} />
+              <img
+                src={`https://img.youtube.com/vi/${video ? video.substr(24) : undefined}/mqdefault.jpg`}
+                alt="유저 업로드 영상입니다"
+                className="thumb-img"
+              />
               <i className="far fa-play-circle video-play-icon"></i>
             </>
-          ) : (
+          ) : img ? (
             <img className="thumb-img" src={img} alt="유저 업로드 이미지 썸네일입니다" />
-          )}
+          ) : video ? (
+            <img
+              src={`https://img.youtube.com/vi/${video ? video.substr(24) : undefined}/mqdefault.jpg`}
+              alt="유저 업로드 영상입니다"
+              className="thumb-img"
+            />
+          ) : undefined}
         </div>
         {ctg === 'video' ? (
           <>

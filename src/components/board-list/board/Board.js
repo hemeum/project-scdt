@@ -45,6 +45,7 @@ function Board({ match, categoryData, order, setOrder }) {
         heart={boardItem.heart}
         img={boardItem.img}
         alt={boardItem.alt}
+        video={boardItem.video}
       />
     );
   });

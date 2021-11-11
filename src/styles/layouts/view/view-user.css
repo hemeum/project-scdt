@@ -101,3 +101,9 @@
 .user-upload-img {
   margin-top: 30px;
 }
+
+.user-upload-video {
+  width: 640px;
+  height: 360px;
+  margin-top: 30px;
+}

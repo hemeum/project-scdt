@@ -170,15 +170,19 @@ app.post('/upload', (req, res) => {
   let removeTagText = req.body.text.replace(/(<([^>]+)>)/gi, ''); // 모든 태그 제거
   let removeTagSpaceText = removeTagText.replace(/&nbsp;/gi, ''); // 모든 태그 제거한 다음 공백까지 제거함
   let img;
+  let video;
+
   req.body.text.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
     img = capture;
   }); // img태그에서 src만 추출
-  console.log(img, removeTagSpaceText);
+  req.body.text.replace(/<iframe [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
+    video = capture;
+  }); // iframe태그에서 src만 추출
 
-  let data = [req.body.category, req.body.title, req.body.username, removeTagSpaceText, img];
+  let data = [req.body.category, req.body.title, req.body.username, removeTagSpaceText, img, video];
 
   connection.query(
-    'INSERT INTO upload_data(category, title, username, text, date, img) values(?, ?, ?, ?, NOW(), ?)',
+    'INSERT INTO upload_data(category, title, username, text, date, img, video) values(?, ?, ?, ?, NOW(), ?, ?)',
     data,
     (err, rows) => {
       if (err) {

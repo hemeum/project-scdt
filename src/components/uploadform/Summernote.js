@@ -29,6 +29,7 @@ function Summernote({ username, inputTitle, category, history, location }) {
     } */
 
   const onImageUpload = async (images, insertImage) => {
+    console.log(images);
     const formData = new FormData();
     for (let i = 0; i < images.length; i++) {
       formData.append('image', images[i]);
