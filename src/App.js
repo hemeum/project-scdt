@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import HeaderGnb from './components/HeaderGnb';
 import Contents from './components/contents/Contents';
 import NotFound from './pages/NotFound';
 import BoardList from './components/board-list/BoardList';
+import Spinner from './components/Spinner';
 
 import UpLoadForm from './components/uploadform/UpLoadForm';
 import ViewBoard from './components/view/ViewBoard';
@@ -12,12 +13,16 @@ import Auth from './components/login/Auth';
 import './App.css';
 import './styles/base/reset.css';
 import './styles/base/visually-hidden.css';
+
 import axios from 'axios';
+import { css } from '@emotion/react';
 
 export function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState('');
   const [order, setOrder] = useState(0);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
     const res = await axios.get('/loginCheck');
@@ -56,6 +61,7 @@ export function App() {
             path="/board_view/:upload_id"
             render={() => <ViewBoard order={order} setOrder={setOrder} isLogin={isLogin} username={username} />}
           />
+          <Route path="/loading" render={() => <Spinner loading={loading}></Spinner>}></Route>
           <Route path="/" component={NotFound} />
         </Switch>
       </div>

@@ -11,3 +11,11 @@
   margin-left: 20px;
   margin-top: 100px;
 }
+
+.spinner-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1027px;
+  height: 1000px;
+}
