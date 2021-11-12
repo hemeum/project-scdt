@@ -128,7 +128,7 @@ function ViewUser({
           <p>
             {date}
             <span className="user-views">
-              <i className="far fa-eye eye"></i> {viewUserData.views}
+              <i className="far fa-eye eye"></i> {viewUserData.views ? viewUserData.views : 0}
             </span>
           </p>
         </div>

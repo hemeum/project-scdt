@@ -41,13 +41,17 @@ function Summernote({ username, inputTitle, category, history, location }) {
 
   const uploadDataSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('/upload', {
-      username: username,
-      title: inputTitle,
-      category: category,
-      text: value,
-    });
-    history.push('/');
+    await axios
+      .post('/upload', {
+        username: username,
+        title: inputTitle,
+        category: category,
+        text: value,
+      })
+      .then((res) => {
+        history.push(`/board_view/${res.data.upload_id}`);
+        window.scrollTo(0, 0);
+      });
   };
 
   const editUploadData = async (e) => {
@@ -58,7 +62,7 @@ function Summernote({ username, inputTitle, category, history, location }) {
       text: value,
       upload_id: location.state.upload_id,
     });
-    history.push('/');
+    history.goBack();
   };
 
   return (

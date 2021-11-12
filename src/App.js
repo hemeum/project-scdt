@@ -28,12 +28,17 @@ export function App() {
   return (
     <HashRouter>
       <div className="contain">
-        <HeaderGnb
-          setOrder={setOrder}
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-          username={username}
-          setUsername={setUsername}
+        <Route
+          path="/"
+          render={() => (
+            <HeaderGnb
+              setOrder={setOrder}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+              username={username}
+              setUsername={setUsername}
+            />
+          )}
         />
         <Switch>
           <Route exact path="/" render={() => <Contents order={order} setOrder={setOrder} />} />

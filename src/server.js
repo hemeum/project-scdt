@@ -188,11 +188,17 @@ app.post('/upload', (req, res) => {
   connection.query(
     'INSERT INTO upload_data(category, title, username, text, date) values(?, ?, ?, ?, NOW())',
     data,
-    (err, rows) => {
+    (err) => {
       if (err) {
         console.log('err');
       } else {
-        res.send('글쓰기 추가 완료');
+        connection.query('select id from upload_data order by date desc limit 1', (err, rows) => {
+          if (err) {
+            console.log('err 추가한 업로드 id 보내주기 실패');
+          } else {
+            res.send({ upload_id: rows[0].id });
+          }
+        });
       }
     },
   );

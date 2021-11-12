@@ -38,7 +38,7 @@ function Login({ isLogin, setIsLogin, history, username, setUsername }) {
       setPwd('');
       setReLogin(false);
     } else if (isLogin === true) {
-      history.push('/');
+      history.goBack();
     }
   }, [reLogin, isLogin]);
 
