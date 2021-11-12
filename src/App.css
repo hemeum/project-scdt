@@ -4,6 +4,7 @@
   width: 1300px;
   margin: 0 auto;
   border-right: 1px solid #ccc;
+  background: rgb(255, 255, 255);
 }
 
 .contain .notFound-wrap {
