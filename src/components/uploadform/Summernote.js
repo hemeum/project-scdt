@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
@@ -69,7 +69,7 @@ function Summernote({ username, inputTitle, category, history, location }) {
         encType="multipart/form-data"
       >
         <ReactSummernote
-          children={value}
+          children={location.state ? location.state.ptag : value}
           options={{
             lang: 'ko-KR',
             height: 420,
@@ -87,7 +87,7 @@ function Summernote({ username, inputTitle, category, history, location }) {
           }}
           onChange={onChange}
           onImageUpload={onImageUpload}
-        />
+        ></ReactSummernote>
         <div className="uploadform-button-box">
           <button type="button" className="cancel-button">
             취소

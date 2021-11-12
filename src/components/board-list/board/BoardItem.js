@@ -6,28 +6,23 @@ import './../../../styles/layouts/board-list/board-item.css';
 
 import ArticleInfo from './ArticleInfo';
 
-function BoardItem({
-  ctg,
-  order,
-  uploadId,
-  index,
-  category,
-  title,
-  comment,
-  views,
-  heart,
-  date,
-  username,
-  alt,
-  img,
-  video,
-}) {
+function BoardItem({ ctg, order, uploadId, index, category, title, comment, views, heart, date, username, text }) {
   const listClick = () => {
     // 클릭하면 조회수 1 증가
     axios.post('/increase/views', { upload_id: uploadId });
     window.scrollTo(0, 0);
     localStorage.setItem('order', order);
   };
+
+  let img;
+  let video;
+
+  text.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
+    img = capture;
+  }); // img태그에서 src만 추출
+  text.replace(/<iframe [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
+    video = capture;
+  }); // iframe태그에서 src만 추출
 
   // 뷰보드에선 ctg는 undefined
   return (

@@ -23,6 +23,7 @@ function ViewUser({
   const [checkUser, setCheckUser] = useState(false); // 해당 뷰보드를 만든 유저인지 체크
   const [heartColor, setHeartColor] = useState(false);
   // 하트 색깔 변경
+  const [ptag, setPtag] = useState(<p dangerouslySetInnerHTML={{ __html: '' }}></p>);
 
   const heartRef = useRef();
 
@@ -105,6 +106,7 @@ function ViewUser({
       setViewUserData({ ...res.data[0] });
       setCheckUser(res.data[0].checkUser); // 체크유저는 하트와 무관, 해당 뷰보드를 만든 유저인지 확인하는 것. 수정 또는 신고하기
       setOrder(res.data[1]);
+      setPtag(<p dangerouslySetInnerHTML={{ __html: res.data[0].text }}></p>);
     });
   }, [checkUser, heartColor, upload_id, username]);
 
@@ -138,6 +140,7 @@ function ViewUser({
                 title={viewUserData.title}
                 text={viewUserData.text}
                 uploadId={upload_id}
+                ptag={ptag}
               />
             </>
           ) : (
@@ -145,13 +148,7 @@ function ViewUser({
           )}
         </div>
       </div>
-      <div className="user-text">
-        <p>{viewUserData.text}</p>
-        {viewUserData.img ? (
-          <img className="user-upload-img" src={viewUserData.img} alt="유저 업로드 이미지입니다" />
-        ) : undefined}
-        {viewUserData.video ? <iframe className="user-upload-video" src={viewUserData.video}></iframe> : undefined}
-      </div>
+      <div className="user-text">{ptag}</div>
       <div className="user-heart-box">
         <button type="button" className="heart-button"></button>
         <button type="button" className="user-heart" onClick={handleHeart}>

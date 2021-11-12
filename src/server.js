@@ -167,6 +167,7 @@ app.post('/upload', (req, res) => {
   // const newText = req.body.text.replace(/<(\/p|p)([^>]*)>/gi, ''); // p태그만 제거
   //const img = req.body.text.match(/<img.*?src="(.*?)"[^\>]+>/g)[0]; // 이미지 태그만 가져오기
 
+  /*
   let removeTagText = req.body.text.replace(/(<([^>]+)>)/gi, ''); // 모든 태그 제거
   let removeTagSpaceText = removeTagText.replace(/&nbsp;/gi, ''); // 모든 태그 제거한 다음 공백까지 제거함
   let img;
@@ -178,11 +179,14 @@ app.post('/upload', (req, res) => {
   req.body.text.replace(/<iframe [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
     video = capture;
   }); // iframe태그에서 src만 추출
+  */
 
-  let data = [req.body.category, req.body.title, req.body.username, removeTagSpaceText, img, video];
+  let data = [req.body.category, req.body.title, req.body.username, req.body.text];
+
+  console.log(req.body.text, req.body);
 
   connection.query(
-    'INSERT INTO upload_data(category, title, username, text, date, img, video) values(?, ?, ?, ?, NOW(), ?, ?)',
+    'INSERT INTO upload_data(category, title, username, text, date) values(?, ?, ?, ?, NOW())',
     data,
     (err, rows) => {
       if (err) {

@@ -43,9 +43,7 @@ function Board({ match, categoryData, order, setOrder }) {
         comment={boardItem.comment}
         username={boardItem.username}
         heart={boardItem.heart}
-        img={boardItem.img}
-        alt={boardItem.alt}
-        video={boardItem.video}
+        text={boardItem.text}
       />
     );
   });

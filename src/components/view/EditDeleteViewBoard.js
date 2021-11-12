@@ -2,11 +2,11 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-function EditDeleteViewBoard({ category, text, title, history, uploadId }) {
+function EditDeleteViewBoard({ category, text, title, history, uploadId, ptag }) {
   const handleEdit = () => {
     history.push({
       pathname: '/uploadform',
-      state: { category: category, title: title, text: text, upload_id: uploadId },
+      state: { category: category, title: title, text: text, upload_id: uploadId, ptag: ptag },
     });
   };
 
