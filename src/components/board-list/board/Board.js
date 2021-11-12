@@ -22,7 +22,7 @@ function Board({ match, categoryData, order, setOrder }) {
   const boardCollectionRef = useRef();
 
   useEffect(async () => {
-    await setLoading(true);
+    setLoading(true);
     await axios.post('/list', { ctg: ctg, category_data: categoryData }).then((res) => {
       setBoardList(res.data);
       setLoading(false);
