@@ -4,6 +4,7 @@ import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 
 import EditDeleteViewBoard from './EditDeleteViewBoard';
+import Spinner from './../Spinner';
 
 import './../../styles/layouts/view/view-user.css';
 
@@ -24,6 +25,8 @@ function ViewUser({
   const [heartColor, setHeartColor] = useState(false);
   // 하트 색깔 변경
   const [ptag, setPtag] = useState(<p dangerouslySetInnerHTML={{ __html: '' }}></p>);
+
+  const [loading, setLoading] = useState(false);
 
   const heartRef = useRef();
 
@@ -102,11 +105,13 @@ function ViewUser({
 
   useEffect(async () => {
     // 해당 보드뷰를 만든 유저의 데이터 가져오기
+    await setLoading(true);
     await axios.post('/view', { upload_id: upload_id, username: username, order: order }).then((res) => {
       setViewUserData({ ...res.data[0] });
       setCheckUser(res.data[0].checkUser); // 체크유저는 하트와 무관, 해당 뷰보드를 만든 유저인지 확인하는 것. 수정 또는 신고하기
       setOrder(res.data[1]);
       setPtag(<p dangerouslySetInnerHTML={{ __html: res.data[0].text }}></p>);
+      setLoading(false);
     });
   }, [checkUser, heartColor, upload_id, username]);
 
@@ -119,6 +124,7 @@ function ViewUser({
 
   return (
     <div className="user-upload-box">
+      {loading ? <Spinner></Spinner> : undefined}
       <p>{viewUserData.category}</p>
       <h3>{viewUserData.title}</h3>
       <div className="user-box">
