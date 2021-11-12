@@ -10,6 +10,11 @@ export default function VideoListItem(props) {
   const videoData = props.data;
 
   const videoList = videoData.map((videoItem, index) => {
+    let video;
+    videoItem.text.replace(/<iframe [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
+      video = capture;
+    });
+
     const date = moment(videoItem.date).format('YYYY.MM.DD HH:mm');
 
     return (
@@ -22,7 +27,11 @@ export default function VideoListItem(props) {
       >
         <Link to={`/board_view/${videoItem.id}`}>
           <div className="video-thumb">
-            <img src={videoItem.img} alt={videoItem.alt} />
+            <img
+              src={`https://img.youtube.com/vi/${video.substr(24)}/mqdefault.jpg`}
+              alt="유저 업로드 영상입니다"
+              className="thumb-img"
+            />
             <i className="far fa-play-circle play-icon"></i>
           </div>
           <p>
