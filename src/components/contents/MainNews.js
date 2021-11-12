@@ -23,14 +23,14 @@ export default function MainNews({ order, setOrder }) {
       newsCollectionRef.current.style.transform = 'translateX(-900px)';
       newsOrderRef.current.textContent = '2 / 4';
       leftController.current.style.color = '#333';
-      axios.post('/main_news', { controll: 5 }).then((res) => {
+      axios.post('/upload/notice', { controll: 5 }).then((res) => {
         setBoardList(res.data);
       });
     } else if (newsOrderRef.current.textContent === '2 / 4') {
       setOrder(10);
       newsCollectionRef.current.style.transform = 'translateX(-1800px)';
       newsOrderRef.current.textContent = '3 / 4';
-      axios.post('/main_news', { controll: 10 }).then((res) => {
+      axios.post('/upload/notice', { controll: 10 }).then((res) => {
         setBoardList(res.data);
       });
     } else if (newsOrderRef.current.textContent === '3 / 4') {
@@ -38,7 +38,7 @@ export default function MainNews({ order, setOrder }) {
       newsCollectionRef.current.style.transform = 'translateX(-2700px)';
       newsOrderRef.current.textContent = '4 / 4';
       e.target.style.color = '#ccc';
-      axios.post('/main_news', { controll: 15 }).then((res) => {
+      axios.post('/upload/notice', { controll: 15 }).then((res) => {
         setBoardList(res.data);
       });
     }
@@ -50,14 +50,14 @@ export default function MainNews({ order, setOrder }) {
       newsCollectionRef.current.style.transform = 'translateX(-1800px)';
       newsOrderRef.current.textContent = '3 / 4';
       rightController.current.style.color = '#333';
-      axios.post('/main_news', { controll: 10 }).then((res) => {
+      axios.post('/upload/notice', { controll: 10 }).then((res) => {
         setBoardList(res.data);
       });
     } else if (newsOrderRef.current.textContent === '3 / 4') {
       setOrder(0);
       newsCollectionRef.current.style.transform = 'translateX(-900px)';
       newsOrderRef.current.textContent = '2 / 4';
-      axios.post('/main_news', { controll: 5 }).then((res) => {
+      axios.post('/upload/notice', { controll: 5 }).then((res) => {
         setBoardList(res.data);
       });
     } else if (newsOrderRef.current.textContent === '2 / 4') {
@@ -65,7 +65,7 @@ export default function MainNews({ order, setOrder }) {
       newsCollectionRef.current.style.transform = 'translateX(0px)';
       newsOrderRef.current.textContent = '1 / 4';
       e.target.style.color = '#ccc';
-      axios.post('/main_news', { controll: 0 }).then((res) => {
+      axios.post('/upload/notice', { controll: 0 }).then((res) => {
         setBoardList(res.data);
       });
     }

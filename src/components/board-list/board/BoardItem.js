@@ -53,6 +53,8 @@ function BoardItem({ ctg, order, uploadId, index, category, title, comment, view
               alt="유저 업로드 영상입니다"
               className="thumb-img"
             />
+          ) : ctg === 'notice' ? (
+            <img src={process.env.PUBLIC_URL + '/img/update.png'} alt="공지사항 이미지입니다" className="thumb-img" />
           ) : undefined}
         </div>
         {ctg === 'video' ? (
