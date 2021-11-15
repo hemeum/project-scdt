@@ -59,16 +59,18 @@ function Board({ match, categoryData, order, setOrder, username, profileImg, set
     return (
       <BoardItem
         key={boardItem.id}
-        uploadId={boardItem.id}
         ctg={ctg}
         order={order}
+        uploadId={boardItem.id}
         index={index}
+        category={boardItem.category}
         title={boardItem.title}
         date={date}
         views={boardItem.views}
         comment={boardItem.comment}
         username={boardItem.username}
         heart={boardItem.heart}
+        text={boardItem.text}
       />
     );
   });
