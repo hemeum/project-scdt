@@ -15,17 +15,22 @@ function EditTextarea({
   const editRef = useRef();
 
   const handleCommentEdit = async () => {
-    await axios
-      .put('/comment/edit', { upload_id: upload_id, comment_id: comment_id, newText: editText })
-      .then((res) => {
-        const data = { ...userComment[index] };
-        data.comment = res.data.comment;
-        data.date = res.data.date;
-        const editData = [...userComment];
-        editData.splice(index, 1, data);
-        setUserComment(editData);
-      });
-    setIsEdit([]);
+    if (editText !== '') {
+      await axios
+        .put('/comment/edit', { upload_id: upload_id, comment_id: comment_id, newText: editText })
+        .then((res) => {
+          const data = { ...userComment[index] };
+          data.comment = res.data.comment;
+          data.date = res.data.date;
+          const editData = [...userComment];
+          editData.splice(index, 1, data);
+          setUserComment(editData);
+        });
+      setIsEdit([]);
+    } else {
+      alert('댓글을 먼저 작성해주세요');
+      editRef.current.focus();
+    }
   };
 
   const cancelEdit = () => {

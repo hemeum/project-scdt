@@ -19,6 +19,7 @@ function ViewComment({
   setUserComment,
   setCommentLength,
   commentLength,
+  profileImg,
 }) {
   const [userText, setUserText] = useState(''); // 유저가 쓴 댓글 인풋창
   const [isText, setIsText] = useState(false); // 유저가 댓글을 쓴게 하나라도 있나 없나
@@ -55,6 +56,7 @@ function ViewComment({
             username: username,
             upload_id: upload_id,
             comment_length: Number(commentLength),
+            profileImg: profileImg,
           })
           .then((res) => {
             setUserComment(userComment.concat(res.data));
@@ -175,7 +177,7 @@ function ViewComment({
             )}
           </div>
         </div>
-        {clickReply[index] ? (
+        {clickReply[index] ? ( // 답글쓰기 누르면 이 부분 트루됌
           <div className="reply-input-box">
             <textarea
               placeholder="정책 위반 댓글은 삭제될 수 있습니다."
@@ -189,22 +191,27 @@ function ViewComment({
               type="button"
               className="reply-register-button"
               onClick={async () => {
-                await axios
-                  .post('/reply/add', {
-                    reply: inputReply,
-                    upload_id: upload_id,
-                    username: username,
-                    comment_id: comment.id,
-                  })
-                  .then((res) => {
-                    const replyComment = res.data;
-                    const newUserComment = [...userComment];
-                    newUserComment.splice(index, 1, replyComment);
-                    setUserComment(newUserComment);
-                    setClickReply([]);
-                    setInputReply('');
-                    setReplyExist(true);
-                  });
+                if (inputReply !== '') {
+                  await axios
+                    .post('/reply/add', {
+                      reply: inputReply,
+                      upload_id: upload_id,
+                      username: username,
+                      comment_id: comment.id,
+                      profileImg: profileImg,
+                    })
+                    .then((res) => {
+                      const replyComment = res.data;
+                      const newUserComment = [...userComment];
+                      newUserComment.splice(index, 1, replyComment);
+                      setUserComment(newUserComment);
+                      setClickReply([]);
+                      setInputReply('');
+                      setReplyExist(true);
+                    });
+                } else {
+                  alert('댓글을 먼저 작성해주세요');
+                }
 
                 await axios
                   .post('/reply/addlength', { upload_id: upload_id, comment_length: commentLength })

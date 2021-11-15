@@ -7,7 +7,7 @@ import Summernote from './Summernote';
 
 import './../../styles/layouts/uploadform/uploadform.css';
 
-function UpLoadForm({ username, location }) {
+function UpLoadForm({ username, location, profileImg }) {
   const [inputTitle, setInputTitle] = useState(location.state ? location.state.title : '');
   const [category, setCategory] = useState(location.state ? location.state.category : '자유게시판');
 
@@ -33,7 +33,13 @@ function UpLoadForm({ username, location }) {
         value={inputTitle}
         onChange={handleInputTitle}
       />
-      <Summernote username={username} inputTitle={inputTitle} category={category} location={location} />
+      <Summernote
+        profileImg={profileImg}
+        username={username}
+        inputTitle={inputTitle}
+        category={category}
+        location={location}
+      />
       <Footer />
     </div>
   );

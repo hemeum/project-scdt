@@ -12,10 +12,14 @@ function EditReply({ id, upload_id, editReply, setEditReply, setIsEdit, setUserC
   };
 
   const handleSubmit = async () => {
-    await axios.post('/reply/edit', { reply_id: id, upload_id: upload_id, newReply: editReply }).then((res) => {
-      setUserComment(res.data);
-      setIsEdit([]);
-    });
+    if (editReply !== '') {
+      await axios.post('/reply/edit', { reply_id: id, upload_id: upload_id, newReply: editReply }).then((res) => {
+        setUserComment(res.data);
+        setIsEdit([]);
+      });
+    } else {
+      alert('댓글을 먼저 작성해주세요');
+    }
   };
   return (
     <>

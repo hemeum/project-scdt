@@ -9,7 +9,7 @@ import ViewComment from './ViewComment';
 import './../../styles/layouts/contents.css';
 import './../../styles/layouts/view/view-board.css';
 
-function ViewBoard({ isLogin, username, setOrder, order }) {
+function ViewBoard({ isLogin, username, setOrder, order, profileImg }) {
   const [userComment, setUserComment] = useState([]);
   const [commentLength, setCommentLength] = useState('0');
   const [viewUserData, setViewUserData] = useState({}); // DB에 저장된 해당 뷰보드 만든 유저의 데이터
@@ -29,6 +29,7 @@ function ViewBoard({ isLogin, username, setOrder, order }) {
     <div className="contents">
       <div className="view-board">
         <ViewUser
+          profileImg={profileImg}
           isLogin={isLogin}
           username={username}
           userComment={userComment}
@@ -39,6 +40,7 @@ function ViewBoard({ isLogin, username, setOrder, order }) {
           setOrder={setOrder}
         />
         <ViewComment
+          profileImg={profileImg}
           isLogin={isLogin}
           username={username}
           userComment={userComment}

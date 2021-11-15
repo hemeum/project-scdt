@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import './../../styles/layouts/uploadform/summernote.css';
 
-function Summernote({ username, inputTitle, category, history, location }) {
+function Summernote({ username, inputTitle, category, history, location, profileImg }) {
   const [value, setValue] = useState(location.state ? location.state.text : '');
 
   const onChange = (content) => {
@@ -41,17 +41,22 @@ function Summernote({ username, inputTitle, category, history, location }) {
 
   const uploadDataSubmit = async (e) => {
     e.preventDefault();
-    await axios
-      .post('/upload', {
-        username: username,
-        title: inputTitle,
-        category: category,
-        text: value,
-      })
-      .then((res) => {
-        history.push(`/board_view/${res.data.upload_id}`);
-        window.scrollTo(0, 0);
-      });
+    if (value !== '' && inputTitle !== '') {
+      await axios
+        .post('/upload', {
+          username: username,
+          title: inputTitle,
+          category: category,
+          text: value,
+          profileImg: profileImg,
+        })
+        .then((res) => {
+          history.push(`/board_view/${res.data.upload_id}`);
+          window.scrollTo(0, 0);
+        });
+    } else {
+      alert('제목과 글을 작성해주십시오.');
+    }
   };
 
   const editUploadData = async (e) => {

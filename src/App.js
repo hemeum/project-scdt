@@ -68,10 +68,18 @@ export function App() {
           />
           <Route path="/auth" component={Auth} />
 
-          <Route exact path="/uploadform" render={() => <UpLoadForm username={username} />} />
+          <Route exact path="/uploadform" render={() => <UpLoadForm profileImg={profileImg} username={username} />} />
           <Route
             path="/board_view/:upload_id"
-            render={() => <ViewBoard order={order} setOrder={setOrder} isLogin={isLogin} username={username} />}
+            render={() => (
+              <ViewBoard
+                profileImg={profileImg}
+                order={order}
+                setOrder={setOrder}
+                isLogin={isLogin}
+                username={username}
+              />
+            )}
           />
           <Route path="/profile" component={Profile} />
           <Route path="/" component={NotFound} />
