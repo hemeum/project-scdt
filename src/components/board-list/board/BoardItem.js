@@ -40,18 +40,22 @@ function BoardItem({ ctg, order, uploadId, index, category, title, comment, view
         <div className={ctg === 'video' ? 'video-item-thumb' : 'thumb'}>
           {ctg === 'video' ? (
             <>
-              <img
-                src={`https://img.youtube.com/vi/${video ? video.substr(24) : undefined}/mqdefault.jpg`}
-                alt="유저 업로드 영상입니다"
-                className="thumb-img"
-              />
-              <i className="far fa-play-circle video-play-icon"></i>
+              {video ? (
+                <>
+                  <img
+                    src={`https://img.youtube.com/vi/${video.substr(24)}/mqdefault.jpg`}
+                    alt="유저 업로드 영상입니다"
+                    className="thumb-img"
+                  />
+                  <i className="far fa-play-circle video-play-icon"></i>
+                </>
+              ) : undefined}
             </>
           ) : img ? (
             <img className="thumb-img" src={img} alt="유저 업로드 이미지 썸네일입니다" />
           ) : video ? (
             <img
-              src={`https://img.youtube.com/vi/${video ? video.substr(24) : undefined}/mqdefault.jpg`}
+              src={`https://img.youtube.com/vi/${video.substr(24)}/mqdefault.jpg`}
               alt="유저 업로드 영상입니다"
               className="thumb-img"
             />
