@@ -4,11 +4,21 @@ import { withRouter } from 'react-router-dom';
 
 import './../../styles/layouts/profile/profile.css';
 
-function Profile({ username, setBoardList, profileImg, setProfileImg, isLogin, history }) {
-  const [userInfo, setUserInfo] = useState({ name: '', gender: '', profile_img: '' });
+function Profile({
+  username,
+  setBoardList,
+  profileImg,
+  setProfileImg,
+  isLogin,
+  writeLength,
+  setWriteLength,
+  commentLength,
+  setCommentLength,
+  userInfo,
+  setUserInfo,
+}) {
   const [imgEdit, setImgEdit] = useState(false);
-  const [writeLength, setWriteLength] = useState(0);
-  const [commentLength, setCommentLength] = useState(0);
+
   const [files, setFiles] = useState('');
   const [imgBase, setImgBase] = useState('');
 
@@ -124,7 +134,7 @@ function Profile({ username, setBoardList, profileImg, setProfileImg, isLogin, h
         </>
       ) : undefined}
       <div className="profile-box">
-        {profileImg ? (
+        {userInfo.profile_img ? (
           <img
             src={`/${userInfo.profile_img}`}
             alt="유저 프로필 이미지입니다"

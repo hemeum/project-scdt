@@ -18,6 +18,10 @@ function Board({ match, categoryData, order, setOrder, username, profileImg, set
 
   const [loading, setLoading] = useState(false);
 
+  const [writeLength, setWriteLength] = useState(0);
+  const [commentLength, setCommentLength] = useState(0);
+  const [userInfo, setUserInfo] = useState({ name: '', gender: '', profile_img: '' });
+
   const { ctg } = match.params; // board_list에서 free, notice 등 의미함
 
   const boardCollectionRef = useRef();
@@ -26,7 +30,9 @@ function Board({ match, categoryData, order, setOrder, username, profileImg, set
     setLoading(true);
     await axios.post('/list', { ctg: ctg, category_data: categoryData, username: username }).then((res) => {
       setBoardList(res.data);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     });
   }, [ctg, categoryData, username]);
 
@@ -83,6 +89,12 @@ function Board({ match, categoryData, order, setOrder, username, profileImg, set
         <>
           {ctg === 'profile' ? (
             <Profile
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              commentLength={commentLength}
+              setCommentLength={setCommentLength}
+              writeLength={writeLength}
+              setWriteLength={setWriteLength}
               isLogin={isLogin}
               profileImg={profileImg}
               setProfileImg={setProfileImg}
