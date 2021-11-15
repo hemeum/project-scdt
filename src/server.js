@@ -650,6 +650,10 @@ app.put('/comment/delete', (req, res) => {
         req.body.comment_length - 1 - commentReplyLength,
         req.body.upload_id,
       ]);
+      connection.query('delete from reply_data where upload_id=? and comment_id=?', [
+        req.body.upload_id,
+        req.body.comment_id,
+      ]);
       connection.query(
         'delete from comment_data where upload_id=? and id=?',
         [req.body.upload_id, req.body.comment_id],
