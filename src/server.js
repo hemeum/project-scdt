@@ -182,12 +182,12 @@ app.post('/upload', (req, res) => {
   }); // iframe태그에서 src만 추출
   */
 
-  let data = [req.body.category, req.body.title, req.body.username, req.body.text];
+  let data = [req.body.category, req.body.title, req.body.username, req.body.text, req.body.profileImg];
 
   console.log(req.body.text, req.body);
 
   connection.query(
-    'INSERT INTO upload_data(category, title, username, text, date) values(?, ?, ?, ?, NOW())',
+    'INSERT INTO upload_data(category, title, username, text, date, profile_img) values(?, ?, ?, ?, NOW(),?)',
     data,
     (err) => {
       if (err) {
@@ -542,8 +542,8 @@ app.post('/heartCheck', (req, res) => {
 app.post('/comment', (req, res) => {
   // 댓글 db에 추가
   connection.query(
-    'INSERT INTO comment_data(comment, username, upload_id, date) values(?,?,?, NOW())',
-    [req.body.userText, req.body.username, req.body.upload_id],
+    'INSERT INTO comment_data(comment, username, upload_id, date, profile_img) values(?,?,?, NOW(),?)',
+    [req.body.userText, req.body.username, req.body.upload_id, req.body.profileImg],
     (err, rows) => {
       if (err) {
         console.log('err comment add');
@@ -693,7 +693,7 @@ app.put('/comment/delete', (req, res) => {
                         const comment = rows.map((data) => {
                           return { ...data, reply: [] };
                         });
-                        res.send(comment);
+                        res.send([comment]);
                       }
                     },
                   );
@@ -711,8 +711,8 @@ app.put('/comment/delete', (req, res) => {
 
 app.post('/reply/add', (req, res) => {
   connection.query(
-    'insert into reply_data(reply, username, upload_id, comment_id, date) values(?,?,?,?,NOW())',
-    [req.body.reply, req.body.username, req.body.upload_id, req.body.comment_id],
+    'insert into reply_data(reply, username, upload_id, comment_id, date, profile_img) values(?,?,?,?,NOW(),?)',
+    [req.body.reply, req.body.username, req.body.upload_id, req.body.comment_id, req.body.profileImg],
     (err, rows) => {
       if (err) {
         console.log('err add reply');
@@ -893,7 +893,7 @@ app.post('/reply/delete', (req, res) => {
                   const comment = rows.map((data) => {
                     return { ...data, reply: [] };
                   });
-                  res.send(comment);
+                  res.send([comment]);
                 }
               });
             }
