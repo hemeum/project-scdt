@@ -18,7 +18,7 @@ function ViewBoard({ isLogin, username, setOrder, order }) {
 
   useEffect(() => {
     // 로컬스토리지로 이전 order값 유지
-    console.log(order, localStorage.getItem('order'));
+
     const prevOrder = localStorage.getItem('order');
     if (prevOrder) {
       setOrder(Number(prevOrder));

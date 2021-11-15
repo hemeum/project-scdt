@@ -13,11 +13,15 @@ function ViewReply({ upload_id, userComment, username, index, setUserComment, co
 
   const userReplys = userReply.map((reply, i) => {
     const date = moment(reply.date).format('YYYY.MM.DD HH:mm');
-    console.log(reply.id);
+
     return (
       <li key={reply.id} className="reply-item">
         <div className="user-reply-box">
-          <img src={process.env.PUBLIC_URL + '/img/cafelatte.png'} className="user-profile-img" />
+          {!reply.profile_img ? (
+            <img src={process.env.PUBLIC_URL + '/img/cafelatte.png'} className="user-profile-img" />
+          ) : (
+            <img src={`/${reply.profile_img}`} alt="유저 프로필 이미지입니다" className="user-profile-img" />
+          )}
           <div className="user-reply-data">
             <p className="user-reply-nickname">{reply.username}</p>
             {isEdit[i] ? (

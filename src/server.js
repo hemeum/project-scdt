@@ -290,6 +290,8 @@ app.post('/profile/img', upload.single('imgFile'), (req, res) => {
   const image = `image/${req.file.filename}`;
 
   connection.query('update upload_data set profile_img = ? where username=?', [image, req.body.username]);
+  connection.query('update comment_data set profile_img = ? where username=?', [image, req.body.username]);
+  connection.query('update reply_data set profile_img = ? where username=?', [image, req.body.username]);
 
   connection.query('update auth set profile_img = ? where username=?', [image, req.body.username], (err, rows) => {
     if (err) {
@@ -340,7 +342,6 @@ app.post('/get/img', (req, res) => {
     if (err) {
       console.log('프로필 이미지 가져오기 에러 발생 탑어스 컴포넌트');
     } else {
-      console.log(rows[0]);
       res.send(rows[0]);
     }
   });
