@@ -19,7 +19,9 @@ function Footer({ match, categoryData }) {
           ? 'view-video-board-footer'
           : categoryData
           ? 'view-board-footer'
-          : ' board-list-footer'
+          : ctg === 'profile'
+          ? 'profile-board-footer'
+          : 'board-list-footer'
       }
     >
       <p>

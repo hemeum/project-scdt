@@ -4,7 +4,7 @@ import HeaderGnb from './components/HeaderGnb';
 import Contents from './components/contents/Contents';
 import NotFound from './pages/NotFound';
 import BoardList from './components/board-list/BoardList';
-import Spinner from './components/Spinner';
+import Profile from './components/profile/Profile';
 
 import UpLoadForm from './components/uploadform/UpLoadForm';
 import ViewBoard from './components/view/ViewBoard';
@@ -15,14 +15,12 @@ import './styles/base/reset.css';
 import './styles/base/visually-hidden.css';
 
 import axios from 'axios';
-import { css } from '@emotion/react';
 
 export function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState('');
   const [order, setOrder] = useState(0);
-
-  const [loading, setLoading] = useState(true);
+  const [profileImg, setProfileImg] = useState('');
 
   useEffect(async () => {
     const res = await axios.get('/loginCheck');
@@ -42,12 +40,26 @@ export function App() {
               setIsLogin={setIsLogin}
               username={username}
               setUsername={setUsername}
+              profileImg={profileImg}
+              setProfileImg={setProfileImg}
             />
           )}
         />
         <Switch>
           <Route exact path="/" render={() => <Contents order={order} setOrder={setOrder} />} />
-          <Route path="/board_list/:ctg" render={() => <BoardList order={order} setOrder={setOrder} />} />
+          <Route
+            path="/board_list/:ctg"
+            render={() => (
+              <BoardList
+                isLogin={isLogin}
+                profileImg={profileImg}
+                setProfileImg={setProfileImg}
+                order={order}
+                setOrder={setOrder}
+                username={username}
+              />
+            )}
+          />
           <Route
             path="/user"
             render={() => (
@@ -61,7 +73,7 @@ export function App() {
             path="/board_view/:upload_id"
             render={() => <ViewBoard order={order} setOrder={setOrder} isLogin={isLogin} username={username} />}
           />
-          <Route path="/loading" render={() => <Spinner loading={loading}></Spinner>}></Route>
+          <Route path="/profile" component={Profile} />
           <Route path="/" component={NotFound} />
         </Switch>
       </div>

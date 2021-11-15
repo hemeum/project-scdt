@@ -1,16 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-function TopAuth({ isLogin, setIsLogin, username }) {
-  /*const handleLogout = () => {
-    const yesLogout = window.confirm('정말 로그아웃 하시겠습니까?');
-    setLogin({ ...login, checkLogin: !yesLogout });
-  };
-*/
+function TopAuth({ isLogin, setIsLogin, username, profileImg, setProfileImg }) {
+  useEffect(async () => {
+    await axios.post('/get/img', { username: username }).then((res) => {
+      if (res.data.profile_img) {
+        setProfileImg(res.data.profile_img);
+      }
+    });
+  }, [profileImg, username]);
 
   const handleLogout = async () => {
     const yesLogout = window.confirm('정말 로그아웃 하시겠습니까?');
+
     if (yesLogout === true) {
       await axios.get('/logout');
       setIsLogin(false);
@@ -18,15 +21,20 @@ function TopAuth({ isLogin, setIsLogin, username }) {
       setIsLogin(true);
     }
   };
+
   return (
     <>
       {isLogin ? (
         <div className="top-auth">
           <div className="inner">
-            <a href="/" className="profile" aria-label="유저 프로필">
-              <i className="far fa-user-circle user-icon"></i>
+            <Link to="/board_List/profile" className="profile" aria-label="유저 프로필">
+              {profileImg === '' ? (
+                <i className="far fa-user-circle user-icon"></i>
+              ) : (
+                <img src={`/${profileImg}`} alt="유저프로필이미지입니다" className="top-profile-img" />
+              )}
               <span className="nickname">{username}</span>
-            </a>
+            </Link>
             <button type="button" className="logout" onClick={handleLogout}>
               로그아웃
             </button>

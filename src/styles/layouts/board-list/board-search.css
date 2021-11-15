@@ -1,7 +1,7 @@
 .search-area {
   display: flex;
   justify-content: flex-end;
-  margin: 30px 63.5px 10px 63.5px;
+  margin: 30px 63.5px 30px 63.5px;
 }
 
 .select-category-chevron-down {

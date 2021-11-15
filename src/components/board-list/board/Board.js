@@ -8,8 +8,9 @@ import BoardControll from './BoardControll';
 import BoardSearch from './../search/BoardSearch';
 import BoardTop from './../board-top/BoardTop';
 import Spinner from './../../Spinner';
+import Profile from './../../profile/Profile';
 
-function Board({ match, categoryData, order, setOrder }) {
+function Board({ match, categoryData, order, setOrder, username, profileImg, setProfileImg, isLogin }) {
   // categoryData는 viewboard에서 viewuserdata의 category를 의미함
   const [newData, setNewData] = useState([]);
   const [initialBoard, setInitialBoard] = useState(true);
@@ -23,11 +24,11 @@ function Board({ match, categoryData, order, setOrder }) {
 
   useEffect(async () => {
     setLoading(true);
-    await axios.post('/list', { ctg: ctg, category_data: categoryData }).then((res) => {
+    await axios.post('/list', { ctg: ctg, category_data: categoryData, username: username }).then((res) => {
       setBoardList(res.data);
       setLoading(false);
     });
-  }, [ctg, categoryData]);
+  }, [ctg, categoryData, username]);
 
   const spliceBoardList = [...boardList].splice(order, ctg === 'video' || categoryData === '영상콘텐츠' ? 12 : 10);
   const spliceSearchBoardList = [...newData].splice(order, ctg === 'video' || categoryData === '영상콘텐츠' ? 12 : 10);
@@ -78,10 +79,20 @@ function Board({ match, categoryData, order, setOrder }) {
         <Spinner></Spinner>
       ) : (
         <>
+          {ctg === 'profile' ? (
+            <Profile
+              isLogin={isLogin}
+              profileImg={profileImg}
+              setProfileImg={setProfileImg}
+              username={username}
+              boardList={boardList}
+              setBoardList={setBoardList}
+            ></Profile>
+          ) : undefined}
           {ctg === 'notice' ? (
             <BoardTop order={order} setOrder={setOrder} boardList={boardList} setBoardList={setBoardList} />
           ) : undefined}
-          {ctg ? (
+          {ctg && ctg !== 'profile' ? (
             <BoardSearch
               data={boardList}
               setInitialBoard={setInitialBoard}

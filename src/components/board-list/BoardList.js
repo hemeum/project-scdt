@@ -11,8 +11,9 @@ import './../../styles/layouts/video-board/board.css';
 import './../../styles/layouts/video-board/board-item.css';
 import './../../styles/layouts/video-board/board.css';
 import './../../styles/layouts/video-board/footer.css';
+import './../../styles/layouts/profile/profile.css';
 
-function BoardList({ order, setOrder, location }) {
+function BoardList({ order, setOrder, location, username, profileImg, setProfileImg, isLogin }) {
   useEffect(() => {
     if (location.state) {
       setOrder(location.state.newOrder);
@@ -30,7 +31,14 @@ function BoardList({ order, setOrder, location }) {
   return (
     <div className="contents">
       <div className="section">
-        <Board order={order} setOrder={setOrder} />
+        <Board
+          isLogin={isLogin}
+          profileImg={profileImg}
+          setProfileImg={setProfileImg}
+          order={order}
+          setOrder={setOrder}
+          username={username}
+        />
       </div>
       <Footer />
     </div>

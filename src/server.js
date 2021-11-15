@@ -50,11 +50,6 @@ app.use(
   }),
 );
 
-//
-app.post('/upload/image', upload.single('image'), (req, res) => {
-  const image = `image/${req.file.filename}`; // filename으로 업로드 폴더에 저장해놨으니 파일 네임을 보내줘야 한다!!!!!!!!!!
-  res.send(image);
-});
 // 회원가입, 로그인 로직
 
 app.get('/loginCheck', (req, res) => {
@@ -126,6 +121,12 @@ app.post('/auth/username', (req, res) => {
       }
     }
   });
+});
+
+//
+app.post('/upload/image', upload.single('image'), (req, res) => {
+  const image = `image/${req.file.filename}`; // filename으로 업로드 폴더에 저장해놨으니 파일 네임을 보내줘야 한다!!!!!!!!!!
+  res.send(image);
 });
 
 // upload_data notice-main-news > home page
@@ -216,11 +217,131 @@ app.post('/list', (req, res) => {
       return '영상콘텐츠';
     }
   };
-  connection.query('select * from upload_data where category = ? order by id desc', [ctg()], (err, rows) => {
+  if (req.body.heart_click) {
+    connection.query(
+      'select U.*, H.username as heart_username from upload_data U inner join heart_data H on U.id = H.upload_id order by date desc',
+      (err, rows) => {
+        if (err) {
+          console.log('err 좋아요 한 글 불러오기');
+        } else {
+          const uploadData = rows.filter((data) => {
+            return data.heart_username === req.body.username;
+          });
+          res.send(uploadData);
+          return;
+        }
+      },
+    );
+  } else if (req.body.comment_click) {
+    connection.query(
+      'select U.*, C.username as comment_username, R.username as reply_username, C.upload_id as comment_upload_id, R.upload_id as reply_upload_id  from upload_data U  inner join comment_data C on U.id = C.upload_id inner join reply_data R on U.id = R.upload_id order by date desc',
+      (err, rows) => {
+        if (err) {
+          console.log('err 댓글 단 글 가져오기 에러');
+        } else {
+          const uploadData = rows.filter((data) => {
+            return req.body.username === data.reply_username || req.body.username === data.comment_username;
+          });
+
+          const uploadData2 = uploadData.filter((data, i, arr) => {
+            // 중복된 id 제거해줌
+            return arr.findIndex((e) => e.id === data.id) === i;
+          });
+
+          res.send(uploadData2);
+          return;
+        }
+      },
+    );
+  } else if (req.body.ctg === 'profile' || req.body.write_click === true) {
+    connection.query(
+      'select * from upload_data where username=? order by date desc',
+      [req.body.username],
+      (err, rows) => {
+        if (err) {
+          console.log('err 프로필에서 내가 작성한 모든 게시판 가져오기');
+        } else {
+          res.send(rows);
+        }
+      },
+    );
+  } else {
+    connection.query('select * from upload_data where category = ? order by id desc', [ctg()], (err, rows) => {
+      if (err) {
+        console.log('err');
+      } else {
+        res.send(rows);
+      }
+    });
+  }
+});
+
+app.post('/profile/info', (req, res) => {
+  connection.query('select name, gender, profile_img from auth where username=?', [req.body.username], (err, rows) => {
     if (err) {
-      console.log('err');
+      console.log('err 유저 info 불러오기');
     } else {
-      res.send(rows);
+      res.send({ info: rows[0] });
+    }
+  });
+});
+
+app.post('/profile/img', upload.single('imgFile'), (req, res) => {
+  const image = `image/${req.file.filename}`;
+
+  connection.query('update upload_data set profile_img = ? where username=?', [image, req.body.username]);
+
+  connection.query('update auth set profile_img = ? where username=?', [image, req.body.username], (err, rows) => {
+    if (err) {
+      console.log('err 프로필 이미지 테이블에 추가');
+    } else {
+      connection.query(
+        'select name, gender,profile_img from auth where username=?',
+        [req.body.username],
+        (err, rows) => {
+          if (err) {
+            console.log('err 추가한 프로필 이미지 가져오기');
+          } else {
+            res.send(rows[0]);
+          }
+        },
+      );
+    }
+  });
+});
+
+app.post('/profile/length', (req, res) => {
+  connection.query('select * from upload_data where username=?', [req.body.username], (err, rows) => {
+    if (err) {
+      console.log('err 작성글 갯수 불러오기');
+    } else {
+      const writeLength = rows.length;
+      connection.query('select * from comment_data where username=?', [req.body.username], (err, rows) => {
+        if (err) {
+          console.log('err 댓글 쓴 갯수 불러오기');
+        } else {
+          const commentLength = rows.length;
+          connection.query('select * from reply_data where username=?', [req.body.username], (err, rows) => {
+            if (err) {
+              console.log('err 답글 쓴 갯수 불러오기');
+            } else {
+              const replyLength = rows.length;
+              res.send({ writeLength: writeLength, commentLength: Number(commentLength) + Number(replyLength) });
+            }
+          });
+        }
+      });
+    }
+  });
+});
+
+app.post('/get/img', (req, res) => {
+  connection.query('select profile_img from auth where username=?', [req.body.username], (err, rows) => {
+    if (err) {
+      console.log('프로필 이미지 가져오기 에러 발생 탑어스 컴포넌트');
+    } else {
+      console.log(rows[0]);
+      res.send(rows[0]);
     }
   });
 });

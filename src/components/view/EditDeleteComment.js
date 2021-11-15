@@ -33,7 +33,7 @@ function EditDeleteComment({
           comment_length: Number(commentLength),
         })
         .then((res) => {
-          setUserComment(res.data[0]);
+          setUserComment(res.data);
           setCommentLength(res.data[1]);
         });
       window.scrollTo(0, 0);

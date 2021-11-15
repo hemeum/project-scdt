@@ -104,7 +104,7 @@ function ViewComment({
   const userComments = userComment.map((comment, index) => {
     // 댓글 리스트 반복
     const date = moment(comment.date).format('YYYY-MM-DD HH:mm');
-    console.log(comment.id);
+
     return (
       <li key={comment.id} className="comment-item">
         <div className="user-comment-box">

@@ -14,7 +14,7 @@ import './../styles/layouts/gnb-menu.css';
 import './../styles/layouts/top-auth.css';
 import { Link, withRouter } from 'react-router-dom';
 
-function HeaderGnb({ isLogin, setIsLogin, username, history, setOrder }) {
+function HeaderGnb({ isLogin, setIsLogin, username, history, setOrder, profileImg, setProfileImg, match }) {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputValue = (e) => {
@@ -45,7 +45,13 @@ function HeaderGnb({ isLogin, setIsLogin, username, history, setOrder }) {
         <SearchInput value={inputValue} onChange={handleInputValue} onClick={handleSearchButton}></SearchInput>
         <WriteButton onClick={handleWriteButton} write={'글쓰기'}></WriteButton>
         <GnbMenu setOrder={setOrder}></GnbMenu>
-        <TopAuth username={username} isLogin={isLogin} setIsLogin={setIsLogin}></TopAuth>
+        <TopAuth
+          username={username}
+          isLogin={isLogin}
+          setIsLogin={setIsLogin}
+          profileImg={profileImg}
+          setProfileImg={setProfileImg}
+        ></TopAuth>
       </header>
     </>
   );

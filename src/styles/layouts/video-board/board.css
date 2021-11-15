@@ -4,12 +4,6 @@
   margin: 0 0 50px 0;
 }
 
-.board-list {
-  width: 900px;
-  margin-top: 30px;
-  border-top: 1px solid #ccc;
-}
-
 .video-collection:after {
   content: '';
   display: block;

@@ -17,12 +17,14 @@ function BoardItem({ ctg, order, uploadId, index, category, title, comment, view
   let img;
   let video;
 
-  text.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
-    img = capture;
-  }); // img태그에서 src만 추출
-  text.replace(/<iframe [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
-    video = capture;
-  }); // iframe태그에서 src만 추출
+  if (text) {
+    text.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
+      img = capture;
+    }); // img태그에서 src만 추출
+    text.replace(/<iframe [^>]*src=['"]([^'"]+)[^>]*>/gi, (match, capture) => {
+      video = capture;
+    }); // iframe태그에서 src만 추출
+  }
 
   // 뷰보드에선 ctg는 undefined
   return (

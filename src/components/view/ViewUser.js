@@ -128,7 +128,11 @@ function ViewUser({
       <p>{viewUserData.category}</p>
       <h3>{viewUserData.title}</h3>
       <div className="user-box">
-        <img src={process.env.PUBLIC_URL + '/img/cafelatte.png'} className="user-profile-img" />
+        {viewUserData.profile_img ? (
+          <img src={`/${viewUserData.profile_img}`} alt="유저 프로필 이미지입니다" className="user-profile-img"></img>
+        ) : (
+          <img src={process.env.PUBLIC_URL + '/img/cafelatte.png'} className="user-profile-img" />
+        )}
         <div className="user-upload-data">
           <p>{viewUserData.username}</p>
           <p>
