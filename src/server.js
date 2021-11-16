@@ -1,5 +1,4 @@
 const express = require('express');
-const port = process.env.PORT || 5000;
 const app = express();
 const path = require('path');
 const multer = require('multer');
@@ -7,23 +6,26 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mysql = require('mysql');
 const MysqlStore = require('express-mysql-session')(session);
+const dotenv = require('dotenv');
+dotenv.config();
+const port = process.env.SCDT_SERVER_PORT || 6000;
 
 const options = {
-  host: 'localhost',
-  port: '3306',
-  user: 'sss1997',
-  password: 'gmldms971506!',
-  database: 'scdt',
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
 };
 
 const sessionStore = new MysqlStore(options);
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  port: '3306',
-  database: 'scdt',
-  user: 'sss1997',
-  password: 'gmldms971506!',
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
 });
 
 const upload = multer({
