@@ -56,7 +56,7 @@ function Profile({
   }, [writeLength, commentLength, username]);
 
   const commentedClick = async () => {
-    await axios.post('/list', { comment_click: true, username: username }).then((res) => {
+    await axios.post('/board/list', { comment_click: true, username: username }).then((res) => {
       setBoardList(res.data);
     });
     writeRef.current.classList.remove('on-hit');
@@ -65,7 +65,7 @@ function Profile({
   };
 
   const writedClick = async () => {
-    await axios.post('/list', { write_click: true, username: username }).then((res) => {
+    await axios.post('/board/list', { write_click: true, username: username }).then((res) => {
       setBoardList(res.data);
     });
     commentRef.current.classList.remove('on-hit');
@@ -74,7 +74,7 @@ function Profile({
   };
 
   const heartedClick = async () => {
-    await axios.post('/list', { heart_click: true, username: username }).then((res) => {
+    await axios.post('/board/list', { heart_click: true, username: username }).then((res) => {
       setBoardList(res.data);
     });
     commentRef.current.classList.remove('on-hit');

@@ -8,7 +8,7 @@ const mysql = require('mysql');
 const MysqlStore = require('express-mysql-session')(session);
 const dotenv = require('dotenv');
 dotenv.config();
-const port = process.env.SCDT_SERVER_PORT || 6000;
+const port = process.env.SCDT_SERVER_PORT || 5000;
 
 const options = {
   host: process.env.DB_HOST,
