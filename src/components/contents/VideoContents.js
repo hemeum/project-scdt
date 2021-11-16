@@ -9,7 +9,7 @@ export default function VideoContents({ order, setOrder }) {
   const [boardList, setBoardList] = useState([]);
 
   useEffect(() => {
-    axios.get('/upload/video').then((res) => {
+    axios.get('/board/video_contents').then((res) => {
       setBoardList(res.data);
     });
   }, []);

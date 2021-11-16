@@ -23,7 +23,7 @@ export function App() {
   const [profileImg, setProfileImg] = useState('');
 
   useEffect(async () => {
-    const res = await axios.get('/loginCheck');
+    const res = await axios.get('/user/check');
     setIsLogin(res.data.checkLogin);
     setUsername(res.data.username);
   }, [isLogin]);

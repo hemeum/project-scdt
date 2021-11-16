@@ -4,7 +4,7 @@ import axios from 'axios';
 
 function TopAuth({ isLogin, setIsLogin, username, profileImg, setProfileImg }) {
   useEffect(async () => {
-    await axios.post('/get/img', { username: username }).then((res) => {
+    await axios.post('/user/profile_img', { username: username }).then((res) => {
       if (res.data.profile_img) {
         setProfileImg(res.data.profile_img);
       }
@@ -15,7 +15,7 @@ function TopAuth({ isLogin, setIsLogin, username, profileImg, setProfileImg }) {
     const yesLogout = window.confirm('정말 로그아웃 하시겠습니까?');
 
     if (yesLogout === true) {
-      await axios.get('/logout');
+      await axios.get('/user/logout');
       setIsLogin(false);
     } else {
       setIsLogin(true);

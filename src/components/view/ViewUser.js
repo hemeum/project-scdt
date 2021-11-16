@@ -48,7 +48,7 @@ function ViewUser({
           // 하트를 이미 누르고 다시 접속했을 때
 
           await axios
-            .post('/heartCheck', {
+            .post('/heart/check', {
               username: username,
               upload_id: upload_id,
               isHeart: true,
@@ -64,7 +64,7 @@ function ViewUser({
             // 최초 하트를 클릭했을 때(false에서 true로)
 
             await axios
-              .post('/heart', {
+              .post('/heart/add', {
                 username: username,
                 upload_id: upload_id,
                 isHeart: false,
@@ -79,7 +79,7 @@ function ViewUser({
             // 하트를  취소하기 위해 다시 클릭했을 때(true에서 false)
 
             await axios
-              .post('/heart', {
+              .post('/heart/add', {
                 username: username,
                 upload_id: upload_id,
                 isHeart: true,
@@ -106,7 +106,7 @@ function ViewUser({
   useEffect(async () => {
     // 해당 보드뷰를 만든 유저의 데이터 가져오기
     setLoading(true);
-    await axios.post('/view', { upload_id: upload_id, username: username, order: order }).then((res) => {
+    await axios.post('/board/view', { upload_id: upload_id, username: username, order: order }).then((res) => {
       setViewUserData({ ...res.data[0] });
       setCheckUser(res.data[0].checkUser); // 체크유저는 하트와 무관, 해당 뷰보드를 만든 유저인지 확인하는 것. 수정 또는 신고하기
       setOrder(res.data[1]);
@@ -117,7 +117,7 @@ function ViewUser({
 
   useEffect(async () => {
     // 좋아요 유지 로직
-    await axios.post('/heartColor', { username: username, upload_id: upload_id }).then((res) => {
+    await axios.post('/heart/color', { username: username, upload_id: upload_id }).then((res) => {
       setHeartColor(res.data.heartColor);
     });
   });

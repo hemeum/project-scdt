@@ -51,7 +51,7 @@ function ViewComment({
 
         // 댓글 전체
         await axios
-          .post('/comment', {
+          .post('/comment/add', {
             userText: userText,
             username: username,
             upload_id: upload_id,

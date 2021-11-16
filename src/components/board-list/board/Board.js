@@ -28,7 +28,7 @@ function Board({ match, categoryData, order, setOrder, username, profileImg, set
 
   useEffect(async () => {
     setLoading(true);
-    await axios.post('/list', { ctg: ctg, category_data: categoryData, username: username }).then((res) => {
+    await axios.post('/board/list', { ctg: ctg, category_data: categoryData, username: username }).then((res) => {
       setBoardList(res.data);
       setTimeout(() => {
         setLoading(false);

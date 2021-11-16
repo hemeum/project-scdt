@@ -43,7 +43,7 @@ function Summernote({ username, inputTitle, category, history, location, profile
     e.preventDefault();
     if (value !== '' && inputTitle !== '') {
       await axios
-        .post('/upload', {
+        .post('/upload/add', {
           username: username,
           title: inputTitle,
           category: category,
