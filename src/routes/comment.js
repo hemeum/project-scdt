@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 module.exports = (connection) => {
-  router.post('add', (req, res) => {
+  router.post('/add', (req, res) => {
     // 댓글 db에 추가
     connection.query(
       'INSERT INTO comment_data(comment, username, upload_id, date, profile_img) values(?,?,?, NOW(),?)',

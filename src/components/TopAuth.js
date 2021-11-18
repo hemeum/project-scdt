@@ -47,7 +47,14 @@ function TopAuth({ isLogin, setIsLogin, username, profileImg, setProfileImg }) {
               <i className="far fa-user user-icon"></i>
             </button>
             <button type="text" className="login">
-              <Link to="/user">로그인</Link>
+              <Link
+                to="/user"
+                onClick={() => {
+                  setProfileImg('');
+                }}
+              >
+                로그인
+              </Link>
             </button>
           </div>
         </div>
