@@ -8,7 +8,6 @@ const mysql = require('mysql');
 const MysqlStore = require('express-mysql-session')(session);
 const dotenv = require('dotenv');
 dotenv.config();
-const port = process.env.PORT || 5000;
 
 const options = {
   host: process.env.DB_HOST,
@@ -115,6 +114,6 @@ if (process.env.NODE_ENV === 'production') {
 
 //
 
-app.listen(port, () => {
-  console.log(`서버 ${port}가 열렸습니다.`);
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`서버가 열렸습니다.`);
 });
