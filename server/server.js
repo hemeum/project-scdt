@@ -16,6 +16,7 @@ const options = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
+  multipleStatements: true,
 };
 
 const sessionStore = new MysqlStore(options);
@@ -23,6 +24,10 @@ const sessionStore = new MysqlStore(options);
 const connection = mysql.createConnection(options);
 
 connection.connect();
+
+setInterval(function () {
+  connection.query('SELECT 1');
+}, 5000);
 
 const fileUpload = multer({
   storage: multer.diskStorage({
@@ -99,6 +104,14 @@ app.post('/increase/views', (req, res) => {
     }
   });
 });
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+  });
+}
 
 //
 
