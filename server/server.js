@@ -91,10 +91,17 @@ app.post('/increase/views', (req, res) => {
       console.log('err upload select increase');
     } else {
       const views = rows[0].views;
-      connection.query('update upload_data set views = ? where id = ?', [
-        Number(views) + Number(1),
-        req.body.upload_id,
-      ]);
+      connection.query(
+        'update upload_data set views = ? where id = ?',
+        [Number(views) + Number(1), req.body.upload_id],
+        (err) => {
+          if (err) {
+            console.log('err 조회수 증가');
+          } else {
+            res.send('조회수 증가 완료');
+          }
+        },
+      );
     }
   });
 });
