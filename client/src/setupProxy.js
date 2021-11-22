@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     '/auth',
     createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: 'https://project-scdt.herokuapp.com/',
       changeOrigin: true,
     }),
   );
@@ -12,7 +12,7 @@ module.exports = function (app) {
   app.use(
     '/board',
     createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: 'https://project-scdt.herokuapp.com/',
       changeOrigin: true,
     }),
   );
@@ -20,7 +20,7 @@ module.exports = function (app) {
   app.use(
     '/heart',
     createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: 'https://project-scdt.herokuapp.com/',
       changeOrigin: true,
     }),
   );
@@ -28,7 +28,7 @@ module.exports = function (app) {
   app.use(
     '/profile',
     createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: 'https://project-scdt.herokuapp.com/',
       changeOrigin: true,
     }),
   );
@@ -36,7 +36,7 @@ module.exports = function (app) {
   app.use(
     '/reply',
     createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: 'https://project-scdt.herokuapp.com/',
       changeOrigin: true,
     }),
   );
@@ -44,7 +44,7 @@ module.exports = function (app) {
   app.use(
     '/upload',
     createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: 'https://project-scdt.herokuapp.com/',
       changeOrigin: true,
     }),
   );
@@ -52,7 +52,7 @@ module.exports = function (app) {
   app.use(
     '/user',
     createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: 'https://project-scdt.herokuapp.com/',
       changeOrigin: true,
     }),
   );
@@ -60,7 +60,7 @@ module.exports = function (app) {
   app.use(
     '/comment',
     createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: 'https://project-scdt.herokuapp.com/',
       changeOrigin: true,
     }),
   );
