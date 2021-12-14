@@ -12,11 +12,11 @@ export default function ArticleInfo(props) {
       <span className="date">{props.date}</span>
       <span className="counter-eye">
         <i className="far fa-eye eye"></i>
-        {props.eye}
+        {props.eye ? props.eye : 0}
       </span>
       <span className="counter-like">
         <i className="far fa-heart heart"></i>
-        {props.like}
+        {props.like ? props.like : 0}
       </span>
     </div>
   );
