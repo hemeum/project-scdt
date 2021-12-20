@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-module.exports = () => {
+module.exports = (connection) => {
   router.post('/join', (req, res) => {
     // 회원가입
     connection.query(
