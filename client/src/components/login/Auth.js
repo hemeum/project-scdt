@@ -462,7 +462,7 @@ function Auth({ history }) {
             </button>
           </p>
           */}
-          <button type={joinData ? 'submit' : 'button'} className="join-button" onClick={joinButton}>
+          <button type={'submit'} className="join-button">
             가입하기
           </button>
         </form>
