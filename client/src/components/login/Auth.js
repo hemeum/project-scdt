@@ -249,7 +249,7 @@ function Auth({ history }) {
         birthdayDay: bDay.inputValue,
         phoneNumber: phoneNumber.inputValue,
       });
-      await history.push('/user');
+      await history.push({ pathname: '/user', state: { data: 'auth' } });
       await window.scrollTo(0, 0);
     } else {
       window.alert('정보를 다시 입력해주세요.');
