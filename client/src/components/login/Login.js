@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import './../../styles/layouts/login/login.css';
 
-function Login({ isLogin, setIsLogin, history, username, setUsername }) {
+function Login({ isLogin, setIsLogin, history, username, setUsername, location }) {
   const [user_id, setUser_id] = useState('');
   const [pwd, setPwd] = useState('');
   const [reLogin, setReLogin] = useState(false);
