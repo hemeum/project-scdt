@@ -89,7 +89,7 @@ function ViewComment({
     await axios.post('/comment/length', { upload_id: upload_id, comment_length: Number(commentLength) }).then((res) => {
       setCommentLength(res.data.comment);
     });
-  }, [commentLength]);
+  }, [commentLength, upload_id]);
 
   useEffect(async () => {
     await axios.post('/reply/keep', { upload_id: upload_id }).then((res) => {
