@@ -228,21 +228,38 @@ function Auth({ history }) {
 
   const submitJoin = async (e) => {
     e.preventDefault();
-    await axios.post('/auth/join', {
-      username: username.inputValue,
-      pwd: pwd.inputValue,
-      name: name.inputValue,
-      gender: selectGenderValue,
-      birthdayYear: bYear.inputValue,
-      birthdayMonth: selectMonthValue,
-      birthdayDay: bDay.inputValue,
-      phoneNumber: phoneNumber.inputValue,
-    });
-    history.push('/user');
-    window.scrollTo(0, 0);
+    if (
+      usernameFs.test === true &&
+      pwdFs.test === true &&
+      checkPwdFs.test === true &&
+      nameFs.test === true &&
+      genderFs.test === true &&
+      bYearFs.test === true &&
+      bMonthFs.test === true &&
+      bDayFs.test === true &&
+      pNFs.test === true
+    ) {
+      await axios.post('/auth/join', {
+        username: username.inputValue,
+        pwd: pwd.inputValue,
+        name: name.inputValue,
+        gender: selectGenderValue,
+        birthdayYear: bYear.inputValue,
+        birthdayMonth: selectMonthValue,
+        birthdayDay: bDay.inputValue,
+        phoneNumber: phoneNumber.inputValue,
+      });
+      await history.push('/user');
+      await window.scrollTo(0, 0);
+    } else {
+      window.alert('정보를 다시 입력해주세요.');
+      console.log('가입실패 : 유효성 검사 인증 실패로 인한');
+      window.scrollTo(0, 0);
+      history.push('/auth');
+    }
   };
 
-  const joinButton = (e) => {
+  /*const joinButton = (e) => {
     if (
       usernameFs.test === true &&
       pwdFs.test === true &&
@@ -273,7 +290,7 @@ function Auth({ history }) {
       bDayFs.test,
       pNFs.test,
     );
-  };
+  };*/
 
   return (
     <div className="auth">
