@@ -6,6 +6,7 @@ module.exports = (connection) => {
     connection.query('select password from auth where username=?', [req.body.user_name], (err, rows) => {
       if (err) {
         console.log('로그인 error');
+        res.json(err);
       } else {
         if (rows[0].password === req.body.user_pwd) {
           req.session.isLogin = true;

@@ -23,12 +23,21 @@ function Login({ isLogin, setIsLogin, history, username, setUsername, location }
       method: 'post',
       url: '/user/login',
       data: { user_name: user_id, user_pwd: pwd },
-    }).then((response) => {
-      console.log(response.data);
-      setIsLogin(response.data.checkLogin);
-      setReLogin(response.data.reLogin);
-      setUsername(response.data.nickname);
-    });
+    })
+      .then((response) => {
+        console.log(response.data);
+        setIsLogin(response.data.checkLogin);
+        setReLogin(response.data.reLogin);
+        setUsername(response.data.nickname);
+      })
+      .catch((err) => {
+        if (err) {
+          alert('없는 아이디 또는 비밀번호입니다.');
+          pwdRef.current.focus();
+          setPwd('');
+          setReLogin(false);
+        }
+      });
   };
 
   useEffect(() => {
