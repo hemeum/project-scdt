@@ -3,17 +3,27 @@ const router = require('express').Router();
 module.exports = (connection) => {
   router.post('/login', (req, res) => {
     // 로그인한 유저 판별
-    connection.query('select password from auth where username=?', [req.body.user_name], (err, rows) => {
+    connection.query('select username from auth', (err, rows) => {
       if (err) {
-        console.log('로그인 error');
-        res.json(err);
+        console.log('없는 아이디');
       } else {
-        if (rows[0].password === req.body.user_pwd) {
-          req.session.isLogin = true;
-          req.session.user_id = req.body.user_name;
-          res.send({ checkLogin: true, nickname: req.body.user_name, reLogin: false });
-        } else {
-          res.send({ checkLogin: false, reLogin: true, nickname: req.body.user_name });
+        const yesUsername = rows.filter((username) => {
+          return username === req.body.user_name;
+        });
+        if (yesUsername.length !== 0) {
+          connection.query('select password from auth where username=?', [req.body.user_name], (err, rows) => {
+            if (err) {
+              console.log('로그인 error');
+            } else {
+              if (rows[0].password === req.body.user_pwd) {
+                req.session.isLogin = true;
+                req.session.user_id = req.body.user_name;
+                res.send({ checkLogin: true, nickname: req.body.user_name, reLogin: false });
+              } else {
+                res.send({ checkLogin: false, reLogin: true });
+              }
+            }
+          });
         }
       }
     });
