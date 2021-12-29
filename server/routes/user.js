@@ -7,8 +7,9 @@ module.exports = (connection) => {
       if (err) {
         console.log('없는 아이디');
       } else {
-        const yesUsername = rows.filter((username) => {
-          return username === req.body.user_name;
+        console.log(rows);
+        const yesUsername = rows.filter((data) => {
+          return data.username === req.body.user_name;
         });
         if (yesUsername.length !== 0) {
           connection.query('select password from auth where username=?', [req.body.user_name], (err, rows) => {
