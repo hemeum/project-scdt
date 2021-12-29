@@ -12,7 +12,7 @@ module.exports = (connection) => {
           req.session.user_id = req.body.user_name;
           res.send({ checkLogin: true, nickname: req.body.user_name, reLogin: false });
         } else {
-          res.send({ checkLogin: false, reLogin: true });
+          res.send({ checkLogin: false, reLogin: true, nickname: req.body.user_name });
         }
       }
     });
