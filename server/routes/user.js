@@ -24,6 +24,8 @@ module.exports = (connection) => {
               }
             }
           });
+        } else {
+          res.send({ checkLogin: false, reLogin: true });
         }
       }
     });
