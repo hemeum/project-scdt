@@ -1,6 +1,6 @@
 .video-board-footer {
   position: absolute;
-  bottom: -590px;
+  bottom: -620px;
   left: 50%;
   transform: translateX(-50%);
   width: 900px;
@@ -26,7 +26,7 @@
 
 .view-video-board-footer {
   position: absolute;
-  bottom: -380px;
+  bottom: -410px;
   left: 50%;
   transform: translateX(-50%);
   width: 900px;

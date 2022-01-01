@@ -54,7 +54,7 @@
 
 .view-board-footer {
   position: absolute;
-  bottom: -220px;
+  bottom: -260px;
   left: 50%;
   transform: translateX(-50%);
   width: 900px;
