@@ -23,7 +23,8 @@
 
 .view-video-board-footer {
   width: 900px;
-  margin: 0 auto 100px;
+  margin-bottom: 100px;
+  margin-left: 63px;
   text-align: center;
 }
 
