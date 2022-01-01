@@ -2,7 +2,8 @@
   position: relative;
   width: 1027px;
   height: 100vh;
-  margin-top: 87px;
+  margin-top: 27px;
+  border-left: 1px solid lightgray;
 }
 
 .login-form {

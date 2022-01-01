@@ -3,6 +3,7 @@
   width: 1027px;
   height: 1050px;
   margin-top: 87px;
+  border-left: 1px solid lightgray;
 }
 
 .auth-content {
