@@ -1,8 +1,9 @@
 .contents {
   position: relative;
   width: 1027px;
-  height: 1100px;
+  height: 100%;
   margin-top: 87px;
+  border-left: 1px solid lightgray;
 }
 
 .section-top {

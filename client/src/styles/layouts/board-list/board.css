@@ -13,13 +13,11 @@
 
 .board-controller {
   display: flex;
-  position: absolute;
-  bottom: -110px;
-  left: 50%;
+  width: 900px;
   height: 50px;
-  padding-left: 127px;
   align-items: center;
-  transform: translateX(-50%);
+  justify-content: center;
+  margin-top: 50px;
 }
 
 .board-controller i {

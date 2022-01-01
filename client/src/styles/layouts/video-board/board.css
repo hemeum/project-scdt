@@ -12,13 +12,10 @@
 
 .video-board-controller {
   display: flex;
-  position: absolute;
-  bottom: -750px;
-  left: 50%;
+  width: 900px;
   height: 50px;
-  margin-left: 63.5px;
+  justify-content: center;
   align-items: center;
-  transform: translateX(-50%);
 }
 
 .video-board-controller i {
@@ -43,13 +40,10 @@
 
 .view-video-board-controller {
   display: flex;
-  position: absolute;
-  bottom: -250px;
-  left: 50%;
+  width: 900px;
   height: 50px;
-  margin-left: 63.5px;
+  justify-content: center;
   align-items: center;
-  transform: translateX(-50%);
 }
 
 .view-video-board-controller i {

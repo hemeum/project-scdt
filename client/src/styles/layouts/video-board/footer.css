@@ -1,10 +1,7 @@
 .video-board-footer {
-  position: absolute;
-  bottom: -620px;
-  left: 50%;
-  transform: translateX(-50%);
   width: 900px;
   text-align: center;
+  margin: 0 auto 100px;
 }
 
 .video-board-footer img {
@@ -25,12 +22,8 @@
 }
 
 .view-video-board-footer {
-  position: absolute;
-  bottom: -410px;
-  left: 50%;
-  transform: translateX(-50%);
   width: 900px;
-  margin-left: 63.5px;
+  margin: 0 auto 100px;
   text-align: center;
 }
 

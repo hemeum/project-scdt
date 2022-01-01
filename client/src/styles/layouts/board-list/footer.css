@@ -1,12 +1,9 @@
 /*공지사항은 푸터랑 컨트롤러 높이 다시 주기*/
 
 .board-list-footer {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
   width: 900px;
   text-align: center;
+  margin: 0 auto 100px;
 }
 
 .board-list-footer img {
@@ -27,12 +24,9 @@
 }
 
 .notice-board-list-footer {
-  position: absolute;
-  bottom: -160px;
-  left: 50%;
-  transform: translateX(-50%);
   width: 900px;
   text-align: center;
+  margin: 0 auto 100px;
 }
 
 .notice-board-list-footer img {
@@ -53,13 +47,9 @@
 }
 
 .view-board-footer {
-  position: absolute;
-  bottom: -260px;
-  left: 50%;
-  transform: translateX(-50%);
   width: 900px;
   text-align: center;
-  margin-left: 63.5px;
+  margin: 0 auto 100px;
 }
 
 .view-board-footer img {
