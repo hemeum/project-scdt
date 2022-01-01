@@ -2,7 +2,7 @@
 
 .board-list-footer {
   position: absolute;
-  bottom: 80px;
+  bottom: 90px;
   left: 50%;
   transform: translateX(-50%);
   width: 900px;
@@ -11,7 +11,7 @@
 
 .board-list-footer img {
   width: 70px;
-  height: 50px;
+  height: 100px;
   object-fit: cover;
   margin-top: 20px;
 }
@@ -28,7 +28,7 @@
 
 .notice-board-list-footer {
   position: absolute;
-  bottom: -100px;
+  bottom: -110px;
   left: 50%;
   transform: translateX(-50%);
   width: 900px;
@@ -37,7 +37,7 @@
 
 .notice-board-list-footer img {
   width: 70px;
-  height: 50px;
+  height: 100px;
   object-fit: cover;
   margin-top: 20px;
 }
@@ -54,7 +54,7 @@
 
 .view-board-footer {
   position: absolute;
-  bottom: -210px;
+  bottom: -220px;
   left: 50%;
   transform: translateX(-50%);
   width: 900px;
@@ -64,7 +64,7 @@
 
 .view-board-footer img {
   width: 70px;
-  height: 50px;
+  height: 100px;
   object-fit: cover;
   margin-top: 20px;
 }

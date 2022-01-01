@@ -3,11 +3,11 @@
   padding-right: 7px;
   margin-top: 3px;
   font-size: 14px;
-  color: #999;
+  color: lightgray;
 }
 
 .autor {
-  margin-right: 35px;
+  margin-right: 30px;
 }
 
 .speaker {
@@ -15,7 +15,7 @@
 }
 
 .date {
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 .eye {
@@ -23,7 +23,7 @@
 }
 
 .counter-eye {
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 .heart {
