@@ -2,9 +2,9 @@ import React from 'react';
 
 import './../../styles/layouts/sub-banner.css';
 
-import cookie from './../../images/cookie.jpg';
-import pancake from './../../images/pancake.jpg';
-import icream from './../../images/icream.jpg';
+import cookie from './../../images/banner-9.png';
+import pancake from './../../images/banner-13.jpg';
+import icream from './../../images/banner-15.jpg';
 
 export default function SubBanner() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from './../images/logo.jpg';
+import logo from './../images/logo-3.png';
 
 export default function GnbTitle() {
   return (

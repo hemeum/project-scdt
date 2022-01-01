@@ -2,11 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import './../../styles/layouts/main-banner.css';
 
-import slide1 from './../../images/mega.jpg';
-import slide2 from './../../images/starburks.jpg';
-import slide3 from './../../images/rabit.jpg';
-import slide4 from './../../images/compose.jpg';
-import slide5 from './../../images/bback.jpg';
+import slide1 from './../../images/banner-10.png';
+import slide2 from './../../images/banner-6.png';
+import slide3 from './../../images/banner-7.png';
+import slide4 from './../../images/banner-8.png';
+import slide5 from './../../images/banner-11.png';
 
 export default function MainBanner() {
   const listRef = useRef();
@@ -160,10 +160,10 @@ export default function MainBanner() {
       </ul>
 
       <button type="button" onClick={handleRightArrow}>
-        <i ref={rightArrowRef} className="fas fa-arrow-right arrow-right"></i>
+        <i ref={rightArrowRef} className="fas fa-arrow-right banner-arrow-right"></i>
       </button>
       <button type="button" onClick={handleLeftArrow}>
-        <i ref={leftArrowRef} className="fas fa-arrow-left arrow-left"></i>
+        <i ref={leftArrowRef} className="fas fa-arrow-left banner-arrow-left"></i>
       </button>
     </div>
   );

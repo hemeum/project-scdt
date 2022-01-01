@@ -91,7 +91,7 @@ function GnbMenu({ setOrder }) {
     return (
       <li key={item.id} className="gnb-menu-item-chevron-down" onClick={handleChevron}>
         <a href="/" className="gnb-menu-item" aria-label="목록리스트">
-          <i className={`fas fa-flag ${item.title}-icon`}></i>
+          <img src={process.env.PUBLIC_URL + `img/icon${item.id}.png`} className="img-icon" />
           <span>{item.title}</span>
           <i className="fas fa-chevron-down chevron"></i>
         </a>

@@ -22,7 +22,7 @@ export default function BoardItem(props) {
           <span className="new-icon"></span>
         </p>
         <div className="thumb">
-          <img src={process.env.PUBLIC_URL + '/img/update.png'} alt="공지사항 이미지입니다" className="thumb-img" />
+          <img src={process.env.PUBLIC_URL + '/img/update-1.png'} alt="공지사항 이미지입니다" className="thumb-img" />
         </div>
         <div className="comment">
           <i className="far fa-comment-dots comment-icon"></i>

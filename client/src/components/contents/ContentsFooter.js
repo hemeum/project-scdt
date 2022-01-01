@@ -3,8 +3,8 @@ import React from 'react';
 import './../../styles/layouts/contents.css';
 import './../../styles/layouts/section-banner.css';
 
-import bannerImgOne from './../../images/footerbanner-1.jpg';
-import bannerImgTwo from './../../images/footerbanner-2.jpg';
+import bannerImgOne from './../../images/banner-1.png';
+import bannerImgTwo from './../../images/banner-2.png';
 
 export default function ContentsFooter() {
   return (

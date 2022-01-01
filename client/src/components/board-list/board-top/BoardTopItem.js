@@ -25,7 +25,11 @@ export default function BoardTopItem(props) {
         <ArticleInfo eye={props.views} like={props.heart} date={props.date}></ArticleInfo>
       </Link>
       <div className="board-top-thumb">
-        <img className="board-top-thumb-img" src={eventThumb} alt="주요소식 안내드립니다" />
+        <img
+          className="board-top-thumb-img"
+          src={process.env.PUBLIC_URL + 'img/update-1.png'}
+          alt="주요소식 안내드립니다"
+        />
       </div>
     </li>
   );

@@ -85,6 +85,7 @@ export function App() {
           <Route path="/" component={NotFound} />
         </Switch>
       </div>
+      <div className="con-overay"></div>
     </HashRouter>
   );
 }
