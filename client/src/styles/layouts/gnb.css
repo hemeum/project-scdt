@@ -1,7 +1,6 @@
 .gnb {
   width: 273px;
-  min-height: 2300px;
-  max-height: 5000px;
+  height: 100%;
   padding: 50px 25px;
   text-align: center;
 }

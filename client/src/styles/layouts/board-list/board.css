@@ -7,7 +7,7 @@
 
 .board-list {
   width: 900px;
-  height: 702px;
+  min-height: 702px;
   border-top: 1px solid #ccc;
 }
 
