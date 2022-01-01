@@ -4,14 +4,15 @@
   margin-top: 80px;
 }
 
-.gnb-menu-list {
-  text-align: left;
-}
-
-.gnb-menu-list i {
-  font-size: 20px;
+.img-icon {
+  width: 40px;
+  height: 40px;
   margin-right: 15px;
   pointer-events: none;
+}
+
+.gnb-menu-list {
+  text-align: left;
 }
 
 .gnb-menu-item-chevron-down {
@@ -38,7 +39,7 @@
 
 .gnb-menu-item-chevron-down .chevron {
   position: absolute;
-  top: 7px;
+  top: 14px;
   right: 0;
   font-size: 15px;
   transition: all 0.5s;
@@ -46,7 +47,7 @@
 
 .gnb-menu-item-chevron-up .chevron {
   position: absolute;
-  top: 7px;
+  top: 14px;
   right: 0;
   font-size: 15px;
   transform: rotate(180deg);
@@ -76,6 +77,11 @@
 }
 
 .list-item:hover {
-  background-color: #ccc;
+  background-color: rgb(233, 219, 159);
   color: #333;
+}
+
+.gnb-menu-item span {
+  font-size: 16px;
+  font-weight: bold;
 }

@@ -1,10 +1,31 @@
+@font-face {
+  font-family: 'establishRoomNo703OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRoomNo703OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OTWelcomeRA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/OTWelcomeRA.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+.jejugothic * {
+  font-family: 'Jeju Gothic', sans-serif;
+}
+
 .contain {
   display: flex;
-  position: relative;
+  position: absolute;
   width: 1300px;
   margin: 0 auto;
   border-right: 1px solid #ccc;
   background: rgb(255, 255, 255);
+  z-index: 50;
 }
 
 .contain .notFound-wrap {
@@ -18,4 +39,17 @@
   align-items: center;
   width: 1027px;
   height: 1000px;
+}
+
+.con-overay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2300px;
+  z-index: 50;
+  background-image: url('images/bgc6.png');
+  background-position: center center;
+  background-size: cover;
+  opacity: 0.8;
 }
