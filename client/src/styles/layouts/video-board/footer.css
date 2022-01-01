@@ -1,6 +1,6 @@
 .video-board-footer {
   position: absolute;
-  bottom: -560px;
+  bottom: -590px;
   left: 50%;
   transform: translateX(-50%);
   width: 900px;
@@ -9,7 +9,7 @@
 
 .video-board-footer img {
   width: 70px;
-  height: 50px;
+  height: 100px;
   object-fit: cover;
   margin-top: 20px;
 }
@@ -26,7 +26,7 @@
 
 .view-video-board-footer {
   position: absolute;
-  bottom: -350px;
+  bottom: -380px;
   left: 50%;
   transform: translateX(-50%);
   width: 900px;
@@ -36,7 +36,7 @@
 
 .view-video-board-footer img {
   width: 70px;
-  height: 50px;
+  height: 100px;
   object-fit: cover;
   margin-top: 20px;
 }

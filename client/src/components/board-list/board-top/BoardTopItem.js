@@ -19,7 +19,7 @@ export default function BoardTopItem(props) {
     >
       <Link to={`/board_view/${props.uploadId}`}>
         <p>
-          <span className="menu-color">{props.category}</span>
+          <span className="menu-color">[{props.category}]</span>
           {props.title}
         </p>
         <ArticleInfo eye={props.views} like={props.heart} date={props.date}></ArticleInfo>

@@ -45,7 +45,8 @@
   right: 0;
   transform: translateY(-105%);
   font-size: 40px;
-  color: #ccc;
+  color: lightgray;
+  opacity: 0.5;
 }
 
 .banner-arrow-left {
@@ -54,5 +55,6 @@
   left: 0;
   transform: translateY(-105%);
   font-size: 0px;
-  color: #ccc;
+  color: lightgray;
+  opacity: 0.5;
 }

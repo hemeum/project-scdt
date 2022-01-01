@@ -13,7 +13,7 @@
 .video-board-controller {
   display: flex;
   position: absolute;
-  bottom: -720px;
+  bottom: -750px;
   left: 50%;
   height: 50px;
   margin-left: 63.5px;
@@ -44,7 +44,7 @@
 .view-video-board-controller {
   display: flex;
   position: absolute;
-  bottom: -220px;
+  bottom: -250px;
   left: 50%;
   height: 50px;
   margin-left: 63.5px;
