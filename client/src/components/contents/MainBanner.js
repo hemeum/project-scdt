@@ -160,10 +160,10 @@ export default function MainBanner() {
       </ul>
 
       <button type="button" onClick={handleRightArrow}>
-        <i ref={rightArrowRef} className="fas fa-arrow-right banner-arrow-right"></i>
+        <i ref={rightArrowRef} className="fas fa-chevron-right banner-arrow-right"></i>
       </button>
       <button type="button" onClick={handleLeftArrow}>
-        <i ref={leftArrowRef} className="fas fa-arrow-left banner-arrow-left"></i>
+        <i ref={leftArrowRef} className="fas fa-chevron-left banner-arrow-left"></i>
       </button>
     </div>
   );
