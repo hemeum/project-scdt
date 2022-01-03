@@ -51,12 +51,10 @@
 }
 
 .profile-board-footer {
-  position: absolute;
-  bottom: -100px;
-  left: 50%;
-  transform: translateX(-50%);
   width: 900px;
   text-align: center;
+  margin-left: 63px;
+  margin-bottom: 100px;
 }
 
 .profile-board-footer img {
