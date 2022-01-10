@@ -111,7 +111,7 @@ function ViewComment({
     return (
       <li key={comment.id} className="comment-item">
         <div className="user-comment-box">
-          {!comment.profile_img ? (
+          {!comment.profile_img || comment.profile_img === '' ? (
             <img src={process.env.PUBLIC_URL + '/img/cafelatte.png'} className="user-profile-img" />
           ) : (
             <img src={`/${comment.profile_img}`} alt="유저 프로필 이미지입니다" className="user-profile-img" />

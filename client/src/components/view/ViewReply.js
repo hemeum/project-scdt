@@ -17,7 +17,7 @@ function ViewReply({ upload_id, userComment, username, index, setUserComment, co
     return (
       <li key={reply.id} className="reply-item">
         <div className="user-reply-box">
-          {!reply.profile_img ? (
+          {!reply.profile_img || reply.profile_img === '' ? (
             <img src={process.env.PUBLIC_URL + '/img/cafelatte.png'} className="user-profile-img" />
           ) : (
             <img src={`/${reply.profile_img}`} alt="유저 프로필 이미지입니다" className="user-profile-img" />
