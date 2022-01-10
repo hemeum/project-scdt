@@ -252,7 +252,13 @@ function ViewComment({
           등록
         </button>
       </div>
-      <ul className="comment-list">{!isText ? <p className="not-comment">댓글을 작성해 주세요.</p> : userComments}</ul>
+      <ul className="comment-list">
+        {commentLength === 0 || commentLength === '0' ? (
+          <p className="not-comment">댓글을 작성해 주세요.</p>
+        ) : (
+          userComments
+        )}
+      </ul>
     </div>
   );
 }
