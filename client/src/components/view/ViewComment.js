@@ -84,12 +84,6 @@ function ViewComment({
     }
   };
 
-  useEffect(() => {
-    if (commentLength === '0') {
-      setIsText(false);
-    }
-  }, [commentLength]);
-
   useEffect(async () => {
     // 댓글 개수 가져오면서 댓글 유지하기
     await axios.post('/comment/length', { upload_id: upload_id, comment_length: Number(commentLength) }).then((res) => {
@@ -104,6 +98,7 @@ function ViewComment({
         setUserComment(res.data);
         setReplyExist(true);
       } else {
+        setIsText(false);
         return;
       }
     });
