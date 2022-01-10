@@ -84,6 +84,12 @@ function ViewComment({
     }
   };
 
+  useEffect(() => {
+    if (commentLength === '0') {
+      setIsText(false);
+    }
+  }, [commentLength]);
+
   useEffect(async () => {
     // 댓글 개수 가져오면서 댓글 유지하기
     await axios.post('/comment/length', { upload_id: upload_id, comment_length: Number(commentLength) }).then((res) => {
@@ -252,13 +258,7 @@ function ViewComment({
           등록
         </button>
       </div>
-      <ul className="comment-list">
-        {commentLength === 0 || commentLength === '0' ? (
-          <p className="not-comment">댓글을 작성해 주세요.</p>
-        ) : (
-          userComments
-        )}
-      </ul>
+      <ul className="comment-list">{!isText ? <p className="not-comment">댓글을 작성해 주세요.</p> : userComments}</ul>
     </div>
   );
 }
