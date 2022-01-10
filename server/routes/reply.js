@@ -3,7 +3,7 @@ const router = require('express').Router();
 module.exports = (connection) => {
   router.post('/add', (req, res) => {
     connection.query(
-      'insert into reply_data(reply, username, upload_id, comment_id, date, profile_img) values(?,?,?,?,NOW(),?)',
+      'INSERT INTO reply_data(reply, username, upload_id, comment_id, date, profile_img) values(?,?,?,?,NOW(),?)',
       [req.body.reply, req.body.username, req.body.upload_id, req.body.comment_id, req.body.profileImg],
       (err, rows) => {
         if (err) {
