@@ -68,7 +68,7 @@ module.exports = (connection) => {
       );
     } else {
       // gnb menu에서 공지사항, 자유게시판, 영상콘텐츠, 추천게시판 등 클릭하면 해당 카테고리 별 board list 보여주기
-      connection.query('select * from upload_data where category = ? order by id desc', [ctg()], (err, rows) => {
+      connection.query('select * from upload_data where category = ? order by date desc', [ctg()], (err, rows) => {
         if (err) {
           console.log('err');
         } else {

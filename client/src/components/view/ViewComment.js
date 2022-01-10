@@ -138,15 +138,24 @@ function ViewComment({
                   <button
                     type="button"
                     onClick={() => {
-                      const reply = [...Array(userComment.length).fill(false)];
-                      reply.splice(index, 1, true);
-                      setClickReply(reply);
-                      if (replys.length === 0) {
-                        // 이 부분이 문제야 replys가 유저커멘트가 늘어나게 되면 그걸 인지를 못하네.
-                        setReplys([...Array(userComment.length).fill([])]);
-                      } else if (replys.length !== 0) {
-                        // 그래서 여기서 0개가 아닐 때는 빈 배열 하나씩 추가해줬다. 왜냐 userComment가 바뀐걸 눈치를 못채서.
-                        setReplys([...replys, []]);
+                      if (isLogin === true) {
+                        const reply = [...Array(userComment.length).fill(false)];
+                        reply.splice(index, 1, true);
+                        setClickReply(reply);
+                        if (replys.length === 0) {
+                          // 이 부분이 문제야 replys가 유저커멘트가 늘어나게 되면 그걸 인지를 못하네.
+                          setReplys([...Array(userComment.length).fill([])]);
+                        } else if (replys.length !== 0) {
+                          // 그래서 여기서 0개가 아닐 때는 빈 배열 하나씩 추가해줬다. 왜냐 userComment가 바뀐걸 눈치를 못채서.
+                          setReplys([...replys, []]);
+                        }
+                      } else {
+                        const yesLogin = window.confirm('로그인이 필요합니다.');
+                        if (yesLogin) {
+                          history.push('/user');
+                        } else {
+                          return;
+                        }
                       }
                     }}
                   >

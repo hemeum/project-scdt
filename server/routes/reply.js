@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 module.exports = (connection) => {
   router.post('/add', (req, res) => {
+    console.log(req.body);
     connection.query(
       'INSERT INTO reply_data(reply, username, upload_id, comment_id, date, profile_img) values(?,?,?,?,NOW(),?)',
       [req.body.reply, req.body.username, req.body.upload_id, req.body.comment_id, req.body.profileImg],
